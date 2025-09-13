@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chinmay Ram - Silent Hill Echoes</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    /* === Global Styles === */
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', monospace;
+      background: #1a1a1a;
+      color: #d8d8d8;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+    }
+
+    /* Fog Overlay */
+    .fog {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(rgba(180, 180, 180, 0.4), rgba(80, 80, 80, 0.6));
+      pointer-events: none;
+      z-index: 500;
+      animation: fogShift 15s infinite linear;
+      opacity: 0.6;
+    }
+    @keyframes fogShift {
+      0% { transform: translateX(-50px) translateY(-30px); opacity: 0.6; }
+      50% { transform: translateX(50px) translateY(30px); opacity: 0.8; }
+      100% { transform: translateX(-50px) translateY(-30px); opacity: 0.6; }
+    }
+
+    /* Rusty Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('assets/green_metal_rust_diff_4k.jpg') repeat;
+      opacity: 0.15;
+      z-index: -1;
+      filter: sepia(70%) contrast(110%) brightness(80%);
+    }
+
+    /* Fallback for Background */
+    body.no-bg::before {
+      background: linear-gradient(45deg, #1a1a1a, #2a1b14);
+    }
+
+    /* Glitchy, Blood-Stained Text */
+    h1, h2, h3 {
+      position: relative;
+      color: #9B1B1B; /* Blood-red */
+      text-shadow: 2px 2px #000, -2px -2px #111, 0 0 8px rgba(155, 27, 27, 0.4);
+      animation: silentGlitch 2.5s infinite;
+    }
+    h1:hover, h2:hover, h3:hover {
+      color: #C71515;
+      animation-duration: 0.4s;
+    }
+    @keyframes silentGlitch {
+      0% { text-shadow: 2px 2px #9B1B1B, -2px -2px #008080; }
+      25% { text-shadow: -1px 1px #9B1B1B, 1px -1px #008080; }
+      50% { text-shadow: 1px -1px #9B1B1B, -1px 1px #008080; }
+      75% { text-shadow: -2px 0 #9B1B1B, 2px 0 #008080; }
+      100% { text-shadow: 2px 2px #9B1B1B, -2px -2px #008080; }
+    }
+
+    /* Navigation */
+    .menu-button {
+      position: fixed;
+      top: 20px; left: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      color: #d8d8d8;
+      padding: 10px 15px;
+      border: 2px solid #9B1B1B;
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 5px rgba(155, 27, 27, 0.3));
+    }
+    .menu-button:hover, .menu-button:focus {
+      background: #9B1B1B;
+      border-color: #C71515;
+      outline: none;
+      animation: flicker 0.1s infinite;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: -220px;
+      width: 200px;
+      height: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      padding: 50px 20px;
+      transition: left 0.4s ease;
+      z-index: 999;
+    }
+    nav.active { left: 0; }
+    nav a {
+      display: block;
+      color: #a0a0a0;
+      text-decoration: none;
+      margin: 15px 0;
+      transition: all 0.3s;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+    nav a:nth-child(1) { animation-delay: 0.1s; }
+    nav a:nth-child(2) { animation-delay: 0.2s; }
+    nav a:nth-child(3) { animation-delay: 0.3s; }
+    nav a:nth-child(4) { animation-delay: 0.4s; }
+    nav a:nth-child(5) { animation-delay: 0.5s; }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    nav a:hover, nav a:focus {
+      color: #C71515;
+      text-shadow: 0 0 8px #C71515;
+      animation: flicker 0.1s infinite;
+    }
+
+    /* Flicker Animation for Hover */
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Sections */
+    section {
+      min-height: 100vh;
+      padding: 100px 20px;
+      display: none;
+      text-align: center;
+      animation: realmFade 1.2s ease-out;
+    }
+    section.active { display: block; }
+    @keyframes realmFade {
+      from { opacity: 0; transform: translateY(20px); filter: blur(3px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    /* Videos */
+    video {
+      width: 90%;
+      max-width: 600px;
+      border: 4px solid #9B1B1B;
+      filter: contrast(120%) brightness(85%) saturate(110%) sepia(30%);
+      display: block;
+      margin: 20px auto;
+      box-shadow: 0 0 15px rgba(155, 27, 27, 0.3);
+      transition: filter 0.3s;
+    }
+    video:hover { filter: contrast(140%) brightness(75%) saturate(130%) sepia(50%); }
+
+    /* Links */
+    a { color: #C71515; text-decoration: none; }
+    a:hover, a:focus { text-shadow: 0 0 8px #C71515; }
+
+    /* Project Descriptions */
+    .game p {
+      font-size: 0.6em;
+      opacity: 0.7;
+      max-width: 600px;
+      margin: 10px auto;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      nav { width: 150px; }
+      video { width: 100%; }
+      section { padding: 80px 10px; }
+      h1, h2 { font-size: 1.1em; }
+      h3 { font-size: 0.8em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="fog"></div>
+  <div class="menu-button" role="button" aria-label="Toggle navigation menu">📻 Static Calls</div>
+  <nav class="sidebar">
+    <a href="#home" data-section="home" aria-label="Home section">Home</a>
+    <a href="#intro" data-section="intro" aria-label="Intro section">About</a>
+    <a href="#projects" data-section="projects" aria-label="Projects section">Projects</a>
+    <a href="#in-development" data-section="in-development" aria-label="In Development section">In Development</a>
+    <a href="#contact" data-section="contact" aria-label="Contact section">Contact</a>
+  </nav>
+
+  <main>
+    <section id="home" class="active">
+      <h1>Chinmay Ram</h1>
+      <p>Game and Level Designer</p>
+      <p style="font-size: 0.6em; opacity: 0.6;">The mist hides truths you cannot unsee...</p>
+    </section>
+
+    <section id="intro">
+      <h2>Me</h2>
+      <p>I’m Chinmay Ram, a horror game and level designer crafting in Unity 3D.</p>
+      <p>I am a game and level designer working in Unity 3D. I specialize in crafting immersive levels, configuring gameplay interactions using the Unity Inspector, and designing horror and experimental games. I work without writing code, using custom scripts to bring my ideas to life. My work draws inspiration from psychological horror, creating atmospheric, unsettling experiences that linger with players. Explore my projects to see my expertise in level design and horror game development.</p>
+      <p style="font-size: 0.6em; opacity: 0.6;">The town calls. Will you answer?</p>
+    </section>
+
+    <section id="projects">
+      <h2>Artifacts of the Otherworld</h2>
+      <div class="game">
+        <h3>Housebound</h3>
+        <p>A home where walls weep and shadows confess. Trapped in a cycle of damp regret. <a href="https://arcadian-xp.itch.io/housebound" target="_blank" aria-label="Play Housebound on itch.io">Play on itch.io</a></p>
+        <video controls aria-label="Housebound game trailer">
+          <source src="assets/housebound.mp4" type="video/mp4">
+          <p>The house is broken... the house remembers.</p>
+        </video>
+      </div>
+      <div class="game">
+        <h3>The Pursuit of Happiness</h3>
+        <p>A chase through fogged alleys, where joy corrodes into ash. The Otherworld hungers.</p>
+        <video controls aria-label="The Pursuit of Happiness game trailer">
+          <source src="assets/pursuit_of_happiness.mp4" type="video/mp4">
+          <p>Static consumes... the pursuit fades.</p>
+        </video>
+      </div>
+      <div class="game">
+        <h3>Sermon</h3>
+        <p>Designed levels and environments to trap the soul. Created with Vinil (Game Designer, Programmer). <a href="https://itch.io/game" target="_blank" aria-label="Play Sermon on itch.io">Play on itch.io</a>.</p>
+        <video controls aria-label="Sermon game trailer">
+          <source src="assets/sermon.mp4" type="video/mp4">
+          <p>The sermon is silenced... the chapel endures.</p>
+        </video>
+      </div>
+    </section>
+
+    <section id="in-development">
+      <h2>Emerging Shadows</h2>
+      <div class="game">
+        <h3>Fragments of Dread: Mother’s Whisper (Episode 1)</h3>
+        <p>A PSX-style descent into a fogged abyss where whispers bind the soul. Solo project crafting exploration, escalating dread, and multiple endings through level flow, lighting, and sound. <i>In Development</i>.</p>
+        <video controls aria-label="Mother’s Whisper game trailer">
+          <source src="assets/mothers_whisper.mp4" type="video/mp4">
+          <p>Trailer not available... the abyss awaits.</p>
+        </video>
+      </div>
+      <div class="game">
+        <h3>Fragments of Dread: Burger Piz (Episode 2)</h3>
+        <p>A cursed diner where AI voices mimic the lost and visuals twist into nightmares. Level and environment design to trap players in unease. Created with Vinil (Game Designer, Programmer). <i>In Development</i>.</p>
+        <video controls aria-label="Burger Piz game trailer">
+          <source src="assets/bennys_burger_piz.mp4" type="video/mp4">
+          <p>Trailer not available... the diner hums.</p>
+        </video>
+      </div>
+      <div class="game">
+        <h3>Ward 13</h3>
+        <p>An abandoned hospital where sterile halls pulse with psychological terror. Level and environment design to amplify dread. Created with Vinil (Game Designer, Programmer). <i>In Development</i>.</p>
+        <video controls aria-label="Ward 13 game trailer">
+          <source src="assets/ward 13.mp4" type="video/mp4">
+          <p>Trailer not available... the ward whispers.</p>
+        </video>
+      </div>
+      <div class="game">
+        <h3>Around</h3>
+        <p>A minimalist exploration through fogged voids, where tension festers in silence. Level and environment design to evoke unease. Created with Vinil (Game Designer, Programmer). <i>In Development</i>.</p>
+        <video controls aria-label="Around game trailer">
+          <source src="assets/around.mp4" type="video/mp4">
+          <p>Trailer not available... silence lingers.</p>
+        </video>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact the Void</h2>
+      <p>Email: <a href="mailto:kodalichinmayram@gmail.com" aria-label="Email Chinmay Ram">kodalichinmayram@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank" aria-label="Chinmay Ram's LinkedIn profile">Profile</a></p>
+      <p>Instagram: <a href="https://www.instagram.com/chinmay__xp" target="_blank" aria-label="Chinmay Ram's Instagram profile">@chinmay__xp</a></p>
+      <p style="font-size: 0.5em; opacity: 0.5;">Last Updated: September 13, 2025 | Speak softly... it’s listening.</p>
+    </section>
+  </main>
+
+  <script>
+    // Check for Background Load Failure
+    const bgImg = new Image();
+    bgImg.src = 'assets/green_metal_rust_diff_4k.jpg';
+    bgImg.onerror = () => document.body.classList.add('no-bg');
+
+    // Hover Sound Effect
+    const hoverSound = new Audio('assets/hover1.mp3');
+    hoverSound.volume = 0.3;
+
+    // Menu Button Hover
+    document.querySelector('.menu-button').addEventListener('mouseenter', () => {
+      hoverSound.play().catch(e => console.log('Hover sound blocked by browser'));
+    });
+
+    // Navigation Links Hover
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        hoverSound.play().catch(e => console.log('Hover sound blocked by browser'));
+      });
+    });
+
+    // Toggle Sidebar
+    document.querySelector('.menu-button').addEventListener('click', () => {
+      document.querySelector('nav').classList.toggle('active');
+    });
+
+    // Section Switching
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+        const target = document.getElementById(link.getAttribute('data-section'));
+        if (target) target.classList.add('active');
+        document.querySelector('nav').classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
