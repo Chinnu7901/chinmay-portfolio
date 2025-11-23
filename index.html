@@ -9,20 +9,13 @@
 
     body { margin:0; font-family:'Press Start 2P',monospace; background:#1a1a1a; color:#d8d8d8; overflow-x:hidden; position:relative; }
 
+    /* Rusty metal background only */
     body::before {
       content:""; position:fixed; top:0; left:0; right:0; bottom:0;
       background:url('assets/green_metal_rust_diff_4k.jpg') repeat;
       opacity:0.15; z-index:-1;
       filter:sepia(70%) contrast(110%) brightness(80%);
     }
-
-    .fog {
-      position:fixed; top:0; left:0; right:0; bottom:0;
-      background:linear-gradient(rgba(180,180,180,0.4),rgba(80,80,80,0.6));
-      pointer-events:none; z-index:500;
-      animation:fogShift 15s infinite linear; opacity:0.6;
-    }
-    @keyframes fogShift { 0%{transform:translateX(-50px) translateY(-30px)} 50%{transform:translateX(50px) translateY(30px); opacity:0.8} 100%{transform:translateX(-50px) translateY(-30px)} }
 
     h1,h2,h3 { color:#9B1B1B; text-shadow:2px 2px #000,-2px -2px #111,0 0 8px rgba(155,27,27,0.4); animation:silentGlitch 2.5s infinite; }
     h1:hover,h2:hover,h3:hover { color:#C71515; animation-duration:0.4s; }
@@ -39,7 +32,7 @@
       padding:12px 20px; border:2px solid #9B1B1B; cursor:pointer; z-index:1000;
       font-size:0.9em; transition:all 0.3s; filter:drop-shadow(0 0 5px rgba(155,27,27,0.3));
     }
-    .menu-button:hover { background:#9B1B1B; border-color:#C15; animation:flicker 0.1s infinite; }
+    .menu-button:hover { background:#9B1B1B; border-color:#C71515; animation:flicker 0.1s infinite; }
 
     nav { position:fixed; top:0; left:-220px; width:200px; height:100%; background:rgba(10,10,10,0.95); padding:50px 20px; transition:left 0.4s; z-index:999; }
     nav.active { left:0; }
@@ -67,7 +60,6 @@
     }
     .resume-btn:hover { background:#C71515; transform:translateY(-4px); box-shadow:0 0 25px rgba(199,21,21,0.9); animation:flicker 0.15s infinite; }
 
-    /* Your photo in About section */
     .profile-img {
       width:200px; height:200px; border:4px solid #9B1B1B; border-radius:50%;
       object-fit:cover; margin:30px auto; display:block;
@@ -91,7 +83,6 @@
   </style>
 </head>
 <body>
-  <div class="fog"></div>
   <div class="menu-button" role="button" aria-label="Toggle navigation menu">Menu</div>
 
   <nav class="sidebar">
@@ -103,32 +94,46 @@
   </nav>
 
   <main>
-    <!-- Home (clean, no photo) -->
     <section id="home" class="active">
       <h1>Chinmay Ram</h1>
       <p>Game & Level Designer</p>
       <p style="font-size:0.6em; opacity:0.6;">The mist hides truths you cannot unsee...</p>
     </section>
 
-    <!-- About (with your photo) -->
     <section id="intro">
       <h2>From the Fog</h2>
-
-      <!-- YOUR PHOTO HERE -->
-      <img src="assets/Chinmay.jpg" alt="Chinmay Ram" class="profile-img">
-      <!-- Use assets/chinmay.png if your file is PNG -->
-
+      <img src="assets/chinmay.jpg" alt="Chinmay Ram" class="profile-img">
       <p>I’m Chinmay Ram — a horror-obsessed game & level designer crafting unsettling experiences <strong>in Unity</strong>.</p>
       <p>I specialize in immersive level design, atmospheric environment design, and gameplay systems using Unity Inspector and visual scripting. All projects are built and developed in Unity 3D.</p>
       <p style="font-size:0.6em; opacity:0.6;">The town calls. Will you answer?</p>
     </section>
 
-    <!-- Rest of the sections unchanged -->
     <section id="projects">
       <h2>Artifacts of the Otherworld</h2>
-      <div class="game"><h3>Housebound</h3><p>A home where walls weep and shadows confess.<br><a href="https://arcadian-xp in .itch.io/housebound" target="_blank">Play on itch.io</a></p><video controls><source src="assets/housebound.mp4" type="video/mp4"></video></div>
-      <div class="game"><h3>The Pursuit of Happiness</h3><p>Psychological chase horror.<br><strong>My Roles:</strong> Game Designer, Level Designer, Environment Designer<br><strong>Team:</strong> Ashish (Game Designer), Sameer (UI/UX), Bhavesh (Programmer)</p><video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video></div>
-      <div class="game"><h3>Sermon</h3><p>Collaborative psychological horror.<br><strong>My Roles:</strong> Level Designer, Environment Designer<br><strong>Team:</strong> Vinil (Game Designer & Programmer)</p><video controls><source src="assets/sermon.mp4" type="video/mp4"></video></div>
+
+      <div class="game">
+        <h3>Housebound</h3>
+        <p>A home where walls weep and shadows confess.<br>
+           <a href="https://arcadian-xp.itch.io/housebound" target="_blank">Play on itch.io</a></p>
+        <video controls><source src="assets/housebound.mp4" type="video/mp4"></video>
+      </div>
+
+      <div class="game">
+        <h3>The Pursuit of Happiness</h3>
+        <p>Psychological chase horror.<br>
+           <strong>My Roles:</strong> Game Designer, Level Designer, Environment Designer<br>
+           <strong>Team:</strong> Ashish (Game Designer), Sameer (UI/UX), Bhavesh (Programmer)</p>
+        <video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video>
+      </div>
+
+      <div class="game">
+        <h3>Sermon</h3>
+        <p>Collaborative psychological horror.<br>
+           <strong>My Roles:</strong> Level Designer, Environment Designer<br>
+           <strong>Team:</strong> Vinil (Game Designer & Programmer)<br>
+           <a href="https://troj4nblazing.itch.io/sermon" target="_blank">Play on itch.io</a></p>
+        <video controls><source src="assets/sermon.mp4" type="video/mp4"></video>
+      </div>
     </section>
 
     <section id="in-development">
@@ -146,7 +151,7 @@
       <p>Instagram: <a href="https://www.instagram.com/chinmay__xp" target="_blank">@chinmay__xp</a></p>
       <a href="assets/Resume.pdf" target="_blank" class="resume-btn">Download Resume (PDF)</a>
       <p style="font-size:0.5em; opacity:0.5; margin-top:60px;">
-        Last Updated: September 13, 2025 | Speak softly... it’s listening.
+        Last Updated: November 23, 2025 | Speak softly... it’s listening.
       </p>
     </section>
   </main>
