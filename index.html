@@ -7,109 +7,86 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-    body {
-      margin: 0;
-      font-family: 'Press Start 2P', monospace;
-      background: #1a1a1a;
-      color: #d8d8d8;
-      overflow-x: hidden;
-      position: relative;
-    }
+    body { margin:0; font-family:'Press Start 2P',monospace; background:#1a1a1a; color:#d8d8d8; overflow-x:hidden; position:relative; }
 
-    /* Pure rusty metal background only */
     body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: url('assets/green_metal_rust_diff_4k.jpg') repeat;
-      opacity: 0.15;
-      z-index: -1;
-      filter: sepia(70%) contrast(110%) brightness(80%);
+      content:""; position:fixed; top:0; left:0; right:0; bottom:0;
+      background:url('assets/green_metal_rust_diff_4k.jpg') repeat;
+      opacity:0.15; z-index:-1;
+      filter:sepia(70%) contrast(110%) brightness(80%);
     }
 
     .fog {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(rgba(180,180,180,0.4), rgba(80,80,80,0.6));
-      pointer-events: none;
-      z-index: 500;
-      animation: fogShift 15s infinite linear;
-      opacity: 0.6;
+      position:fixed; top:0; left:0; right:0; bottom:0;
+      background:linear-gradient(rgba(180,180,180,0.4),rgba(80,80,80,0.6));
+      pointer-events:none; z-index:500;
+      animation:fogShift 15s infinite linear; opacity:0.6;
     }
-    @keyframes fogShift {
-      0% { transform: translateX(-50px) translateY(-30px); }
-      50% { transform: translateX(50px) translateY(30px); opacity: 0.8; }
-      100% { transform: translateX(-50px) translateY(-30px); }
-    }
+    @keyframes fogShift { 0%{transform:translateX(-50px) translateY(-30px)} 50%{transform:translateX(50px) translateY(30px); opacity:0.8} 100%{transform:translateX(-50px) translateY(-30px)} }
 
-    h1, h2, h3 {
-      color: #9B1B1B;
-      text-shadow: 2px 2px #000, -2px -2px #111, 0 0 8px rgba(155,27,27,0.4);
-      animation: silentGlitch 2.5s infinite;
-    }
-    h1:hover, h2:hover, h3:hover { color: #C71515; animation-duration: 0.4s; }
+    h1,h2,h3 { color:#9B1B1B; text-shadow:2px 2px #000,-2px -2px #111,0 0 8px rgba(155,27,27,0.4); animation:silentGlitch 2.5s infinite; }
+    h1:hover,h2:hover,h3:hover { color:#C71515; animation-duration:0.4s; }
     @keyframes silentGlitch {
-      0% { text-shadow: 2px 2px #9B1B1B, -2px -2px #008080; }
-      25% { text-shadow: -1px 1px #9B1B1B, 1px -1px #008080; }
-      50% { text-shadow: 1px -1px #9B1B1B, -1px 1px #008080; }
-      75% { text-shadow: -2px 0 #9B1B1B, 2px 0 #008080; }
-      100% { text-shadow: 2px 2px #9B1B1B, -2px -2px #008080; }
+      0% { text-shadow:2px 2px #9B1B1B,-2px -2px #008080; }
+      25% { text-shadow:-1px 1px #9B1B1B,1px -1px #008080; }
+      50% { text-shadow:1px -1px #9B1B1B,-1px 1px #008080; }
+      75% { text-shadow:-2px 0 #9B1B1B,2px 0 #008080; }
+      100% { text-shadow:2px 2px #9B1B1B,-2px -2px #008080; }
     }
 
     .menu-button {
-      position: fixed; top: 20px; left: 20px;
-      background: rgba(0,0,0,0.9); color: #d8d8d8;
-      padding: 12px 20px; border: 2px solid #9B1B1B;
-      cursor: pointer; z-index: 1000;
-      font-size: 0.9em;
-      transition: all 0.3s;
-      filter: drop-shadow(0 0 5px rgba(155,27,27,0.3));
+      position:fixed; top:20px; left:20px; background:rgba(0,0,0,0.9); color:#d8d8d8;
+      padding:12px 20px; border:2px solid #9B1B1B; cursor:pointer; z-index:1000;
+      font-size:0.9em; transition:all 0.3s; filter:drop-shadow(0 0 5px rgba(155,27,27,0.3));
     }
-    .menu-button:hover { background: #9B1B1B; border-color: #C71515; animation: flicker 0.1s infinite; }
+    .menu-button:hover { background:#9B1B1B; border-color:#C15; animation:flicker 0.1s infinite; }
 
-    nav { position: fixed; top: 0; left: -220px; width: 200px; height: 100%; background: rgba(10,10,10,0.95); padding: 50px 20px; transition: left 0.4s; z-index: 999; }
-    nav.active { left: 0; }
-    nav a { display: block; color: #a0a0a0; text-decoration: none; margin: 18px 0; opacity: 0; animation: fadeIn 1s forwards; }
-    nav a:hover { color: #C71515; text-shadow: 0 0 8px #C71515; animation: flicker 0.1s infinite; }
-    @keyframes fadeIn { to { opacity: 1; } }
-    @keyframes flicker { 0%,100% { opacity:1; } 50% { opacity:0.8; } }
+    nav { position:fixed; top:0; left:-220px; width:200px; height:100%; background:rgba(10,10,10,0.95); padding:50px 20px; transition:left 0.4s; z-index:999; }
+    nav.active { left:0; }
+    nav a { display:block; color:#a0a0a0; text-decoration:none; margin:18px 0; opacity:0; animation:fadeIn 1s forwards; }
+    nav a:hover { color:#C71515; text-shadow:0 0 8px #C71515; animation:flicker 0.1s infinite; }
+    @keyframes fadeIn { to { opacity:1; } }
+    @keyframes flicker { 0%,100%{opacity:1} 50%{opacity:0.8} }
 
-    section { min-height: 100vh; padding: 100px 20px; display: none; text-align: center; animation: realmFade 1.2s ease-out; }
-    section.active { display: block; }
-    @keyframes realmFade { from { opacity:0; transform:translateY(20px); filter:blur(3px); } to { opacity:1; transform:translateY(0); filter:blur(0); } }
+    section { min-height:100vh; padding:100px 20px; display:none; text-align:center; animation:realmFade 1.2s ease-out; }
+    section.active { display:block; }
+    @keyframes realmFade { from{opacity:0; transform:translateY(20px); filter:blur(3px)} to{opacity:1; transform:translateY(0); filter:blur(0)} }
 
-    video { width: 90%; max-width: 600px; border: 4px solid #9B1B1B; filter: contrast(120%) brightness(85%) saturate(110%) sepia(30%); margin: 20px auto; display: block; box-shadow: 0 0 15px rgba(155,27,27,0.3); transition: filter 0.3s; }
-    video:hover { filter: contrast(140%) brightness(75%) saturate(130%) sepia(50%); }
+    video { width:90%; max-width:600px; border:4px solid #9B1B1B; filter:contrast(120%) brightness(85%) saturate(110%) sepia(30%); margin:20px auto; display:block; box-shadow:0 0 15px rgba(155,27,27,0.3); transition:filter 0.3s; }
+    video:hover { filter:contrast(140%) brightness(75%) saturate(130%) sepia(50%); }
 
-    a { color: #C71515; text-decoration: none; }
-    a:hover { text-shadow: 0 0 8px #C71515; }
+    a { color:#C71515; text-decoration:none; }
+    a:hover { text-shadow:0 0 8px #C71515; }
 
-    .game p { font-size: 0.6em; opacity: 0.7; max-width: 600px; margin: 10px auto; line-height: 1.6; }
+    .game p { font-size:0.6em; opacity:0.7; max-width:600px; margin:10px auto; line-height:1.6; }
 
     .resume-btn {
-      display: inline-block;
-      margin: 40px auto 0;
-      padding: 14px 36px;
-      background: rgba(155, 27, 27, 0.9);
-      color: #fff;
-      border: 2px solid #C71515;
-      font-size: 0.8em;
-      text-decoration: none;
-      box-shadow: 0 0 15px rgba(199, 21, 21, 0.6);
-      transition: all 0.3s;
+      display:inline-block; margin:40px auto 0; padding:14px 36px;
+      background:rgba(155,27,27,0.9); color:#fff; border:2px solid #C71515;
+      font-size:0.8em; text-decoration:none; box-shadow:0 0 15px rgba(199,21,21,0.6); transition:all 0.3s;
     }
-    .resume-btn:hover {
-      background: #C71515;
-      transform: translateY(-4px);
-      box-shadow: 0 0 25px rgba(199, 21, 21, 0.9);
-      animation: flicker 0.15s infinite;
+    .resume-btn:hover { background:#C71515; transform:translateY(-4px); box-shadow:0 0 25px rgba(199,21,21,0.9); animation:flicker 0.15s infinite; }
+
+    /* Your photo in About section */
+    .profile-img {
+      width:200px; height:200px; border:4px solid #9B1B1B; border-radius:50%;
+      object-fit:cover; margin:30px auto; display:block;
+      box-shadow:0 0 25px rgba(155,27,27,0.7);
+      filter:brightness(92%) contrast(110%) sepia(25%);
+      transition:all 0.5s;
+    }
+    .profile-img:hover {
+      filter:brightness(80%) contrast(130%) sepia(45%);
+      box-shadow:0 0 40px rgba(199,21,21,0.9);
+      transform:scale(1.07);
     }
 
-    @media (max-width: 600px) {
-      nav { width: 150px; }
-      video { width: 100%; }
-      section { padding: 80px 10px; }
-      .menu-button { padding: 10px 16px; font-size: 0.8em; }
+    @media (max-width:600px) {
+      .profile-img { width:160px; height:160px; }
+      nav { width:150px; }
+      video { width:100%; }
+      section { padding:80px 10px; }
+      .menu-button { padding:10px 16px; font-size:0.8em; }
     }
   </style>
 </head>
@@ -126,44 +103,32 @@
   </nav>
 
   <main>
+    <!-- Home (clean, no photo) -->
     <section id="home" class="active">
       <h1>Chinmay Ram</h1>
-      <p>Game & Level Designer | Psychological Horror Specialist</p>
-      <p style="font-size: 0.6em; opacity: 0.6;">The mist hides truths you cannot unsee...</p>
+      <p>Game & Level Designer</p>
+      <p style="font-size:0.6em; opacity:0.6;">The mist hides truths you cannot unsee...</p>
     </section>
 
+    <!-- About (with your photo) -->
     <section id="intro">
       <h2>From the Fog</h2>
-      <p>I’m Chinmay Ram — a horror-obsessed game & level designer crafting unsettling experiences in Unity 3D.</p>
-      <p>I specialize in immersive level design, atmospheric environment design, and gameplay systems using Unity Inspector and visual scripting. My work is heavily inspired by psychological horror classics like Silent Hill.</p>
-      <p style="font-size: 0.6em; opacity: 0.6;">The town calls. Will you answer?</p>
+
+      <!-- YOUR PHOTO HERE -->
+      <img src="assets/chinmay.jpg" alt="Chinmay Ram" class="profile-img">
+      <!-- Use assets/chinmay.png if your file is PNG -->
+
+      <p>I’m Chinmay Ram — a horror-obsessed game & level designer crafting unsettling experiences <strong>in Unity</strong>.</p>
+      <p>I specialize in immersive level design, atmospheric environment design, and gameplay systems using Unity Inspector and visual scripting. All projects are built and developed in Unity 3D.</p>
+      <p style="font-size:0.6em; opacity:0.6;">The town calls. Will you answer?</p>
     </section>
 
+    <!-- Rest of the sections unchanged -->
     <section id="projects">
       <h2>Artifacts of the Otherworld</h2>
-
-      <div class="game">
-        <h3>Housebound</h3>
-        <p>A home where walls weep and shadows confess.<br>
-           <a href="https://arcadian-xp.itch.io/housebound" target="_blank">Play on itch.io</a></p>
-        <video controls><source src="assets/housebound.mp4" type="video/mp4"></video>
-      </div>
-
-      <div class="game">
-        <h3>The Pursuit of Happiness</h3>
-        <p>Psychological chase horror.<br>
-           <strong>My Roles:</strong> Game Designer, Level Designer, Environment Designer<br>
-           <strong>Team:</strong> Ashish (Game Designer), Sameer (UI/UX), Bhavesh (Programmer)</p>
-        <video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video>
-      </div>
-
-      <div class="game">
-        <h3>Sermon</h3>
-        <p>Collaborative psychological horror.<br>
-           <strong>My Roles:</strong> Level Designer, Environment Designer<br>
-           <strong>Team:</strong> Vinil (Game Designer & Programmer)</p>
-        <video controls><source src="assets/sermon.mp4" type="video/mp4"></video>
-      </div>
+      <div class="game"><h3>Housebound</h3><p>A home where walls weep and shadows confess.<br><a href="https://arcadian-xp in .itch.io/housebound" target="_blank">Play on itch.io</a></p><video controls><source src="assets/housebound.mp4" type="video/mp4"></video></div>
+      <div class="game"><h3>The Pursuit of Happiness</h3><p>Psychological chase horror.<br><strong>My Roles:</strong> Game Designer, Level Designer, Environment Designer<br><strong>Team:</strong> Ashish (Game Designer), Sameer (UI/UX), Bhavesh (Programmer)</p><video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video></div>
+      <div class="game"><h3>Sermon</h3><p>Collaborative psychological horror.<br><strong>My Roles:</strong> Level Designer, Environment Designer<br><strong>Team:</strong> Vinil (Game Designer & Programmer)</p><video controls><source src="assets/sermon.mp4" type="video/mp4"></video></div>
     </section>
 
     <section id="in-development">
@@ -179,24 +144,18 @@
       <p>Email: <a href="mailto:kodalichinmayram@gmail.com">kodalichinmayram@gmail.com</a></p>
       <p>LinkedIn: <a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank">Profile</a></p>
       <p>Instagram: <a href="https://www.instagram.com/chinmay__xp" target="_blank">@chinmay__xp</a></p>
-
       <a href="assets/Resume.pdf" target="_blank" class="resume-btn">Download Resume (PDF)</a>
-
-      <p style="font-size: 0.5em; opacity: 0.5; margin-top: 60px;">
+      <p style="font-size:0.5em; opacity:0.5; margin-top:60px;">
         Last Updated: September 13, 2025 | Speak softly... it’s listening.
       </p>
     </section>
   </main>
 
   <script>
-    const hoverSound = new Audio('assets/hover1.mp3');
-    hoverSound.volume = 0.3;
-
-    document.querySelector('.menu-button').addEventListener('mouseenter', () => hoverSound.play().catch(() => {}));
-    document.querySelectorAll('nav a').forEach(l => l.addEventListener('mouseenter', () => hoverSound.play().catch(() => {})));
-
+    const hoverSound = new Audio('assets/hover1.mp3'); hoverSound.volume = 0.3;
+    document.querySelector('.menu-button').addEventListener('mouseenter', () => hoverSound.play().catch(()=>{}));
+    document.querySelectorAll('nav a').forEach(l => l.addEventListener('mouseenter', () => hoverSound.play().catch(()=>{})));
     document.querySelector('.menu-button').addEventListener('click', () => document.querySelector('nav').classList.toggle('active'));
-
     document.querySelectorAll('nav a').forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
