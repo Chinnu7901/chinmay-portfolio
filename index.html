@@ -9,7 +9,6 @@
 
     body { margin:0; font-family:'Press Start 2P',monospace; background:#1a1a1a; color:#d8d8d8; overflow-x:hidden; position:relative; }
 
-    /* Rusty metal background only */
     body::before {
       content:""; position:fixed; top:0; left:0; right:0; bottom:0;
       background:url('assets/green_metal_rust_diff_4k.jpg') repeat;
@@ -45,13 +44,20 @@
     section.active { display:block; }
     @keyframes realmFade { from{opacity:0; transform:translateY(20px); filter:blur(3px)} to{opacity:1; transform:translateY(0); filter:blur(0)} }
 
-    video { width:90%; max-width:600px; border:4px solid #9B1B1B; filter:contrast(120%) brightness(85%) saturate(110%) sepia(30%); margin:20px auto; display:block; box-shadow:0 0 15px rgba(155,27,27,0.3); transition:filter 0.3s; }
+    video { width:90%; max-width:600px; border:4px solid #9B1B1B; filter:contrast(120%) brightness(85%) saturate(110%) sepia(30%); margin:30px auto 20px; display:block; box-shadow:0 0 15px rgba(155,27,27,0.3); transition:filter 0.3s; }
     video:hover { filter:contrast(140%) brightness(75%) saturate(130%) sepia(50%); }
 
     a { color:#C71515; text-decoration:none; }
     a:hover { text-shadow:0 0 8px #C71515; }
 
-    .game p { font-size:0.6em; opacity:0.7; max-width:600px; margin:10px auto; line-height:1.6; }
+    .game p { font-size:0.65em; opacity:0.9; max-width:700px; margin:15px auto; line-height:1.8; }
+    .game ul { text-align:left; max-width:600px; margin:20px auto; font-size:0.65em; line-height:2; opacity:0.85; }
+
+    /* Separator line after each project */
+    .project-divider {
+      width:60%; height:2px; background:#9B1B1B; margin:60px auto; opacity:0.4;
+      box-shadow:0 0 10px rgba(155,27,27,0.6); border-radius:2px;
+    }
 
     .resume-btn {
       display:inline-block; margin:40px auto 0; padding:14px 36px;
@@ -75,10 +81,10 @@
 
     @media (max-width:600px) {
       .profile-img { width:160px; height:160px; }
-      nav { width:150px; }
+      .game p, .game ul { font-size:0.6em; }
+      .project-divider { width:80%; margin:50px auto; }
       video { width:100%; }
       section { padding:80px 10px; }
-      .menu-button { padding:10px 16px; font-size:0.8em; }
     }
   </style>
 </head>
@@ -113,9 +119,12 @@
 
       <div class="game">
         <h3>Housebound</h3>
-        <p>A home where walls weep and shadows confess.<br>
-           <a href="https://arcadian-xp.itch.io/housebound" target="_blank">Play on itch.io</a></p>
+        <p><strong>Housebound</strong> is a solo-developed psychological horror game made in Unity 3D.<br>
+           You awaken in a dark, abandoned house — the air is heavy, the lights flicker, and something… is watching.<br>
+           Explore your surroundings, collect cryptic clues, and piece together what happened — before it happens again.</p>
+        <p><a href="https://arcadian-xp.itch.io/housebound" target="_blank">Play on itch.io</a></p>
         <video controls><source src="assets/housebound.mp4" type="video/mp4"></video>
+        <div class="project-divider"></div>
       </div>
 
       <div class="game">
@@ -124,24 +133,56 @@
            <strong>My Roles:</strong> Game Designer, Level Designer, Environment Designer<br>
            <strong>Team:</strong> Ashish (Game Designer), Sameer (UI/UX), Bhavesh (Programmer)</p>
         <video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video>
+        <div class="project-divider"></div>
       </div>
 
       <div class="game">
         <h3>Sermon</h3>
         <p>Collaborative psychological horror.<br>
            <strong>My Roles:</strong> Level Designer, Environment Designer<br>
-           <strong>Team:</strong> Vinil (Game Designer & Programmer)<br>
-           <a href="https://troj4nblazing.itch.io/sermon" target="_blank">Play on itch.io</a></p>
+           <strong>Team:</strong> Vinil (Game Designer & Programmer)</p>
+        <ul>
+          <li>Immersive Psychological Horror — Tension built through sound, pacing</li>
+          <li>A Sleep Paralysis Encounter — Inspired by real experiences of sleep paralysis — disturbing, personal, and claustrophobic.</li>
+          <li>Light is Your Only Comfort — Use a flashlight. Notice what flickers in the dark.</li>
+          <li>Subtle Narrative Discovery — Explore clues through notes, objects, and environments — the story doesn’t shout, it whispers.</li>
+          <li>Themes Rooted in Reality — Isolation. Economic pressure. Rotting routines. Regret. And the lingering feeling that something is always just out of view.</li>
+        </ul>
+        <p><a href="https://troj4nblazing.itch.io/sermon" target="_blank">Play on itch.io</a></p>
         <video controls><source src="assets/sermon.mp4" type="video/mp4"></video>
+        <div class="project-divider"></div>
       </div>
     </section>
 
     <section id="in-development">
       <h2>Emerging Shadows</h2>
-      <div class="game"><h3>Fragments of Dread: Mother’s Whisper (Ep.1)</h3><p>Solo PSX-style horror...<i>In Development</i></p><video controls><source src="assets/mothers_whisper.mp4" type="video/mp4"></video></div>
-      <div class="game"><h3>Fragments of Dread: Burger Piz (Ep.2)</h3><p>Cursed diner with Vinil...<i>In Development</i></p><video controls><source src="assets/bennys_burger_piz.mp4" type="video/mp4"></video></div>
-      <div class="game"><h3>Ward 13</h3><p>Abandoned hospital terror...<i>In Development</i></p><video controls><source src="assets/ward_13.mp4" type="video/mp4"></video></div>
-      <div class="game"><h3>Around</h3><p>Minimalist tension...<i>In Development</i></p><video controls><source src="assets/around.mp4" type="video/mp4"></video></div>
+
+      <div class="game">
+        <h3>Fragments of Dread: Mother’s Whisper (Ep.1)</h3>
+        <p>Solo PSX-style horror...<i>In Development</i></p>
+        <video controls><source src="assets/mothers_whisper.mp4" type="video/mp4"></video>
+        <div class="project-divider"></div>
+      </div>
+
+      <div class="game">
+        <h3>Fragments of Dread: Burger Piz (Ep.2)</h3>
+        <p>Cursed diner with Vinil...<i>In Development</i></p>
+        <video controls><source src="assets/bennys_burger_piz.mp4" type="video/mp4"></video>
+        <div class="project-divider"></div>
+      </div>
+
+      <div class="game">
+        <h3>Ward 13</h3>
+        <p>Abandoned hospital terror...<i>In Development</i></p>
+        <video controls><source src="assets/ward_13.mp4" type="video/mp4"></video>
+        <div class="project-divider"></div>
+      </div>
+
+      <div class="game">
+        <h3>Around</h3>
+        <p>Minimalist tension...<i>In Development</i></p>
+        <video controls><source src="assets/around.mp4" type="video/mp4"></video>
+      </div>
     </section>
 
     <section id="contact">
