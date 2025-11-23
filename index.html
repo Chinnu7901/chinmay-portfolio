@@ -1,255 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Kodali Chinmay Ram — Game & Level Designer">
-    <title>Kodali Chinmay Ram | Game & Level Designer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root{--bg:#0a0a0a;--surface:#111;--surface-2:#1a1a1a;--text-primary:#f5f5f5;--text-secondary:#ccc;--text-muted:#888;--accent:#ff1a1a;--accent-dark:#cc0000;--space-1:0.5rem;--space-2:1rem;--space-3:1.5rem;--space-4:2rem;--space-5:3rem;--space-6:4rem;--space-7:6rem;--radius-md:10px;--radius-lg:14px}
-        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
-        body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text-primary);line-height:1.75;overflow-x:hidden}
-        h1,h2,h3{font-weight:700;color:var(--text-primary)}h1{font-size:clamp(2.6rem,6.5vw,4.2rem)}h2{font-size:clamp(1.8rem,4.8vw,2.6rem)}h3{font-size:clamp(1.3rem,3.8vw,1.7rem)}
-        p{font-size:1.02rem;margin-bottom:var(--space-2);color:var(--text-secondary)}strong{color:var(--accent);font-weight:600}
-        a{color:var(--accent);text-decoration:none;font-weight:500}a:hover{text-decoration:underline}
-        .container{max-width:1200px;margin:0 auto;padding:0 var(--space-2)}section{padding:var(--space-7) 0}
-        .section-header{text-align:center;margin-bottom:var(--space-6)}.section-header h2{position:relative;display:inline-block}
-        .section-header h2::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:60px;height:2px;background:var(--accent);opacity:0.7}
-        nav{position:sticky;top:0;z-index:1000;background:rgba(10,10,10,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,26,26,.1)}
-        nav .container{display:flex;justify-content:center;padding:var(--space-2) 0}nav ul{display:flex;gap:var(--space-4);list-style:none;flex-wrap:wrap}
-        nav a{color:var(--text-secondary);font-weight:500;position:relative;padding:.4rem 0}
-        nav a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--accent);transition:width .3s}
-        nav a:hover{color:var(--accent)}nav a:hover::after{width:100%}
-        #hero{min-height:100vh;display:flex;align-items:center}.hero-content{text-align:center;max-width:780px;margin:0 auto}
-        .hero-content p{max-width:680px;margin:0 auto var(--space-4);font-size:1.1rem}
-        .cta-group{display:flex;gap:var(--space-2);justify-content:center;flex-wrap:wrap}
-        .btn{padding:.85rem 1.9rem;border-radius:var(--radius-lg);font-weight:600;transition:all .3s;display:inline-flex;align-items:center;gap:.5rem}
-        .btn-primary{background:var(--accent);color:#000}.btn-primary:hover{background:#ff3333;transform:translateY(-2px)}
-        .btn-secondary{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}.btn-secondary:hover{background:var(--accent);color:#000}
-        .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);align-items:start}
-        .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:var(--space-3);margin-top:var(--space-5)}
-        .skill-card{background:var(--surface-2);padding:var(--space-3);border-radius:var(--radius-md);border-left:3px solid var(--accent)}
-        .lang-badges{display:flex;gap:var(--space-1);flex-wrap:wrap;margin-top:var(--space-2)}
-        .lang-badge{background:var(--accent-dark);color:#fff;padding:.3rem .8rem;border-radius:50px;font-size:.78rem}
-        .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:var(--space-4)}
-        .project-card{background:var(--surface);border-radius:var(--radius-md);overflow:hidden;transition:transform .3s;border:1px solid rgba(255,26,26,.1)}
-        .project-card:hover{transform:translateY(-8px)}
-        .project-video{height:190px;overflow:hidden;position:relative;background:#000}
-        .project-video video{width:100%;height:100%;object-fit:cover;filter:brightness(0.92)}
-        .project-card:hover .project-video video{transform:scale(1.04)}
-        .project-content{padding:var(--space-4)}
-        .project-content h3{margin-bottom:var(--space-1);font-weight:600}
-        .project-details{font-size:.95rem;line-height:1.7;margin:var(--space-2) 0;color:var(--text-secondary)}
-        .project-tags{display:flex;gap:var(--space-1);flex-wrap:wrap;margin-top:var(--space-2)}
-        .tag{background:var(--accent);color:#000;padding:.3rem .7rem;border-radius:50px;font-size:.72rem;font-weight:600;text-transform:uppercase}
-        .tag-wip{background:var(--accent-dark);color:#fff;border:1px dashed var(--accent)}
-        .game-link{display:inline-block;margin-top:var(--space-2);color:var(--accent);font-weight:600}
-        .wip-badge{position:absolute;top:10px;right:10px;background:var(--accent-dark);color:#fff;padding:.3rem .6rem;border-radius:50px;font-size:.72rem;font-weight:600}
-        .contact-links{display:flex;justify-content:center;gap:var(--space-4);flex-wrap:wrap;margin-top:var(--space-5)}
-        .contact-links a{background:var(--surface-2);padding:.95rem 2rem;border-radius:var(--radius-lg);border:1.5px solid var(--accent);display:flex;align-items:center;gap:.55rem;transition:all .3s;min-width:210px;justify-content:center}
-        .contact-links a:hover{background:var(--accent);color:#000}
-        footer{text-align:center;padding:var(--space-6) 0;background:#000;font-size:.82rem;color:var(--text-muted);border-top:1px solid rgba(255,26,26,.1)}
-        @media(max-width:768px){.about-grid,.skills-grid{grid-template-columns:1fr}.cta-group,.contact-links{flex-direction:column;align-items:center}}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chinmay Ram - Portfolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    /* === Global Styles === */
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', monospace;
+      background: #1a1a1a;
+      color: #d8d8d8;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+    }
+
+    /* Fog Overlay */
+    .fog {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(rgba(180, 180, 180, 0.4), rgba(80, 80, 80, 0.6));
+      pointer-events: none;
+      z-index: 500;
+      animation: fogShift 15s infinite linear;
+      opacity: 0.6;
+    }
+    @keyframes fogShift {
+      0% { transform: translateX(-50px) translateY(-30px); opacity: 0.6; }
+      50% { transform: translateX(50px) translateY(30px); opacity: 0.8; }
+      100% { transform: translateX(-50px) translateY(-30px); opacity: 0.6; }
+    }
+
+    /* Rusty Background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('assets/green_metal_rust_diff_4k.jpg') repeat;
+      opacity: 0.15;
+      z-index: -1;
+      filter: sepia(70%) contrast(110%) brightness(80%);
+    }
+
+    /* Fallback for Background */
+    body.no-bg::before {
+      background: linear-gradient(45deg, #1a1a1a, #2a1b14);
+    }
+
+    /* Glitchy, Blood-Stained Text */
+    h1, h2, h3 {
+      position: relative;
+      color: #9B1B1B; /* Blood-red */
+      text-shadow: 2px 2px #000, -2px -2px #111, 0 0 8px rgba(155, 27, 27, 0.4);
+      animation: silentGlitch 2.5s infinite;
+    }
+    h1:hover, h2:hover, h3:hover {
+      color: #C71515;
+      animation-duration: 0.4s;
+    }
+    @keyframes silentGlitch {
+      0% { text-shadow: 2px 2px #9B1B1B, -2px -2px #008080; }
+      25% { text-shadow: -1px 1px #9B1B1B, 1px -1px #008080; }
+      50% { text-shadow: 1px -1px #9B1B1B, -1px 1px #008080; }
+      75% { text-shadow: -2px 0 #9B1B1B, 2px 0 #008080; }
+      100% { text-shadow: 2px 2px #9B1B1B, -2px -2px #008080; }
+    }
+
+    /* Navigation */
+    .menu-button {
+      position: fixed;
+      top: 20px; left: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      color: #d8d8d8;
+      padding: 10px 15px;
+      border: 2px solid #9B1B1B;
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 0 5px rgba(155, 27, 27, 0.3));
+    }
+    .menu-button:hover, .menu-button:focus {
+      background: #9B1B1B;
+      border-color: #C71515;
+      outline: none;
+      animation: flicker 0.1s infinite;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: -220px;
+      width: 200px;
+      height: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      padding: 50px 20px;
+      transition: left 0.4s ease;
+      z-index: 999;
+    }
+    nav.active { left: 0; }
+    nav a {
+      display: block;
+      color: #a0a0a0;
+      text-decoration: none;
+      margin: 15px 0;
+      transition: all 0.3s;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+    nav a:nth-child(1) { animation-delay: 0.1s; }
+    nav a:nth-child(2) { animation-delay: 0.2s; }
+    nav a:nth-child(3) { animation-delay: 0.3s; }
+    nav a:nth-child(4) { animation-delay: 0.4s; }
+    nav a:nth-child(5) { animation-delay: 0.5s; }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    nav a:hover, nav a:focus {
+      color: #C71515;
+      text-shadow: 0 0 8px #C71515;
+      animation: flicker 0.1s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Sections */
+    section {
+      min-height: 100vh;
+      padding: 100px 20px;
+      display: none;
+      text-align: center;
+      animation: realmFade 1.2s ease-out;
+    }
+    section.active { display: block; }
+    @keyframes realmFade {
+      from { opacity: 0; transform: translateY(20px); filter: blur(3px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    /* Videos */
+    video {
+      width: 90%;
+      max-width: 600px;
+      border: 4px solid #9B1B1B;
+      filter: contrast(120%) brightness(85%) saturate(110%) sepia(30%);
+      display: block;
+      margin: 20px auto;
+      box-shadow: 0 0 15px rgba(155, 27, 27, 0.3);
+      transition: filter 0.3s;
+    }
+    video:hover { filter: contrast(140%) brightness(75%) saturate(130%) sepia(50%); }
+
+    a { color: #C71515; text-decoration: none; }
+    a:hover, a:focus { text-shadow: 0 0 8px #C71515; }
+
+    .game p {
+      font-size: 0.6em;
+      opacity: 0.7;
+      max-width: 600px;
+      margin: 10px auto;
+    }
+
+    @media (max-width: 600px) {
+      nav { width: 150px; }
+      video { width: 100%; }
+      section { padding: 80px 10px; }
+      h1, h2 { font-size: 1.1em; }
+      h3 { font-size: 0.8em; }
+    }
+  </style>
 </head>
 <body>
+  <div class="fog"></div>
+  <div class="menu-button" role="button" aria-label="Toggle navigation menu">📻 Static Calls</div>
+  <nav class="sidebar">
+    <a href="#home" data-section="home" aria-label="Home section">Home</a>
+    <a href="#intro" data-section="intro" aria-label="Intro section">About</a>
+    <a href="#projects" data-section="projects" aria-label="Projects section">Projects</a>
+    <a href="#in-development" data-section="in-development" aria-label="In Development section">In Development</a>
+    <a href="#contact" data-section="contact" aria-label="Contact section">Contact</a>
+  </nav>
 
-    <nav>
-        <div class="container">
-            <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#development">Under Development</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <section id="hero">
-        <div class="container hero-content">
-            <h1>Kodali Chinmay Ram</h1>
-            <p>Game & Level Designer</p>
-            <p>Specializing in atmospheric level design, environmental storytelling, and tension-driven experiences in Unity. Solo developer from India.</p>
-            <div class="cta-group">
-                <a href="#contact" class="btn btn-primary">Let’s Collaborate</a>
-                <a href="resume.pdf" target="_blank" class="btn btn-secondary">Resume</a>
-            </div>
-        </div>
+  <main>
+    <section id="home" class="active">
+      <h1>Chinmay Ram</h1>
+      <p>Game and Level Designer</p>
+      <p style="font-size: 0.6em; opacity: 0.6;">The mist hides truths you cannot unsee...</p>
     </section>
 
-    <section id="about">
-        <div class="container">
-            <div class="section-header"><h2>Professional Overview</h2></div>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p>I’m a <strong>Game & Level Designer</strong> based in India with a focus on <strong>Unity</strong>-driven atmospheric experiences. Expertise in <strong>level design</strong>, <strong>lighting</strong>, and <strong>environmental narrative</strong>.</p>
-                    <p>Delivered projects in 48-hour jams, solo prototypes, and team collaborations. Fluent in <strong>English & Telugu</strong>, intermediate Hindi.</p>
-                </div>
-                <div>
-                    <img src="me.jpg" alt="Kodali Chinmay Ram" style="border-radius:var(--radius-md);width:100%;height:100%;object-fit:cover;">
-                </div>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>Core Skills</h3>
-                    <ul style="list-style:none;padding-left:0;color:var(--text-secondary);font-size:0.93rem;line-height:1.8">
-                        <li>• Level design & flow</li>
-                        <li>• Atmospheric lighting</li>
-                        <li>• Environmental storytelling</li>
-                        <li>• Tension pacing</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>Languages</h3>
-                    <div class="lang-badges">
-                        <span class="lang-badge">English</span>
-                        <span class="lang-badge">Telugu</span>
-                        <span class="lang-badge">Hindi</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section id="intro">
+      <h2>Me</h2>
+      <p>I’m Chinmay Ram, a Game and Level Designer crafting in Unity 3D.</p>
+      <p>I specialize in crafting immersive levels, configuring gameplay interactions using the Unity Inspector, and designing unique gameplay experiences. I work without writing code, using custom scripts to bring my ideas to life. Explore my projects to see my expertise in level design and game development.</p>
+      <p style="font-size: 0.6em; opacity: 0.6;">The town calls. Will you answer?</p>
     </section>
 
-    <!-- Released Projects – exact filenames from your assets folder -->
     <section id="projects">
-        <div class="container">
-            <div class="section-header"><h2>Released Projects</h2></div>
-            <div class="projects-grid">
+      <h2>Artifacts of the Otherworld</h2>
+      <div class="game">
+        <h3>Housebound</h3>
+        <p>A home where walls weep and shadows confess. <a href="https://arcadian-xp.itch.io/housebound" target="_blank" aria-label="Play Housebound on itch.io">Play on itch.io</a></p>
+        <video controls aria-label="Housebound game trailer">
+          <source src="assets/housebound.mp4" type="video/mp4">
+        </video>
+        <p style="font-size: 0.5em; opacity: 0.6;">Solo Project</p>
+      </div>
 
-                <div class="project-card">
-                    <div class="project-video">
-                        <video autoplay muted loop playsinline poster="assets/housebound_thumb.jpg">
-                            <source src="assets/housebound_gameplay.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="project-content">
-                        <h3>Housebound (2025)</h3>
-                        <div class="project-details">
-                            <p><strong>Solo 48-hour prototype.</strong> Looping apartment with dynamic paranoia lighting.</p>
-                            <p><strong>Result:</strong> 100+ plays on Itch.io.</p>
-                        </div>
-                        <a href="https://arcadian-xp.itch.io/housebound" target="_blank" class="game-link">Play on Itch.io</a>
-                        <div class="project-tags"><span class="tag">Unity</span><span class="tag">Solo</span><span class="tag">48-Hour</span></div>
-                    </div>
-                </div>
+      <div class="game">
+        <h3>The Pursuit of Happiness</h3>
+        <p>A chase through fogged alleys, where joy corrodes into ash.</p>
+        <video controls aria-label="The Pursuit of Happiness game trailer">
+          <source src="assets/pursuit_of_happiness.mp4" type="video/mp4">
+        </video>
+        <p style="font-size: 0.5em; opacity: 0.6;">Solo Project</p>
+      </div>
 
-                <div class="project-card">
-                    <div class="project-video">
-                        <video autoplay muted loop playsinline>
-                            <source src="assets/the_pursuit_of_happiness.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="project-content">
-                        <h3>The Pursuit of Happiness (2023)</h3>
-                        <div class="project-details">
-                            <p><strong>48-hour jam (4-person team)</strong></p>
-                            <p><strong>My Role:</strong> Game Designer & Level Designer<br>Ashish – Game Designer · Sameer – UI/UX · Bhavesh – Programmer</p>
-                        </div>
-                        <div class="project-tags"><span class="tag">Unity</span><span class="tag">Game Jam</span><span class="tag">Team</span></div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-video">
-                        <video autoplay muted loop playsinline>
-                            <source src="assets/sermon_gameplay.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="project-content">
-                        <h3>SERMON (2025)</h3>
-                        <div class="project-details">
-                            <p><strong>Psychological horror (team)</strong></p>
-                            <p><strong>My Role:</strong> Level Designer & Environment Designer<br>Vinil – Game Designer & Programmer</p>
-                        </div>
-                        <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="game-link">Play on Itch.io</a>
-                        <div class="project-tags"><span class="tag">Unity</span><span class="tag">Team</span><span class="tag">HDRP</span></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+      <div class="game">
+        <h3>Sermon</h3>
+        <p>Designed levels and environments to trap the soul. Created with Vinil (Game Designer, Programmer). <a href="https://itch.io/game" target="_blank" aria-label="Play Sermon on itch.io">Play on itch.io</a>.</p>
+        <video controls aria-label="Sermon game trailer">
+          <source src="assets/sermon.mp4" type="video/mp4">
+        </video>
+      </div>
     </section>
 
-    <!-- Under Development – exact filenames you use -->
-    <section id="development">
-        <div class="container">
-            <div class="section-header"><h2>Under Development</h2></div>
-            <div class="projects-grid">
+    <section id="in-development">
+      <h2>Emerging Shadows</h2>
+      <div class="game">
+        <h3>Fragments of Dread: Mother’s Whisper (Episode 1)</h3>
+        <p>A PSX-style descent into a fogged abyss. Solo project crafting exploration, escalating dread, and multiple endings through level flow, lighting, and sound. <i>In Development</i>.</p>
+        <video controls aria-label="Mother’s Whisper game trailer">
+          <source src="assets/mothers_whisper.mp4" type="video/mp4">
+        </video>
+      </div>
 
-                <div class="project-card">
-                    <div class="project-video"><div class="wip-badge">WIP</div>
-                        <video autoplay muted loop playsinline>
-                            <source src="assets/mothers_whisper.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="project-content">
-                        <h3>Fragments of Dread: Mother’s Whisper (Ep.1)</h3>
-                        <div class="project-details"><p><strong>Solo PSX horror.</strong> AI voice + non-Euclidean shifts.</p><p><strong>Status:</strong> Under Development</p></div>
-                        <div class="project-tags"><span class="tag">Unity</span><span class="tag-wip">Solo</span><span class="tag">PSX</span></div>
-                    </div>
-                </div>
+      <div class="game">
+        <h3>Fragments of Dread: Burger Piz (Episode 2)</h3>
+        <p>A cursed diner where AI voices mimic the lost and visuals twist into nightmares. Level and environment design to trap players in unease. <i>In Development – Solo Project</i>.</p>
+        <video controls aria-label="Burger Piz game trailer">
+          <source src="assets/bennys_burger_piz.mp4" type="video/mp4">
+        </video>
+      </div>
 
-                <div class="project-card">
-                    <div class="project-video"><div class="wip-badge">WIP</div>
-                        <video autoplay muted loop playsinline>
-                            <source src="assets/bennys_burger_piz.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="project-content">
-                        <h3>Fragments of Dread: Burger Piz (Ep.2)</h3>
-                        <div class="project-details"><p><strong>Fast-food horror.</strong> AI employee mimicry.</p><p><strong>Status:</strong> Under Development</p></div>
-                        <div class="project-tags"><span class="tag">Unity</span><span class="tag-wip">Solo</span><span class="tag">AI</span></div>
-                    </div>
-                </div>
+      <div class="game">
+        <h3>Ward 13</h3>
+        <p>An abandoned hospital where sterile halls pulse with psychological tension. Level and environment design to amplify suspense. <i>In Development – Solo Project</i>.</p>
+        <video controls aria-label="Ward 13 game trailer">
+          <source src="assets/ward 13.mp4" type="video/mp4">
+        </video>
+      </div>
 
-                <div class="project-card">
-                    <div class="project-video"><div class="wip-badge">WIP</div>
-                        <video autoplay muted loop playsinline>
-                            <source src="assets/ward13.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="project-content">
-                        <h3>Ward 13</h3>
-                        <div class="project-details"><p><strong>Liminal hospital.</strong> No enemies, pure atmosphere.</p><p><strong>Status:</strong> Under Development</p></div>
-                        <div class="project-tags"><span class="tag">Unity</span><span class="tag-wip">Solo</span><span class="tag">Liminal</span></div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-video"><div class="wip-badge">WIP</div>
-                        <video autoplay muted loop playsinline>
-                            <source src="assets/around.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="project-content">
-                        <h3>Around</h3>
-                        <div class="project-details"><p><strong>Spatial horror.</strong> Environment changes when unobserved.</p><p><strong>Status:</strong> Under Development</p></div>
-                        <div class="project-tags"><span class="tag">Unity</span><span class="tag-wip">Solo</span><span class="tag">Spatial</span></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
+      <div class="game">
+        <h3>Around</h3>
+        <p>A minimalist exploration through fogged voids, where tension festers in silence. Level and environment design to evoke unease. <i>In Development – Solo Project</i>.</p>
+        <video controls aria-label="Around game trailer">
+          <source src="assets/around.mp4" type="video/mp4">
+        </video>
+      </div>
     </section>
 
     <section id="contact">
-        <div class="container">
-            <div class="section-header"><h2>Contact</h2></div>
-            <p>Open to freelance, contract, or full-time roles in game & level design.</p>
-            <div class="contact-links">
-                <a href="mailto:kodalichinmayram@gmail.com">Email</a>
-                <a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank">LinkedIn</a>
-                <a href="https://arcadian-xp.itch.io/" target="_blank">Itch.io</a>
-                <a href="resume.pdf" target="_blank">Resume</a>
-            </div>
-        </div>
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:kodalichinmayram@gmail.com" aria-label="Email Chinmay Ram">kodalichinmayram@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank" aria-label="Chinmay Ram's LinkedIn profile">Profile</a></p>
+      <p>Instagram: <a href="https://www.instagram.com/chinmay__xp" target="_blank" aria-label="Chinmay Ram's Instagram profile">@chinmay__xp</a></p>
+      <p style="font-size: 0.5em; opacity: 0.5;">Last Updated: September 13, 2025</p>
     </section>
+  </main>
 
-    <footer>
-        <div class="container"><p>© 2025 Kodali Chinmay Ram</p></div>
-    </footer>
+  <script>
+    // Check for Background Load Failure
+    const bgImg = new Image();
+    bgImg.src = 'assets/green_metal_rust_diff_4k.jpg';
+    bgImg.onerror = () => document.body.classList.add('no-bg');
+
+    // Hover Sound Effect
+    const hoverSound = new Audio('assets/hover1.mp3');
+    hoverSound.volume = 0.3;
+
+    // Menu Button Hover
+    document.querySelector('.menu-button').addEventListener('mouseenter', () => {
+      hoverSound.play().catch(e => console.log('Hover sound blocked by browser'));
+    });
+
+    // Navigation Links Hover
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        hoverSound.play().catch(e => console.log('Hover sound blocked by browser'));
+      });
+    });
+
+    // Toggle Sidebar
+    document.querySelector('.menu-button').addEventListener('click', () => {
+      document.querySelector('nav').classList.toggle('active');
+    });
+
+    // Section Switching
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+        const target = document.getElementById(link.getAttribute('data-section'));
+        if (target) target.classList.add('active');
+        document.querySelector('nav').classList.remove('active');
+      });
+    });
+  </script>
 </body>
 </html>
