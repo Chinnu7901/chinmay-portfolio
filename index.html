@@ -26,7 +26,8 @@
 
     header {
       height: 100vh;
-      background: linear-gradient(rgba(10,10,31,0.85), rgba(5,5,20,0.95)), url('https://images.unsplash.com/photo-1550745162-5ce6a7c16bde?q=80&w=2070&auto=format') center/cover no-repeat fixed;
+      background: linear-gradient(rgba(10,10,31,0.85), rgba(5,5,20,0.95)),
+        url('https://images.unsplash.com/photo-1550745162-5ce6a7c16bde?q=80&w=2070&auto=format') center/cover no-repeat fixed;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -47,8 +48,14 @@
     header p { font-size: 1.8rem; margin: 20px 0; opacity: 0.9; }
     .scroll-down { position: absolute; bottom: 30px; color: var(--primary); animation: bounce 2s infinite; }
 
-    @keyframes glow { from { text-shadow: 0 0 20px var(--primary); } to { text-shadow: 0 0 40px var(--primary), 0 0 60px var(--primary); } }
-    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+    @keyframes glow { 
+      from { text-shadow: 0 0 20px var(--primary); } 
+      to { text-shadow: 0 0 40px var(--primary), 0 0 60px var(--primary); } 
+    }
+    @keyframes bounce { 
+      0%,100% { transform: translateY(0); } 
+      50% { transform: translateY(-15px); } 
+    }
 
     nav {
       background: rgba(10,10,31,0.95);
@@ -133,6 +140,15 @@
       text-decoration: none;
       font-weight: 500;
     }
+
+    .designer-points {
+      margin-top: 15px;
+      padding-left: 20px;
+      opacity: 0.85;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
     .xbox-dap {
       display: inline-flex;
       align-items: center;
@@ -146,7 +162,10 @@
       box-shadow: 0 0 20px rgba(255,0,170,0.5);
       animation: dapGlow 2s infinite alternate;
     }
-    @keyframes dapGlow { from { box-shadow: 0 0 20px rgba(255,0,170,0.5); } to { box-shadow: 0 0 30px rgba(0,255,136,0.8); } }
+    @keyframes dapGlow { 
+      from { box-shadow: 0 0 20px rgba(255,0,170,0.5); } 
+      to { box-shadow: 0 0 30px rgba(0,255,136,0.8); } 
+    }
 
     .team-list {
       margin-top: 12px;
@@ -154,8 +173,6 @@
       opacity: 0.9;
       line-height: 1.8;
     }
-
-    .wip h3::after { content: " (WIP)"; color: var(--secondary); font-size: 0.6em; }
 
     #contact {
       text-align: center;
@@ -194,12 +211,6 @@
       padding: 30px;
       color: #666;
     }
-
-    @media (max-width: 768px) {
-      header h1 { font-size: 3.5rem; }
-      #about { grid-template-columns: 1fr; text-align: center; }
-      h2 { font-size: 2.8rem; }
-    }
   </style>
 </head>
 <body>
@@ -220,7 +231,7 @@
   <section id="about">
     <div>
       <h2>About Me</h2>
-      <p>Game,Level & Environment Designer crafting unsettling psychological experiences in Unity.</p>
+      <p>Game, Level & Environment Designer crafting unsettling psychological experiences in Unity.</p>
       <p>Specialized in immersive level design, atmospheric environments, narrative-driven gameplay, and visual scripting. Every project is 100% built and developed in Unity 3D.</p>
       <p>Currently open to full-time, contract, or freelance opportunities.</p>
     </div>
@@ -229,13 +240,23 @@
 
   <section id="portfolio">
     <h2>Released Projects</h2>
-    <div class="portfolio-grid">
 
+    <div class="portfolio-grid">
+      <!-- HOUSEBOUND -->
       <div class="project">
         <video controls><source src="assets/housebound.mp4" type="video/mp4"></video>
         <div class="project-info">
           <h3>Housebound</h3>
           <p>Solo-developed psychological horror. You wake up trapped in an abandoned house with something watching.</p>
+
+          <ul class="designer-points">
+            <li>Designed full level layout focused on tension, pacing, and spatial storytelling.</li>
+            <li>Created environmental horror moments using lighting, audio cues, and sightline control.</li>
+            <li>Implemented player interaction systems (doors, items, triggers) using Unity scripting.</li>
+            <li>Built atmosphere-driven spaces emphasizing dread over jumpscares.</li>
+            <li>Handled full gameplay setup: AI behaviour, event sequencing, sound design, and UI flow.</li>
+          </ul>
+
           <div class="tags">
             <span class="tag">Solo Dev</span>
             <span class="tag">Unity</span>
@@ -245,6 +266,7 @@
         </div>
       </div>
 
+      <!-- PURSUIT OF HAPPINESS -->
       <div class="project">
         <video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video>
         <div class="project-info">
@@ -265,6 +287,7 @@
         </div>
       </div>
 
+      <!-- SERMON -->
       <div class="project">
         <video controls><source src="assets/sermon.mp4" type="video/mp4"></video>
         <div class="project-info">
@@ -284,7 +307,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -350,5 +372,6 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.project').forEach(el => observer.observe(el));
   </script>
+
 </body>
 </html>
