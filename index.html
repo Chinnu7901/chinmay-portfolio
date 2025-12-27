@@ -23,7 +23,6 @@
       line-height: 1.6;
     }
     h1, h2, h3 { font-family: 'Orbitron', sans-serif; }
-
     header {
       height: 100vh;
       background: linear-gradient(rgba(10,10,31,0.85), rgba(5,5,20,0.95)),
@@ -47,16 +46,14 @@
     }
     header p { font-size: 1.8rem; margin: 20px 0; opacity: 0.9; }
     .scroll-down { position: absolute; bottom: 30px; color: var(--primary); animation: bounce 2s infinite; }
-
-    @keyframes glow { 
-      from { text-shadow: 0 0 20px var(--primary); } 
-      to { text-shadow: 0 0 40px var(--primary), 0 0 60px var(--primary); } 
+    @keyframes glow {
+      from { text-shadow: 0 0 20px var(--primary); }
+      to { text-shadow: 0 0 40px var(--primary), 0 0 60px var(--primary); }
     }
-    @keyframes bounce { 
-      0%,100% { transform: translateY(0); } 
-      50% { transform: translateY(-15px); } 
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
-
     nav {
       background: rgba(10,10,31,0.95);
       backdrop-filter: blur(10px);
@@ -75,7 +72,6 @@
       background: var(--primary); transition: 0.4s; transform: translateX(-50%);
     }
     nav a:hover::after { width: 100%; }
-
     section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; }
     h2 {
       font-size: 3.5rem; text-align: center; margin-bottom: 60px;
@@ -87,7 +83,6 @@
       content: ''; width: 100px; height: 4px; background: var(--primary);
       display: block; margin: 20px auto; border-radius: 2px;
     }
-
     #about {
       display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
     }
@@ -95,7 +90,6 @@
       width: 100%; border-radius: 20px; box-shadow: 0 0 30px rgba(0,255,234,0.3); transition: 0.5s;
     }
     #about img:hover { transform: scale(1.05); }
-
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
@@ -133,14 +127,27 @@
       border-radius: 20px;
       font-size: 0.85rem;
     }
-    .itch-link {
+    .game-link {
       display: inline-block;
       margin-top: 15px;
-      color: var(--primary);
+      margin-right: 15px;
+      padding: 8px 16px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #000;
+      font-weight: bold;
       text-decoration: none;
-      font-weight: 500;
+      border-radius: 30px;
+      transition: 0.3s;
+      box-shadow: 0 0 15px rgba(0,255,234,0.4);
     }
-
+    .game-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 25px rgba(0,255,234,0.7);
+    }
+    .game-link.itch { background: #fa5c5c; }
+    .game-link.steam { background: #1b2838; color: #fff; }
+    .game-link.ps { background: #003087; color: #fff; }
+    .game-link.pdf { background: #444; color: #fff; }
     .designer-points {
       margin-top: 15px;
       padding-left: 20px;
@@ -148,7 +155,6 @@
       font-size: 0.95rem;
       line-height: 1.6;
     }
-
     .xbox-dap {
       display: inline-flex;
       align-items: center;
@@ -162,18 +168,16 @@
       box-shadow: 0 0 20px rgba(255,0,170,0.5);
       animation: dapGlow 2s infinite alternate;
     }
-    @keyframes dapGlow { 
-      from { box-shadow: 0 0 20px rgba(255,0,170,0.5); } 
-      to { box-shadow: 0 0 30px rgba(0,255,136,0.8); } 
+    @keyframes dapGlow {
+      from { box-shadow: 0 0 20px rgba(255,0,170,0.5); }
+      to { box-shadow: 0 0 30px rgba(0,255,136,0.8); }
     }
-
     .team-list {
       margin-top: 12px;
       font-size: 0.9em;
       opacity: 0.9;
       line-height: 1.8;
     }
-
     #contact {
       text-align: center;
       background: var(--darker);
@@ -204,14 +208,12 @@
       transform: translateY(-5px);
       box-shadow: 0 0 50px rgba(0,255,234,0.9);
     }
-
     footer {
       background: var(--darker);
       text-align: center;
       padding: 30px;
       color: #666;
     }
-
     @media (max-width: 768px) {
       header h1 { font-size: 3.5rem; }
       #about { grid-template-columns: 1fr; text-align: center; }
@@ -220,20 +222,17 @@
   </style>
 </head>
 <body>
-
   <nav>
     <a href="#about">About</a>
     <a href="#portfolio">Projects</a>
     <a href="#wip">In Development</a>
     <a href="#contact">Contact</a>
   </nav>
-
   <header>
     <h1>KODALI CHINMAY RAM</h1>
     <p>Game Designer • Level Designer • Environment Designer</p>
     <div class="scroll-down"><i class="fas fa-chevron-down"></i></div>
   </header>
-
   <section id="about">
     <div>
       <h2>About Me</h2>
@@ -243,10 +242,8 @@
     </div>
     <img src="assets/Chinmay.jpg" alt="Kodali Chinmay Ram">
   </section>
-
   <section id="portfolio">
     <h2>Released Projects</h2>
-
     <div class="portfolio-grid">
       <!-- HOUSEBOUND -->
       <div class="project">
@@ -254,7 +251,6 @@
         <div class="project-info">
           <h3>Housebound</h3>
           <p>Solo-developed psychological horror. You wake up trapped in an abandoned house with something watching.</p>
-
           <ul class="designer-points">
             <li>Designed full level layout focused on tension, pacing, and spatial storytelling.</li>
             <li>Created environmental horror moments using lighting, audio cues, and sightline control.</li>
@@ -262,16 +258,15 @@
             <li>Built atmosphere-driven spaces emphasizing dread over jumpscares.</li>
             <li>Handled full gameplay setup: AI behaviour, event sequencing, sound design, and UI flow.</li>
           </ul>
-
           <div class="tags">
             <span class="tag">Solo Dev</span>
             <span class="tag">Unity</span>
             <span class="tag">Psychological Horror</span>
           </div>
-          <a href="https://arcadian-xp.itch.io/housebound" target="_blank" class="itch-link">Play on itch.io</a>
+          <a href="https://arcadian-xp.itch.io/housebound" target="_blank" class="game-link itch">Play on itch.io</a>
+          <a href="GDDs/Housebound_GDD.pdf" target="_blank" class="game-link pdf">View GDD (PDF)</a>
         </div>
       </div>
-
       <!-- PURSUIT OF HAPPINESS -->
       <div class="project">
         <video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video>
@@ -297,7 +292,6 @@
           </div>
         </div>
       </div>
-
       <!-- SERMON -->
       <div class="project">
         <video controls><source src="assets/sermon.mp4" type="video/mp4"></video>
@@ -306,7 +300,6 @@
           <p>Sleep-paralysis inspired horror experience.<br>
              <strong>My Roles:</strong> Level Designer, Environment Designer<br>
              <strong>Team:</strong> Vinil (Game Designer & Programmer)</p>
-
           <ul class="designer-points">
             <li>Designed full level layout for slow-burn, sleep-paralysis-inspired tension.</li>
             <li>Crafted atmospheric environments using lighting, fog, shadows, and prop composition.</li>
@@ -315,27 +308,45 @@
             <li>Collaborated via a shared GitHub repository — committing level/environment updates independently.</li>
             <li>Integrated all design contributions through Git without direct pair-design sessions.</li>
           </ul>
-
           <div class="tags">
             <span class="tag">Level Design</span>
             <span class="tag">Environment Design</span>
             <span class="tag">Horror</span>
           </div>
-          <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="itch-link">Play on itch.io</a>
-
+          <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="game-link itch">Play on itch.io</a>
+          <a href="LDDs/Sermon_LDD_1_(1).pdf" target="_blank" class="game-link pdf">View LDD (PDF)</a>
           <div class="xbox-dap">
             <i class="fab fa-xbox" style="margin-right:8px;"></i>
             Xbox Developer Acceleration Program (DAP)
           </div>
         </div>
       </div>
+      <!-- SEPTEM: The Preparation -->
+      <div class="project">
+        <div class="project-info">
+          <h3>SEPTEM: The Preparation</h3>
+          <p>Short psychological horror experience focused on atmosphere, implication, and environmental storytelling.<br>
+             <strong>My Roles:</strong> Level Designer, Environment Designer<br>
+             <strong>Team:</strong> Vinil (Game Designer), Sushant (Programmer)</p>
+          <ul class="designer-points">
+            <li>Designed level layout emphasizing subtle tension and player pathing through ordinary spaces.</li>
+            <li>Crafted environments to build implication and atmospheric dread via prop placement and lighting.</li>
+            <li>Integrated environmental storytelling to reveal narrative through clues and implications.</li>
+            <li>Handled scene composition for a seamless, unsettling exploration experience.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">Team Project</span>
+            <span class="tag">Unity</span>
+            <span class="tag">Psychological Horror</span>
+          </div>
+          <a href="https://troj4nblazing.itch.io/thepreparation" target="_blank" class="game-link itch">Play on itch.io</a>
+        </div>
+      </div>
     </div>
   </section>
-
   <section id="wip">
     <h2>In Development</h2>
     <div class="portfolio-grid">
-
       <div class="project">
         <video controls><source src="assets/mothers_whisper.mp4" type="video/mp4"></video>
         <div class="project-info">
@@ -343,15 +354,14 @@
           <p>Solo PSX-style horror series — Episode 1</p>
         </div>
       </div>
-
       <div class="project">
         <video controls><source src="assets/bennys_burger_piz.mp4" type="video/mp4"></video>
         <div class="project-info">
           <h3>Fragments of Dread: Burger Piz (Ep.2)</h3>
           <p>Cursed diner horror with Vinil</p>
+          <a href="GDDs/Bennys_Burger_Piz_GDD.pdf" target="_blank" class="game-link pdf">View GDD (PDF)</a>
         </div>
       </div>
-
       <div class="project">
         <video controls><source src="assets/ward 13.mp4" type="video/mp4"></video>
         <div class="project-info">
@@ -359,7 +369,6 @@
           <p>Abandoned hospital psychological terror</p>
         </div>
       </div>
-
       <div class="project">
         <video controls><source src="assets/around.mp4" type="video/mp4"></video>
         <div class="project-info">
@@ -367,10 +376,49 @@
           <p>Minimalist tension experience</p>
         </div>
       </div>
-
+      <!-- Glimmergrieve -->
+      <div class="project">
+        <div class="project-info">
+          <h3>Glimmergrieve</h3>
+          <p>Psychological survival horror set in an abandoned high school where memories manifest physically.</p>
+          <div class="tags">
+            <span class="tag">Unity</span>
+            <span class="tag">PC</span>
+            <span class="tag">Horror</span>
+          </div>
+          <a href="GDDs/Glimmergrieve_Studio_GDD_(1).pdf" target="_blank" class="game-link pdf">View GDD (PDF)</a>
+        </div>
+      </div>
+      <!-- Whisper House -->
+      <div class="project">
+        <div class="project-info">
+          <h3>Whisper House: Escape the Watcher</h3>
+          <p>Mobile stealth horror game where players escape a haunted house hunted by a blind monster.</p>
+          <div class="tags">
+            <span class="tag">Unity</span>
+            <span class="tag">Mobile</span>
+            <span class="tag">Stealth Horror</span>
+          </div>
+          <a href="GDDs/Whisper_House_GDD.pdf" target="_blank" class="game-link pdf">View GDD (PDF)</a>
+        </div>
+      </div>
+      <!-- TROX: THE REVERSAL -->
+      <div class="project">
+        <div class="project-info">
+          <h3>TROX: THE REVERSAL</h3>
+          <p>Upcoming psychological horror title currently in development.</p>
+          <div class="tags">
+            <span class="tag">Unity</span>
+            <span class="tag">PC</span>
+            <span class="tag">Console</span>
+            <span class="tag">Horror</span>
+          </div>
+          <a href="https://store.steampowered.com/app/4249970/TROXTHE_REVERSAL/?beta=0" target="_blank" class="game-link steam">View on Steam</a>
+          <a href="https://store.playstation.com/en-in/concept/10017960/" target="_blank" class="game-link ps">View on PlayStation Store</a>
+        </div>
+      </div>
     </div>
   </section>
-
   <section id="contact">
     <h2>Get In Touch</h2>
     <p>Always looking for new nightmares to build.</p>
@@ -381,11 +429,9 @@
     </div>
     <a href="assets/Resume.pdf" target="_blank" class="resume-btn">Download Resume (PDF)</a>
   </section>
-
   <footer>
     <p>© 2025 Kodali Chinmay Ram — Built with Unity passion and late-night horror vibes</p>
   </footer>
-
   <script>
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -394,6 +440,5 @@
     }, { threshold: 0.1 });
     document.querySelectorAll('.project').forEach(el => observer.observe(el));
   </script>
-
 </body>
 </html>
