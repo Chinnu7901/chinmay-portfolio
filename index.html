@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kodali Chinmay Ram | Game Designer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
@@ -32,32 +32,24 @@
     /* Custom cursor */
     .cursor {
       width: 8px; height: 8px;
-      background: var(--accent);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
+      background: var(--accent); border-radius: 50%;
+      position: fixed; pointer-events: none;
+      z-index: 9999; transform: translate(-50%, -50%);
     }
     .cursor-ring {
       width: 32px; height: 32px;
-      border: 1px solid rgba(192,57,43,0.5);
-      border-radius: 50%;
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      transform: translate(-50%, -50%);
+      border: 1px solid rgba(192,57,43,0.5); border-radius: 50%;
+      position: fixed; pointer-events: none;
+      z-index: 9998; transform: translate(-50%, -50%);
       transition: all 0.15s ease;
     }
 
-    /* Grain overlay */
+    /* Grain */
     body::before {
       content: '';
       position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 9997;
-      opacity: 0.35;
+      pointer-events: none; z-index: 9997; opacity: 0.35;
     }
 
     /* NAV */
@@ -65,16 +57,15 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 24px 48px;
-      background: rgba(12,12,12,0.88);
-      backdrop-filter: blur(12px);
+      background: rgba(12,12,12,0.88); backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      font-family: 'DM Mono', monospace;
-      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--muted);
+      font-family: 'Playfair Display', serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--white); letter-spacing: 0.02em;
     }
-    .nav-logo span { color: var(--accent); }
+    .nav-logo span { color: var(--accent); font-style: italic; }
     .nav-links { display: flex; gap: 40px; }
     .nav-links a {
       font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
@@ -86,8 +77,7 @@
     header {
       min-height: 100vh;
       display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 0 48px 80px;
-      position: relative; overflow: hidden;
+      padding: 0 48px 80px; position: relative; overflow: hidden;
     }
     .hero-bg {
       position: absolute; inset: 0;
@@ -104,8 +94,7 @@
       font-family: 'DM Mono', monospace;
       font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
       color: var(--accent); margin-bottom: 24px;
-      display: flex; align-items: center; gap: 12px;
-      position: relative; z-index: 1;
+      display: flex; align-items: center; gap: 12px; position: relative; z-index: 1;
     }
     .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
     header h1 {
@@ -113,8 +102,7 @@
       font-size: clamp(56px, 9vw, 120px);
       font-weight: 900; line-height: 0.92;
       color: var(--white); margin-bottom: 32px;
-      letter-spacing: -0.02em;
-      position: relative; z-index: 1;
+      letter-spacing: -0.02em; position: relative; z-index: 1;
     }
     header h1 em { font-style: italic; color: var(--accent); }
     .hero-sub {
@@ -201,11 +189,12 @@
       gap: 2px; background: var(--border); border: 1px solid var(--border);
     }
     .project-card {
-      background: var(--surface); overflow: hidden; position: relative;
+      background: var(--surface); overflow: hidden;
       opacity: 0; transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s;
     }
     .project-card.visible { opacity: 1; transform: translateY(0); }
+    .project-card:hover { box-shadow: 0 0 40px rgba(192,57,43,0.08); }
     .project-card:hover .project-media img,
     .project-card:hover .project-media video { transform: scale(1.04); filter: grayscale(0%) brightness(0.65); }
     .project-media { overflow: hidden; aspect-ratio: 16/9; background: var(--surface2); }
@@ -215,7 +204,7 @@
     }
     .project-body { padding: 28px; }
     .project-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .project-year { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; }
+    .project-year { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
     .project-role { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
     .project-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 6px; line-height: 1.2; }
     .project-team { font-size: 12px; color: var(--muted); margin-bottom: 14px; font-style: italic; }
@@ -223,13 +212,13 @@
     .project-points { list-style: none; margin-bottom: 18px; }
     .project-points li { font-size: 12px; color: var(--muted); line-height: 1.6; padding: 3px 0 3px 16px; position: relative; }
     .project-points li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 10px; }
-    .project-stats { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent2); letter-spacing: 0.08em; margin-bottom: 18px; }
+    .project-stats { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent2); letter-spacing: 0.06em; margin-bottom: 16px; }
     .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
     .tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 4px 10px; }
     .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
     .link-btn {
       font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
-      text-decoration: none; padding: 8px 16px; border: 1px solid var(--border);
+      text-decoration: none; padding: 9px 18px; border: 1px solid var(--border);
       color: var(--muted); transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px;
     }
     .link-btn:hover { border-color: var(--white); color: var(--white); }
@@ -239,21 +228,25 @@
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3);
       color: var(--accent); padding: 6px 14px;
-      font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
-      margin-bottom: 14px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 12px;
     }
 
     /* CONTACT */
-    #contact { max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .contact-text p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
-    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    #contact {
+      max-width: 1400px; margin: 0 auto;
+      border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .contact-left .section-title { margin-bottom: 20px; }
+    .contact-left p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 36px; }
+    .contact-links { display: flex; flex-direction: column; gap: 2px; }
     .contact-link {
       display: flex; align-items: center; gap: 16px;
       text-decoration: none; color: var(--muted); font-size: 13px;
-      transition: color 0.3s; padding: 16px; border: 1px solid var(--border);
+      transition: all 0.3s; padding: 18px 20px; border: 1px solid var(--border);
     }
-    .contact-link:hover { color: var(--white); border-color: var(--accent); }
+    .contact-link:hover { border-color: var(--accent); color: var(--white); }
     .contact-link i { color: var(--accent); width: 16px; text-align: center; }
     .contact-link span { font-family: 'DM Mono', monospace; font-size: 11px; }
 
@@ -262,7 +255,7 @@
       border-top: 1px solid var(--border); padding: 32px 48px;
       display: flex; justify-content: space-between; align-items: center;
     }
-    footer p { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+    footer p { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
     .resume-dl {
       font-family: 'DM Mono', monospace; font-size: 11px;
       letter-spacing: 0.12em; text-transform: uppercase;
@@ -270,7 +263,7 @@
       display: flex; align-items: center; gap: 8px;
       border: 1px solid rgba(192,57,43,0.3); padding: 10px 20px; transition: all 0.3s;
     }
-    .resume-dl:hover { background: var(--accent); color: var(--white); }
+    .resume-dl:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
@@ -278,18 +271,17 @@
       .nav-links { gap: 20px; }
       header { padding: 0 24px 60px; }
       section { padding: 80px 24px; }
-      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-grid, #contact { grid-template-columns: 1fr; gap: 48px; }
       footer { flex-direction: column; gap: 16px; padding: 24px; text-align: center; }
       .projects-grid { grid-template-columns: 1fr; }
     }
 
-    /* Fade in on load */
-    .fade-in { animation: fadeIn 1s ease forwards; }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-    .delay-1 { animation-delay: 0.2s; opacity: 0; }
-    .delay-2 { animation-delay: 0.4s; opacity: 0; }
-    .delay-3 { animation-delay: 0.6s; opacity: 0; }
-    .delay-4 { animation-delay: 0.8s; opacity: 0; }
+    .fade-in { animation: fadeIn 0.9s ease forwards; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
+    .d1{animation-delay:0.15s;opacity:0;}
+    .d2{animation-delay:0.3s;opacity:0;}
+    .d3{animation-delay:0.45s;opacity:0;}
+    .d4{animation-delay:0.6s;opacity:0;}
   </style>
 </head>
 <body>
@@ -298,7 +290,7 @@
   <div class="cursor-ring" id="cursorRing"></div>
 
   <nav>
-    <div class="nav-logo">Chinmay <span>//</span> Designer</div>
+    <div class="nav-logo">Chinmay <span>·</span> Game Designer</div>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#portfolio">Work</a>
@@ -311,10 +303,10 @@
   <header>
     <div class="hero-bg"></div>
     <div class="hero-line"></div>
-    <div class="hero-tag fade-in delay-1">Available for opportunities</div>
-    <h1 class="fade-in delay-2">Kodali<br><em>Chinmay</em><br>Ram</h1>
-    <p class="hero-sub fade-in delay-3">Game Designer & Level Designer crafting atmospheric, narrative-driven experiences across genres. Based in Hyderabad, India.</p>
-    <div class="hero-cta fade-in delay-4">
+    <div class="hero-tag fade-in d1">Available for opportunities</div>
+    <h1 class="fade-in d2">Kodali<br><em>Chinmay</em><br>Ram</h1>
+    <p class="hero-sub fade-in d3">Game Designer & Level Designer crafting atmospheric, narrative-driven experiences across genres. Based in Hyderabad, India.</p>
+    <div class="hero-cta fade-in d4">
       <a href="#portfolio" class="btn-primary">View Work</a>
       <a href="assets/Resume.pdf" target="_blank" class="btn-ghost">Download Resume</a>
     </div>
@@ -333,12 +325,12 @@
         <p>Game, Level & Environment Designer with <strong>multiple shipped titles</strong> across PC and itch.io, and console development experience on <strong>Xbox Series X|S</strong>.</p>
         <p>Specialised in atmospheric level design, environmental storytelling, and player pacing — the craft of making spaces feel alive and intentional. Every project built in <strong>Unity 3D</strong>.</p>
         <p>Selected for <strong>Microsoft's Xbox Developer Acceleration Program (DAP)</strong> — recognition awarded to high-potential indie titles. Currently completing a Game Designer internship at IDZ Digital.</p>
-        <p>Open to full-time, contract, and freelance opportunities across all game genres.</p>
+        <p>Open to full-time, contract, and freelance opportunities across all game genres — horror, thriller, action, narrative, mobile and beyond.</p>
         <div class="about-stats">
           <div class="stat"><div class="stat-num">5<span>+</span></div><div class="stat-label">Shipped Titles</div></div>
           <div class="stat"><div class="stat-num">111<span>k</span></div><div class="stat-label">Total Views</div></div>
-          <div class="stat"><div class="stat-num">18<span>k+</span></div><div class="stat-label">Total Downloads</div></div>
-          <div class="stat"><div class="stat-num">DAP</div><div class="stat-label">Xbox Accelerated</div></div>
+          <div class="stat"><div class="stat-num">18<span>k+</span></div><div class="stat-label">Downloads</div></div>
+          <div class="stat"><div class="stat-num" style="font-size:22px;">DAP</div><div class="stat-label">Xbox Program</div></div>
         </div>
       </div>
       <div class="about-img-wrap">
@@ -354,7 +346,6 @@
     <h2 class="section-title">Shipped Work</h2>
     <div class="projects-grid">
 
-      <!-- SERMON -->
       <div class="project-card">
         <div class="project-media"><video controls><source src="assets/sermon.mp4" type="video/mp4"></video></div>
         <div class="project-body">
@@ -367,7 +358,7 @@
             <li>Designed full level layout for slow-burn, sleep-paralysis-inspired tension and player flow</li>
             <li>Crafted atmospheric environments using lighting, fog, shadows, and prop composition</li>
             <li>Built environmental storytelling to support a dreamlike, psychological horror narrative</li>
-            <li>Collaborated via shared GitHub repository — committing updates independently</li>
+            <li>Collaborated via shared GitHub — committing level and environment updates independently</li>
           </ul>
           <div class="project-stats">59,200+ views · 11,800+ downloads</div>
           <div class="project-tags"><span class="tag">Level Design</span><span class="tag">Environment</span><span class="tag">Horror</span><span class="tag">Unity</span></div>
@@ -378,7 +369,6 @@
         </div>
       </div>
 
-      <!-- OBLATION -->
       <div class="project-card">
         <div class="project-media"><img src="assets/Oblation.png" alt="Oblation"></div>
         <div class="project-body">
@@ -389,7 +379,7 @@
           <ul class="project-points">
             <li>Designed level layouts and player flow to support slow-burn tension and emotional narrative progression</li>
             <li>Created familiar-yet-uneasy domestic spaces that gradually turn oppressive</li>
-            <li>Structured spaces to complement intimate dialogue, ritual mechanics, and guilt-driven pacing</li>
+            <li>Structured spaces to complement ritual mechanics and guilt-driven pacing</li>
             <li>Curated lighting and prop composition to reinforce core psychological tone</li>
           </ul>
           <div class="project-stats">17,500+ views · 2,740 downloads</div>
@@ -400,9 +390,8 @@
         </div>
       </div>
 
-      <!-- SEPTEM -->
       <div class="project-card">
-        <div class="project-media"><img src="assets/Septem The Preparation.png" alt="SEPTEM: The Preparation"></div>
+        <div class="project-media"><img src="assets/Septem The Preparation.png" alt="SEPTEM"></div>
         <div class="project-body">
           <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Level · Environment</span></div>
           <h3 class="project-title">SEPTEM: The Preparation</h3>
@@ -410,7 +399,7 @@
           <p class="project-desc">Short psychological horror focused on atmosphere, implication, and environmental storytelling through ordinary spaces.</p>
           <ul class="project-points">
             <li>Designed level layout emphasising subtle tension and player pathing through ordinary spaces</li>
-            <li>Crafted environments to build implication and atmospheric dread via prop placement and lighting</li>
+            <li>Crafted environments to build atmospheric dread via prop placement and lighting</li>
             <li>Integrated environmental storytelling to reveal narrative through clues and implications</li>
             <li>Handled scene composition for a seamless, unsettling exploration experience</li>
           </ul>
@@ -422,7 +411,6 @@
         </div>
       </div>
 
-      <!-- HOUSEBOUND -->
       <div class="project-card">
         <div class="project-media"><video controls><source src="assets/housebound.mp4" type="video/mp4"></video></div>
         <div class="project-body">
@@ -444,7 +432,6 @@
         </div>
       </div>
 
-      <!-- PURSUIT OF HAPPINESS -->
       <div class="project-card">
         <div class="project-media"><video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video></div>
         <div class="project-body">
@@ -473,7 +460,7 @@
       <div class="project-card">
         <div class="project-media"><video controls><source src="assets/mothers_whisper.mp4" type="video/mp4"></video></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Solo Dev</span></div>
+          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Solo</span></div>
           <h3 class="project-title">Fragments of Dread: Mother's Whisper</h3>
           <p class="project-desc">Solo PSX-style horror series — Episode 1. Exploration-driven with multiple endings.</p>
           <div class="project-tags"><span class="tag">PSX Horror</span><span class="tag">Solo</span><span class="tag">Unity</span></div>
@@ -487,7 +474,7 @@
           <h3 class="project-title">Fragments of Dread: Burger Piz</h3>
           <p class="project-desc">Cursed diner horror with Vinil. AI voice mimicry and dynamic environment shifts.</p>
           <div class="project-tags"><span class="tag">Horror</span><span class="tag">Unity</span></div>
-          <div class="project-links"><a href="assets/Bennys_Burger_Piz_GDD.pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
+          <div class="project-links" style="margin-top:14px"><a href="assets/Bennys_Burger_Piz_GDD.pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
         </div>
       </div>
 
@@ -504,7 +491,7 @@
       <div class="project-card">
         <div class="project-media"><video controls><source src="assets/around.mp4" type="video/mp4"></video></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Solo Dev</span></div>
+          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Solo</span></div>
           <h3 class="project-title">Around</h3>
           <p class="project-desc">Minimalist tension experience.</p>
           <div class="project-tags"><span class="tag">Minimalist</span><span class="tag">Unity</span></div>
@@ -518,7 +505,7 @@
           <h3 class="project-title">Glimmergrieve</h3>
           <p class="project-desc">Psychological survival horror set in an abandoned high school where memories manifest physically.</p>
           <div class="project-tags"><span class="tag">Survival Horror</span><span class="tag">PC</span><span class="tag">Unity</span></div>
-          <div class="project-links"><a href="assets/Glimmergrieve_Studio_GDD (1).pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
+          <div class="project-links" style="margin-top:14px"><a href="assets/Glimmergrieve_Studio_GDD (1).pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
         </div>
       </div>
 
@@ -529,7 +516,7 @@
           <h3 class="project-title">Whisper House: Escape the Watcher</h3>
           <p class="project-desc">Mobile stealth horror — escape a haunted house hunted by a blind monster.</p>
           <div class="project-tags"><span class="tag">Mobile</span><span class="tag">Stealth Horror</span><span class="tag">Unity</span></div>
-          <div class="project-links"><a href="assets/Whisper_House_GDD.pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
+          <div class="project-links" style="margin-top:14px"><a href="assets/Whisper_House_GDD.pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
         </div>
       </div>
 
@@ -538,27 +525,25 @@
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="section-label">04 — Contact</div>
-    <div class="contact-grid">
-      <div class="contact-text">
-        <h2 class="section-title">Let's build something together.</h2>
-        <p>Open to full-time, contract, and freelance opportunities across game genres — horror, thriller, action, narrative, mobile and beyond.</p>
-        <a href="assets/Resume.pdf" target="_blank" class="btn-primary">Download Resume</a>
-      </div>
-      <div class="contact-links">
-        <a href="mailto:kodalichinmayram@gmail.com" class="contact-link">
-          <i class="fas fa-envelope"></i><span>kodalichinmayram@gmail.com</span>
-        </a>
-        <a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank" class="contact-link">
-          <i class="fab fa-linkedin"></i><span>linkedin.com/in/kodali-chinmay-ram-659966370</span>
-        </a>
-        <a href="https://www.instagram.com/chinmay__xp" target="_blank" class="contact-link">
-          <i class="fab fa-instagram"></i><span>@chinmay__xp</span>
-        </a>
-        <a href="https://chinnu7901.github.io/chinmay-portfolio/" target="_blank" class="contact-link">
-          <i class="fas fa-globe"></i><span>chinnu7901.github.io/chinmay-portfolio</span>
-        </a>
-      </div>
+    <div class="contact-left">
+      <div class="section-label">04 — Contact</div>
+      <h2 class="section-title">Let's build something together.</h2>
+      <p>Open to full-time, contract, and freelance opportunities across all game genres — horror, thriller, action, narrative, mobile and beyond.</p>
+      <a href="assets/Resume.pdf" target="_blank" class="btn-primary">Download Resume</a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:kodalichinmayram@gmail.com" class="contact-link">
+        <i class="fas fa-envelope"></i><span>kodalichinmayram@gmail.com</span>
+      </a>
+      <a href="tel:+919494673546" class="contact-link">
+        <i class="fas fa-phone"></i><span>+91 9494673546</span>
+      </a>
+      <a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank" class="contact-link">
+        <i class="fab fa-linkedin"></i><span>linkedin.com/in/kodali-chinmay-ram-659966370</span>
+      </a>
+      <a href="https://www.instagram.com/chinmay__xp" target="_blank" class="contact-link">
+        <i class="fab fa-instagram"></i><span>@chinmay__xp</span>
+      </a>
     </div>
   </section>
 
@@ -568,7 +553,6 @@
   </footer>
 
   <script>
-    // Custom cursor
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
     document.addEventListener('mousemove', e => {
@@ -580,25 +564,15 @@
       }, 80);
     });
     document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        ring.style.transform = 'translate(-50%, -50%) scale(1.8)';
-        ring.style.borderColor = 'var(--accent)';
-      });
-      el.addEventListener('mouseleave', () => {
-        ring.style.transform = 'translate(-50%, -50%) scale(1)';
-        ring.style.borderColor = 'rgba(192,57,43,0.5)';
-      });
+      el.addEventListener('mouseenter', () => { ring.style.transform = 'translate(-50%,-50%) scale(1.8)'; ring.style.borderColor = 'var(--accent)'; });
+      el.addEventListener('mouseleave', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.borderColor = 'rgba(192,57,43,0.5)'; });
     });
-
-    // Scroll reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
       });
     }, { threshold: 0.08 });
-    document.querySelectorAll('.project-card').forEach(el => observer.observe(el));
+    document.querySelectorAll('.project-card').forEach(el => obs.observe(el));
   </script>
 </body>
 </html>
