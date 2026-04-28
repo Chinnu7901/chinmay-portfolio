@@ -3,459 +3,602 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kodali Chinmay Ram | Game & Level Designer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <title>Kodali Chinmay Ram | Game Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --primary: #00ffea;
-      --secondary: #ff00aa;
-      --dark: #0a0a1f;
-      --darker: #050514;
-      --light: #e0e0ff;
+      --bg:       #0c0c0c;
+      --surface:  #141414;
+      --surface2: #1c1c1c;
+      --border:   #2a2a2a;
+      --text:     #e8e4dc;
+      --muted:    #888880;
+      --accent:   #c0392b;
+      --accent2:  #e67e22;
+      --white:    #f5f0e8;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    ::selection { background: var(--accent); color: var(--white); }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Roboto', sans-serif;
-      background: var(--dark);
-      color: var(--light);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
       overflow-x: hidden;
-      line-height: 1.6;
+      cursor: none;
     }
-    h1, h2, h3 { font-family: 'Orbitron', sans-serif; }
-    header {
-      height: 100vh;
-      background: linear-gradient(rgba(10,10,31,0.85), rgba(5,5,20,0.95)),
-        url('https://images.unsplash.com/photo-1550745162-5ce6a7c16bde?q=80&w=2070&auto=format') center/cover no-repeat fixed;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-    }
-    header::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 150px;
-      background: linear-gradient(transparent, var(--dark));
-    }
-    header h1 {
-      font-size: 5.5rem;
-      color: var(--primary);
-      text-shadow: 0 0 30px var(--primary);
-      animation: glow 3s infinite alternate;
-    }
-    header p { font-size: 1.8rem; margin: 20px 0; opacity: 0.9; }
-    .scroll-down { position: absolute; bottom: 30px; color: var(--primary); animation: bounce 2s infinite; }
-    @keyframes glow {
-      from { text-shadow: 0 0 20px var(--primary); }
-      to { text-shadow: 0 0 40px var(--primary), 0 0 60px var(--primary); }
-    }
-    @keyframes bounce {
-      0%,100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    nav {
-      background: rgba(10,10,31,0.95);
-      backdrop-filter: blur(10px);
+
+    /* Custom cursor */
+    .cursor {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
       position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      padding: 15px 0;
-      text-align: center;
-      border-bottom: 1px solid rgba(0,255,234,0.2);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
     }
-    nav a {
-      color: #fff; margin: 0 20px; text-decoration: none; font-weight: 500; position: relative; transition: 0.3s;
+    .cursor-ring {
+      width: 32px; height: 32px;
+      border: 1px solid rgba(192,57,43,0.5);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: all 0.15s ease;
     }
-    nav a::after {
-      content: ''; position: absolute; width: 0; height: 2px; bottom: -8px; left: 50%;
-      background: var(--primary); transition: 0.4s; transform: translateX(-50%);
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.35;
     }
-    nav a:hover::after { width: 100%; }
-    section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; }
-    h2 {
-      font-size: 3.5rem; text-align: center; margin-bottom: 60px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      position: relative;
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 48px;
+      background: rgba(12,12,12,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
-    h2::after {
-      content: ''; width: 100px; height: 4px; background: var(--primary);
-      display: block; margin: 20px auto; border-radius: 2px;
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted);
     }
-    #about {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 40px; }
+    .nav-links a {
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color 0.3s; font-weight: 500;
     }
-    #about img {
-      width: 100%; border-radius: 20px; box-shadow: 0 0 30px rgba(0,255,234,0.3); transition: 0.5s;
+    .nav-links a:hover { color: var(--white); }
+
+    /* HERO */
+    header {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 48px 80px;
+      position: relative; overflow: hidden;
     }
-    #about img:hover { transform: scale(1.05); }
-    .portfolio-grid {
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(12,12,12,0.2) 0%, rgba(12,12,12,0.97) 100%),
+        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2084') center/cover no-repeat;
+    }
+    .hero-line {
+      position: absolute; top: 0; left: 48px;
+      width: 1px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--border) 30%, var(--border) 70%, transparent);
+    }
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px;
+      position: relative; z-index: 1;
+    }
+    .hero-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(56px, 9vw, 120px);
+      font-weight: 900; line-height: 0.92;
+      color: var(--white); margin-bottom: 32px;
+      letter-spacing: -0.02em;
+      position: relative; z-index: 1;
+    }
+    header h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      font-size: 16px; color: var(--muted);
+      max-width: 480px; line-height: 1.7; margin-bottom: 48px;
+      position: relative; z-index: 1;
+    }
+    .hero-cta { display: flex; gap: 16px; position: relative; z-index: 1; }
+    .btn-primary {
+      padding: 14px 32px; background: var(--accent); color: var(--white);
+      text-decoration: none; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      transition: all 0.3s; display: inline-block;
+    }
+    .btn-primary:hover { background: #e74c3c; transform: translateY(-2px); }
+    .btn-ghost {
+      padding: 14px 32px; border: 1px solid var(--border);
+      color: var(--muted); text-decoration: none; font-size: 11px;
+      font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+      transition: all 0.3s; display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--white); color: var(--white); }
+    .scroll-indicator {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--muted); font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; z-index: 1;
+    }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{opacity:0.3;} 50%{opacity:1;} }
+
+    /* SECTIONS */
+    section { padding: 120px 48px; }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--accent); }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 64px;
+    }
+
+    /* ABOUT */
+    #about { max-width: 1400px; margin: 0 auto; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .about-text p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 18px; }
+    .about-text p strong { color: var(--text); }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 48px;
+    }
+    .stat { background: var(--surface); padding: 24px; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; color: var(--white); line-height: 1; margin-bottom: 6px; }
+    .stat-num span { color: var(--accent); }
+    .stat-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .about-img-wrap { position: relative; }
+    .about-img-wrap img { width: 100%; aspect-ratio: 3/4; object-fit: cover; filter: grayscale(20%); transition: filter 0.5s; }
+    .about-img-wrap img:hover { filter: grayscale(0%); }
+    .about-img-wrap::before {
+      content: ''; position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px;
+      border: 1px solid var(--border); z-index: -1;
+    }
+    .xbox-badge {
+      position: absolute; bottom: -20px; left: 20px;
+      background: var(--accent); color: var(--white);
+      padding: 12px 20px; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* PROJECTS */
+    #portfolio, #wip { max-width: 1400px; margin: 0 auto; }
+    .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-      gap: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2px; background: var(--border); border: 1px solid var(--border);
     }
-    .project {
-      background: rgba(255,255,255,0.05);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      transition: all 0.4s;
-      opacity: 0;
-      transform: translateY(50px);
+    .project-card {
+      background: var(--surface); overflow: hidden; position: relative;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    .project.visible { opacity: 1; transform: translateY(0); }
-    .project:hover {
-      transform: translateY(-15px);
-      box-shadow: 0 20px 40px rgba(0,255,234,0.25);
+    .project-card.visible { opacity: 1; transform: translateY(0); }
+    .project-card:hover .project-media img,
+    .project-card:hover .project-media video { transform: scale(1.04); filter: grayscale(0%) brightness(0.65); }
+    .project-media { overflow: hidden; aspect-ratio: 16/9; background: var(--surface2); }
+    .project-media img, .project-media video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.6s ease, filter 0.6s ease; filter: grayscale(15%);
     }
-    .project video, .project img {
-      width: 100%; height: 280px; object-fit: cover;
+    .project-body { padding: 28px; }
+    .project-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .project-year { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; }
+    .project-role { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
+    .project-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 6px; line-height: 1.2; }
+    .project-team { font-size: 12px; color: var(--muted); margin-bottom: 14px; font-style: italic; }
+    .project-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 14px; }
+    .project-points { list-style: none; margin-bottom: 18px; }
+    .project-points li { font-size: 12px; color: var(--muted); line-height: 1.6; padding: 3px 0 3px 16px; position: relative; }
+    .project-points li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-size: 10px; }
+    .project-stats { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent2); letter-spacing: 0.08em; margin-bottom: 18px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 4px 10px; }
+    .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .link-btn {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; padding: 8px 16px; border: 1px solid var(--border);
+      color: var(--muted); transition: all 0.3s; display: inline-flex; align-items: center; gap: 6px;
     }
-    .project-info { padding: 25px; }
-    .project h3 { color: var(--primary); margin-bottom: 12px; }
-    .tags {
-      margin-top: 15px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+    .link-btn:hover { border-color: var(--white); color: var(--white); }
+    .link-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--white); }
+    .link-btn.primary:hover { background: #e74c3c; border-color: #e74c3c; }
+    .dap-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(192,57,43,0.1); border: 1px solid rgba(192,57,43,0.3);
+      color: var(--accent); padding: 6px 14px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 14px;
     }
-    .tag {
-      background: rgba(0,255,234,0.1);
-      color: var(--primary);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
+
+    /* CONTACT */
+    #contact { max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .contact-text p { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 16px;
+      text-decoration: none; color: var(--muted); font-size: 13px;
+      transition: color 0.3s; padding: 16px; border: 1px solid var(--border);
     }
-    .game-link {
-      display: inline-block;
-      margin-top: 15px;
-      margin-right: 15px;
-      padding: 8px 16px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      color: #000;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 30px;
-      transition: 0.3s;
-      box-shadow: 0 0 15px rgba(0,255,234,0.4);
-    }
-    .game-link:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 25px rgba(0,255,234,0.7);
-    }
-    .game-link.itch { background: #fa5c5c; }
-    .game-link.pdf { background: #444; color: #fff; }
-    .designer-points {
-      margin-top: 15px;
-      padding-left: 20px;
-      opacity: 0.85;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-    .xbox-dap {
-      display: inline-flex;
-      align-items: center;
-      background: linear-gradient(135deg, var(--secondary), #00ff88);
-      color: #000;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      margin-top: 12px;
-      box-shadow: 0 0 20px rgba(255,0,170,0.5);
-      animation: dapGlow 2s infinite alternate;
-    }
-    @keyframes dapGlow {
-      from { box-shadow: 0 0 20px rgba(255,0,170,0.5); }
-      to { box-shadow: 0 0 30px rgba(0,255,136,0.8); }
-    }
-    .team-list {
-      margin-top: 12px;
-      font-size: 0.9em;
-      opacity: 0.9;
-      line-height: 1.8;
-    }
-    #contact {
-      text-align: center;
-      background: var(--darker);
-    }
-    .social-links a {
-      color: var(--primary);
-      font-size: 2.8rem;
-      margin: 0 25px;
-      transition: 0.3s;
-    }
-    .social-links a:hover {
-      transform: translateY(-10px);
-      text-shadow: 0 0 20px var(--primary);
-    }
-    .resume-btn {
-      display: inline-block;
-      margin: 30px 0;
-      padding: 16px 40px;
-      background: var(--primary);
-      color: #000;
-      font-weight: bold;
-      border-radius: 50px;
-      text-decoration: none;
-      box-shadow: 0 0 30px rgba(0,255,234,0.6);
-      transition: all 0.4s;
-    }
-    .resume-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 50px rgba(0,255,234,0.9);
-    }
+    .contact-link:hover { color: var(--white); border-color: var(--accent); }
+    .contact-link i { color: var(--accent); width: 16px; text-align: center; }
+    .contact-link span { font-family: 'DM Mono', monospace; font-size: 11px; }
+
+    /* FOOTER */
     footer {
-      background: var(--darker);
-      text-align: center;
-      padding: 30px;
-      color: #666;
+      border-top: 1px solid var(--border); padding: 32px 48px;
+      display: flex; justify-content: space-between; align-items: center;
     }
+    footer p { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.08em; }
+    .resume-dl {
+      font-family: 'DM Mono', monospace; font-size: 11px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(192,57,43,0.3); padding: 10px 20px; transition: all 0.3s;
+    }
+    .resume-dl:hover { background: var(--accent); color: var(--white); }
+
+    /* RESPONSIVE */
     @media (max-width: 768px) {
-      header h1 { font-size: 3.5rem; }
-      #about { grid-template-columns: 1fr; text-align: center; }
-      h2 { font-size: 2.8rem; }
+      nav { padding: 20px 24px; }
+      .nav-links { gap: 20px; }
+      header { padding: 0 24px 60px; }
+      section { padding: 80px 24px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      footer { flex-direction: column; gap: 16px; padding: 24px; text-align: center; }
+      .projects-grid { grid-template-columns: 1fr; }
     }
+
+    /* Fade in on load */
+    .fade-in { animation: fadeIn 1s ease forwards; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+    .delay-1 { animation-delay: 0.2s; opacity: 0; }
+    .delay-2 { animation-delay: 0.4s; opacity: 0; }
+    .delay-3 { animation-delay: 0.6s; opacity: 0; }
+    .delay-4 { animation-delay: 0.8s; opacity: 0; }
   </style>
 </head>
 <body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
   <nav>
-    <a href="#about">About</a>
-    <a href="#portfolio">Projects</a>
-    <a href="#wip">In Development</a>
-    <a href="#contact">Contact</a>
+    <div class="nav-logo">Chinmay <span>//</span> Designer</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#portfolio">Work</a>
+      <a href="#wip">In Dev</a>
+      <a href="#contact">Contact</a>
+    </div>
   </nav>
+
+  <!-- HERO -->
   <header>
-    <h1>KODALI CHINMAY RAM</h1>
-    <p>Game Designer • Level Designer • Environment Designer</p>
-    <div class="scroll-down"><i class="fas fa-chevron-down"></i></div>
+    <div class="hero-bg"></div>
+    <div class="hero-line"></div>
+    <div class="hero-tag fade-in delay-1">Available for opportunities</div>
+    <h1 class="fade-in delay-2">Kodali<br><em>Chinmay</em><br>Ram</h1>
+    <p class="hero-sub fade-in delay-3">Game Designer & Level Designer crafting atmospheric, narrative-driven experiences across genres. Based in Hyderabad, India.</p>
+    <div class="hero-cta fade-in delay-4">
+      <a href="#portfolio" class="btn-primary">View Work</a>
+      <a href="assets/Resume.pdf" target="_blank" class="btn-ghost">Download Resume</a>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
   </header>
+
+  <!-- ABOUT -->
   <section id="about">
-    <div>
-      <h2>About Me</h2>
-      <p>Game, Level & Environment Designer crafting unsettling psychological experiences in Unity.</p>
-      <p>Specialized in immersive level design, atmospheric environments, narrative-driven gameplay, and visual scripting. Every project is 100% built and developed in Unity 3D.</p>
-      <p>Currently open to full-time, contract, or freelance opportunities.</p>
+    <div class="section-label">01 — About</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 class="section-title">Designing worlds that leave a mark.</h2>
+        <p>Game, Level & Environment Designer with <strong>multiple shipped titles</strong> across PC and itch.io, and console development experience on <strong>Xbox Series X|S</strong>.</p>
+        <p>Specialised in atmospheric level design, environmental storytelling, and player pacing — the craft of making spaces feel alive and intentional. Every project built in <strong>Unity 3D</strong>.</p>
+        <p>Selected for <strong>Microsoft's Xbox Developer Acceleration Program (DAP)</strong> — recognition awarded to high-potential indie titles. Currently completing a Game Designer internship at IDZ Digital.</p>
+        <p>Open to full-time, contract, and freelance opportunities across all game genres.</p>
+        <div class="about-stats">
+          <div class="stat"><div class="stat-num">5<span>+</span></div><div class="stat-label">Shipped Titles</div></div>
+          <div class="stat"><div class="stat-num">111<span>k</span></div><div class="stat-label">Total Views</div></div>
+          <div class="stat"><div class="stat-num">18<span>k+</span></div><div class="stat-label">Total Downloads</div></div>
+          <div class="stat"><div class="stat-num">DAP</div><div class="stat-label">Xbox Accelerated</div></div>
+        </div>
+      </div>
+      <div class="about-img-wrap">
+        <img src="assets/Chinmay.jpg" alt="Kodali Chinmay Ram">
+        <div class="xbox-badge"><i class="fab fa-xbox"></i> Xbox Developer Acceleration Program</div>
+      </div>
     </div>
-    <img src="assets/Chinmay.jpg" alt="Kodali Chinmay Ram">
   </section>
+
+  <!-- PROJECTS -->
   <section id="portfolio">
-    <h2>Released Projects</h2>
-    <div class="portfolio-grid">
-      <!-- HOUSEBOUND -->
-      <div class="project">
-        <video controls><source src="assets/housebound.mp4" type="video/mp4"></video>
-        <div class="project-info">
-          <h3>Housebound</h3>
-          <p>Solo-developed psychological horror. You wake up trapped in an abandoned house with something watching.</p>
-          <ul class="designer-points">
-            <li>Designed full level layout focused on tension, pacing, and spatial storytelling.</li>
-            <li>Created environmental horror moments using lighting, audio cues, and sightline control.</li>
-            <li>Built all gameplay systems (interactions, clues, jumpscares, stalking behavior) using ChatGPT-generated scripts without writing code manually.</li>
-            <li>Built atmosphere-driven spaces emphasizing dread over jumpscares.</li>
-            <li>Handled full gameplay setup: AI behaviour, event sequencing, sound design, and UI flow.</li>
-          </ul>
-          <div class="tags">
-            <span class="tag">Solo Dev</span>
-            <span class="tag">Unity</span>
-            <span class="tag">Psychological Horror</span>
-          </div>
-          <a href="https://arcadian-xp.itch.io/housebound" target="_blank" class="game-link itch">Play on itch.io</a>
-          <a href="assets/Housebound_GDD.pdf" target="_blank" class="game-link pdf">View GDD (PDF)</a>
-        </div>
-      </div>
-      <!-- PURSUIT OF HAPPINESS -->
-      <div class="project">
-        <video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video>
-        <div class="project-info">
-          <h3>The Pursuit of Happiness (2023)</h3>
-          <p>Global Game Jam — 48-hour project. Intense psychological chase horror experience.</p>
-          <ul class="designer-points">
-            <li>Designed full maze layout and obstacle placement for tension and player flow.</li>
-            <li>Controlled atmosphere with fog, lighting, and pacing for suspense.</li>
-            <li>Created promotional video showcasing gameplay highlights and tension.</li>
-          </ul>
-          <div class="team-list">
-            <strong>My Roles:</strong> Game, Level & Environment Designer<br>
-            <strong>Team:</strong><br>
-            • Ashish — Game Designer<br>
-            • Bhavesh — Programmer<br>
-            • Sameer — UI/UX Designer
-          </div>
-          <div class="tags">
-            <span class="tag">Global Game Jam</span>
-            <span class="tag">48-Hour</span>
-            <span class="tag">Level Design</span>
-            <span class="tag">Chase Horror</span>
-          </div>
-        </div>
-      </div>
+    <div class="section-label">02 — Released Projects</div>
+    <h2 class="section-title">Shipped Work</h2>
+    <div class="projects-grid">
+
       <!-- SERMON -->
-      <div class="project">
-        <video controls><source src="assets/sermon.mp4" type="video/mp4"></video>
-        <div class="project-info">
-          <h3>Sermon</h3>
-          <p>Sleep-paralysis inspired horror experience.<br>
-             <strong>My Roles:</strong> Level Designer, Environment Designer<br>
-             <strong>Team:</strong> Vinil (Game Designer & Programmer)</p>
-          <ul class="designer-points">
-            <li>Designed full level layout for slow-burn, sleep-paralysis-inspired tension.</li>
-            <li>Crafted atmospheric environments using lighting, fog, shadows, and prop composition.</li>
-            <li>Built environmental storytelling supporting surreal, dreamlike tone.</li>
-            <li>Handled scene composition, player flow, and environment-based guidance cues.</li>
-            <li>Collaborated via a shared GitHub repository — committing level/environment updates independently.</li>
-            <li>Integrated all design contributions through Git without direct pair-design sessions.</li>
+      <div class="project-card">
+        <div class="project-media"><video controls><source src="assets/sermon.mp4" type="video/mp4"></video></div>
+        <div class="project-body">
+          <div class="dap-badge"><i class="fab fa-xbox"></i> Xbox Developer Acceleration Program (DAP)</div>
+          <div class="project-meta"><span class="project-year">2025</span><span class="project-role">Level · Environment</span></div>
+          <h3 class="project-title">Sermon</h3>
+          <p class="project-team">Team: Vinil (Game Designer & Programmer)</p>
+          <p class="project-desc">Sleep-paralysis inspired first-person horror. A slow-burn psychological experience built on dread, atmosphere, and surreal environmental storytelling.</p>
+          <ul class="project-points">
+            <li>Designed full level layout for slow-burn, sleep-paralysis-inspired tension and player flow</li>
+            <li>Crafted atmospheric environments using lighting, fog, shadows, and prop composition</li>
+            <li>Built environmental storytelling to support a dreamlike, psychological horror narrative</li>
+            <li>Collaborated via shared GitHub repository — committing updates independently</li>
           </ul>
-          <div class="tags">
-            <span class="tag">Level Design</span>
-            <span class="tag">Environment Design</span>
-            <span class="tag">Horror</span>
-          </div>
-          <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="game-link itch">Play on itch.io</a>
-          <a href="assets/Sermon LDD 1 (1).pdf" target="_blank" class="game-link pdf">View LDD (PDF)</a>
-          <div class="xbox-dap">
-            <i class="fab fa-xbox" style="margin-right:8px;"></i>
-            Xbox Developer Acceleration Program (DAP)
+          <div class="project-stats">59,200+ views · 11,800+ downloads</div>
+          <div class="project-tags"><span class="tag">Level Design</span><span class="tag">Environment</span><span class="tag">Horror</span><span class="tag">Unity</span></div>
+          <div class="project-links">
+            <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="link-btn primary"><i class="fas fa-gamepad"></i> Play on itch.io</a>
+            <a href="assets/Sermon LDD 1 (1).pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> LDD</a>
           </div>
         </div>
       </div>
-      <!-- SEPTEM: The Preparation -->
-      <div class="project">
-        <img src="assets/Septem The Preparation.png" alt="SEPTEM: The Preparation Title Screen">
-        <div class="project-info">
-          <h3>SEPTEM: The Preparation</h3>
-          <p>Short psychological horror experience focused on atmosphere, implication, and environmental storytelling.<br>
-             <strong>My Roles:</strong> Level Designer, Environment Designer<br>
-             <strong>Team:</strong> Vinil (Game Designer), Sushant (Programmer)</p>
-          <ul class="designer-points">
-            <li>Designed level layout emphasizing subtle tension and player pathing through ordinary spaces.</li>
-            <li>Crafted environments to build implication and atmospheric dread via prop placement and lighting.</li>
-            <li>Integrated environmental storytelling to reveal narrative through clues and implications.</li>
-            <li>Handled scene composition for a seamless, unsettling exploration experience.</li>
-          </ul>
-          <div class="tags">
-            <span class="tag">Team Project</span>
-            <span class="tag">Unity</span>
-            <span class="tag">Psychological Horror</span>
-          </div>
-          <a href="https://troj4nblazing.itch.io/thepreparation" target="_blank" class="game-link itch">Play on itch.io</a>
-        </div>
-      </div>
+
       <!-- OBLATION -->
-      <div class="project">
-        <img src="assets/Oblation.png" alt="Oblation Gameplay - Atmospheric Domestic Horror Scene">
-        <div class="project-info">
-          <h3>Oblation</h3>
-          <p>Psychological horror exploring loyalty, grief, desperation, and the irreversible cost of trying to fix the past through ritual.<br>
-             <strong>My Roles:</strong> Level Designer, Environment Designer<br>
-             <strong>Team:</strong> Vinil (Game Designer & Programmer)</p>
-          <ul class="designer-points">
-            <li>Designed level layouts and player flow to support slow-burn tension and emotional narrative progression.</li>
-            <li>Placed walls, structures, environmental boundaries, and props to create familiar-yet-uneasy domestic spaces that gradually turn oppressive.</li>
-            <li>Curated prop placement, lighting, and composition to build atmosphere, immersion, and subtle environmental storytelling around themes of loss and denial.</li>
-            <li>Structured playable spaces to complement intimate dialogue, ritual mechanics, and guilt-driven horror pacing.</li>
-            <li>Closely collaborated with Vinil to ensure level design reinforced core gameplay systems and psychological tone.</li>
+      <div class="project-card">
+        <div class="project-media"><img src="assets/Oblation.png" alt="Oblation"></div>
+        <div class="project-body">
+          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Level · Environment</span></div>
+          <h3 class="project-title">Oblation</h3>
+          <p class="project-team">Team: Vinil (Game Designer & Programmer)</p>
+          <p class="project-desc">Psychological horror exploring loyalty, grief, and the irreversible cost of trying to fix the past through ritual.</p>
+          <ul class="project-points">
+            <li>Designed level layouts and player flow to support slow-burn tension and emotional narrative progression</li>
+            <li>Created familiar-yet-uneasy domestic spaces that gradually turn oppressive</li>
+            <li>Structured spaces to complement intimate dialogue, ritual mechanics, and guilt-driven pacing</li>
+            <li>Curated lighting and prop composition to reinforce core psychological tone</li>
           </ul>
-          <div class="tags">
-            <span class="tag">Team Project</span>
-            <span class="tag">Level Design</span>
-            <span class="tag">Environment Design</span>
-            <span class="tag">Psychological Horror</span>
-            <span class="tag">PSX Retro</span>
-            <span class="tag">Unity</span>
+          <div class="project-stats">17,500+ views · 2,740 downloads</div>
+          <div class="project-tags"><span class="tag">Level Design</span><span class="tag">Psychological Horror</span><span class="tag">PSX</span><span class="tag">Unity</span></div>
+          <div class="project-links">
+            <a href="https://troj4nblazing.itch.io/oblation" target="_blank" class="link-btn primary"><i class="fas fa-gamepad"></i> Play on itch.io</a>
           </div>
-          <a href="https://troj4nblazing.itch.io/oblation" target="_blank" class="game-link itch">Play on itch.io</a>
         </div>
       </div>
+
+      <!-- SEPTEM -->
+      <div class="project-card">
+        <div class="project-media"><img src="assets/Septem The Preparation.png" alt="SEPTEM: The Preparation"></div>
+        <div class="project-body">
+          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Level · Environment</span></div>
+          <h3 class="project-title">SEPTEM: The Preparation</h3>
+          <p class="project-team">Team: Vinil (Game Designer), Sushant (Programmer)</p>
+          <p class="project-desc">Short psychological horror focused on atmosphere, implication, and environmental storytelling through ordinary spaces.</p>
+          <ul class="project-points">
+            <li>Designed level layout emphasising subtle tension and player pathing through ordinary spaces</li>
+            <li>Crafted environments to build implication and atmospheric dread via prop placement and lighting</li>
+            <li>Integrated environmental storytelling to reveal narrative through clues and implications</li>
+            <li>Handled scene composition for a seamless, unsettling exploration experience</li>
+          </ul>
+          <div class="project-stats">34,300+ views · 4,081 downloads</div>
+          <div class="project-tags"><span class="tag">Level Design</span><span class="tag">Psychological Horror</span><span class="tag">Unity</span></div>
+          <div class="project-links">
+            <a href="https://troj4nblazing.itch.io/thepreparation" target="_blank" class="link-btn primary"><i class="fas fa-gamepad"></i> Play on itch.io</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- HOUSEBOUND -->
+      <div class="project-card">
+        <div class="project-media"><video controls><source src="assets/housebound.mp4" type="video/mp4"></video></div>
+        <div class="project-body">
+          <div class="project-meta"><span class="project-year">2025</span><span class="project-role">Solo Dev</span></div>
+          <h3 class="project-title">Housebound</h3>
+          <p class="project-team">Solo project</p>
+          <p class="project-desc">First-person psychological horror built solo in 2 days. You wake up trapped in an abandoned house with something watching.</p>
+          <ul class="project-points">
+            <li>Designed full level layout focused on tension, pacing, and spatial storytelling</li>
+            <li>Created environmental horror using lighting, audio cues, and sightline control</li>
+            <li>Built all gameplay systems using AI-assisted C# scripting — AI behaviour, event sequencing, UI flow</li>
+            <li>Built atmosphere-driven spaces emphasising dread over jump scares</li>
+          </ul>
+          <div class="project-tags"><span class="tag">Solo Dev</span><span class="tag">Psychological Horror</span><span class="tag">Unity</span></div>
+          <div class="project-links">
+            <a href="https://arcadian-xp.itch.io/housebound" target="_blank" class="link-btn primary"><i class="fas fa-gamepad"></i> Play on itch.io</a>
+            <a href="assets/Housebound_GDD.pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PURSUIT OF HAPPINESS -->
+      <div class="project-card">
+        <div class="project-media"><video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video></div>
+        <div class="project-body">
+          <div class="project-meta"><span class="project-year">2023</span><span class="project-role">Game · Level · Environment</span></div>
+          <h3 class="project-title">The Pursuit of Happiness</h3>
+          <p class="project-team">Global Game Jam — 48hr · Team: Ashish (Game Designer), Bhavesh (Programmer), Sameer (UI/UX)</p>
+          <p class="project-desc">Intense psychological chase horror built in 48 hours for Global Game Jam.</p>
+          <ul class="project-points">
+            <li>Designed full maze layout and obstacle placement for tension and player flow</li>
+            <li>Controlled atmosphere with fog, lighting, and pacing for suspense</li>
+            <li>Created promotional video showcasing gameplay highlights and tension</li>
+          </ul>
+          <div class="project-tags"><span class="tag">Global Game Jam</span><span class="tag">48hr</span><span class="tag">Chase Horror</span><span class="tag">Unity</span></div>
+        </div>
+      </div>
+
     </div>
   </section>
+
+  <!-- IN DEVELOPMENT -->
   <section id="wip">
-    <h2>In Development</h2>
-    <div class="portfolio-grid">
-      <!-- Fragments of Dread: Mother's Whisper (Ep.1) -->
-      <div class="project">
-        <video controls><source src="assets/mothers_whisper.mp4" type="video/mp4"></video>
-        <div class="project-info">
-          <h3>Fragments of Dread: Mother's Whisper (Ep.1)</h3>
-          <p>Solo PSX-style horror series — Episode 1</p>
+    <div class="section-label">03 — In Development</div>
+    <h2 class="section-title">Current Work</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-media"><video controls><source src="assets/mothers_whisper.mp4" type="video/mp4"></video></div>
+        <div class="project-body">
+          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Solo Dev</span></div>
+          <h3 class="project-title">Fragments of Dread: Mother's Whisper</h3>
+          <p class="project-desc">Solo PSX-style horror series — Episode 1. Exploration-driven with multiple endings.</p>
+          <div class="project-tags"><span class="tag">PSX Horror</span><span class="tag">Solo</span><span class="tag">Unity</span></div>
         </div>
       </div>
-      <!-- Fragments of Dread: Burger Piz (Ep.2) -->
-      <div class="project">
-        <video controls><source src="assets/bennys_burger_piz.mp4" type="video/mp4"></video>
-        <div class="project-info">
-          <h3>Fragments of Dread: Burger Piz (Ep.2)</h3>
-          <p>Cursed diner horror with Vinil</p>
-          <a href="assets/Bennys_Burger_Piz_GDD.pdf" target="_blank" class="game-link pdf">View GDD (PDF)</a>
+
+      <div class="project-card">
+        <div class="project-media"><video controls><source src="assets/bennys_burger_piz.mp4" type="video/mp4"></video></div>
+        <div class="project-body">
+          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Level · Environment</span></div>
+          <h3 class="project-title">Fragments of Dread: Burger Piz</h3>
+          <p class="project-desc">Cursed diner horror with Vinil. AI voice mimicry and dynamic environment shifts.</p>
+          <div class="project-tags"><span class="tag">Horror</span><span class="tag">Unity</span></div>
+          <div class="project-links"><a href="assets/Bennys_Burger_Piz_GDD.pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
         </div>
       </div>
-      <!-- Ward 13 -->
-      <div class="project">
-        <video controls><source src="assets/ward 13.mp4" type="video/mp4"></video>
-        <div class="project-info">
-          <h3>Ward 13</h3>
-          <p>Abandoned hospital psychological terror</p>
+
+      <div class="project-card">
+        <div class="project-media"><video controls><source src="assets/ward 13.mp4" type="video/mp4"></video></div>
+        <div class="project-body">
+          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Level · Environment</span></div>
+          <h3 class="project-title">Ward 13</h3>
+          <p class="project-desc">Atmospheric abandoned hospital horror with psychological tension.</p>
+          <div class="project-tags"><span class="tag">Hospital Horror</span><span class="tag">Unity</span></div>
         </div>
       </div>
-      <!-- Around -->
-      <div class="project">
-        <video controls><source src="assets/around.mp4" type="video/mp4"></video>
-        <div class="project-info">
-          <h3>Around</h3>
-          <p>Minimalist tension experience</p>
+
+      <div class="project-card">
+        <div class="project-media"><video controls><source src="assets/around.mp4" type="video/mp4"></video></div>
+        <div class="project-body">
+          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Solo Dev</span></div>
+          <h3 class="project-title">Around</h3>
+          <p class="project-desc">Minimalist tension experience.</p>
+          <div class="project-tags"><span class="tag">Minimalist</span><span class="tag">Unity</span></div>
         </div>
       </div>
-      <!-- Glimmergrieve -->
-      <div class="project">
-        <img src="assets/Glimmergrieve_Studio_GDD (1).jpg" alt="Glimmergrieve GDD Preview">
-        <div class="project-info">
-          <h3>Glimmergrieve</h3>
-          <p>Psychological survival horror set in an abandoned high school where memories manifest physically.</p>
-          <div class="tags">
-            <span class="tag">Unity</span>
-            <span class="tag">PC</span>
-            <span class="tag">Horror</span>
-          </div>
-          <a href="assets/Glimmergrieve_Studio_GDD (1).pdf" target="_blank" class="game-link pdf">View GDD (PDF)</a>
+
+      <div class="project-card">
+        <div class="project-media"><img src="assets/Glimmergrieve_Studio_GDD (1).jpg" alt="Glimmergrieve"></div>
+        <div class="project-body">
+          <div class="project-meta"><span class="project-year">TBA</span><span class="project-role">Game Designer</span></div>
+          <h3 class="project-title">Glimmergrieve</h3>
+          <p class="project-desc">Psychological survival horror set in an abandoned high school where memories manifest physically.</p>
+          <div class="project-tags"><span class="tag">Survival Horror</span><span class="tag">PC</span><span class="tag">Unity</span></div>
+          <div class="project-links"><a href="assets/Glimmergrieve_Studio_GDD (1).pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
         </div>
       </div>
-      <!-- Whisper House -->
-      <div class="project">
-        <img src="assets/Whisper_House_GDD.jpg" alt="Whisper House GDD Preview">
-        <div class="project-info">
-          <h3>Whisper House: Escape the Watcher</h3>
-          <p>Mobile stealth horror game where players escape a haunted house hunted by a blind monster.</p>
-          <div class="tags">
-            <span class="tag">Unity</span>
-            <span class="tag">Mobile</span>
-            <span class="tag">Stealth Horror</span>
-          </div>
-          <a href="assets/Whisper_House_GDD.pdf" target="_blank" class="game-link pdf">View GDD (PDF)</a>
+
+      <div class="project-card">
+        <div class="project-media"><img src="assets/Whisper_House_GDD.jpg" alt="Whisper House"></div>
+        <div class="project-body">
+          <div class="project-meta"><span class="project-year">TBA</span><span class="project-role">Game Designer</span></div>
+          <h3 class="project-title">Whisper House: Escape the Watcher</h3>
+          <p class="project-desc">Mobile stealth horror — escape a haunted house hunted by a blind monster.</p>
+          <div class="project-tags"><span class="tag">Mobile</span><span class="tag">Stealth Horror</span><span class="tag">Unity</span></div>
+          <div class="project-links"><a href="assets/Whisper_House_GDD.pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
         </div>
       </div>
+
     </div>
   </section>
+
+  <!-- CONTACT -->
   <section id="contact">
-    <h2>Get In Touch</h2>
-    <p>Always looking for new nightmares to build.</p>
-    <div class="social-links" style="margin:50px 0">
-      <a href="mailto:kodalichinmayram@gmail.com"><i class="fas fa-envelope"></i></a>
-      <a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://www.instagram.com/chinmay__xp" target="_blank"><i class="fab fa-instagram"></i></a>
+    <div class="section-label">04 — Contact</div>
+    <div class="contact-grid">
+      <div class="contact-text">
+        <h2 class="section-title">Let's build something together.</h2>
+        <p>Open to full-time, contract, and freelance opportunities across game genres — horror, thriller, action, narrative, mobile and beyond.</p>
+        <a href="assets/Resume.pdf" target="_blank" class="btn-primary">Download Resume</a>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:kodalichinmayram@gmail.com" class="contact-link">
+          <i class="fas fa-envelope"></i><span>kodalichinmayram@gmail.com</span>
+        </a>
+        <a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank" class="contact-link">
+          <i class="fab fa-linkedin"></i><span>linkedin.com/in/kodali-chinmay-ram-659966370</span>
+        </a>
+        <a href="https://www.instagram.com/chinmay__xp" target="_blank" class="contact-link">
+          <i class="fab fa-instagram"></i><span>@chinmay__xp</span>
+        </a>
+        <a href="https://chinnu7901.github.io/chinmay-portfolio/" target="_blank" class="contact-link">
+          <i class="fas fa-globe"></i><span>chinnu7901.github.io/chinmay-portfolio</span>
+        </a>
+      </div>
     </div>
-    <a href="assets/Resume.pdf" target="_blank" class="resume-btn">Download Resume (PDF)</a>
   </section>
+
   <footer>
-    <p>© 2026 Kodali Chinmay Ram — Built with Unity passion and late-night horror vibes</p>
+    <p>© 2026 Kodali Chinmay Ram — Game Designer & Level Designer</p>
+    <a href="assets/Resume.pdf" target="_blank" class="resume-dl"><i class="fas fa-download"></i> Resume PDF</a>
   </footer>
+
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      setTimeout(() => {
+        ring.style.left = e.clientX + 'px';
+        ring.style.top = e.clientY + 'px';
+      }, 80);
+    });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.transform = 'translate(-50%, -50%) scale(1.8)';
+        ring.style.borderColor = 'var(--accent)';
       });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.project').forEach(el => observer.observe(el));
+      el.addEventListener('mouseleave', () => {
+        ring.style.transform = 'translate(-50%, -50%) scale(1)';
+        ring.style.borderColor = 'rgba(192,57,43,0.5)';
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.project-card').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
