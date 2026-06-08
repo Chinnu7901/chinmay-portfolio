@@ -181,6 +181,107 @@
       display: flex; align-items: center; gap: 8px;
     }
 
+    /* ── EXPERIENCE SECTION ── */
+    #experience { max-width: 1400px; margin: 0 auto; }
+    .experience-card {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .experience-card.visible { opacity: 1; transform: translateY(0); }
+
+    .exp-sidebar {
+      border-right: 1px solid var(--border);
+      padding: 40px 32px;
+      display: flex; flex-direction: column; align-items: flex-start; gap: 20px;
+    }
+    .exp-company-logo {
+      width: 100%; aspect-ratio: 16/9; object-fit: contain;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 16px;
+    }
+    .exp-company-logo-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      padding: 16px;
+    }
+    .exp-company-logo-placeholder span {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 700;
+      color: var(--muted); letter-spacing: 0.05em;
+    }
+    .exp-company-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .exp-duration {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: var(--accent); letter-spacing: 0.08em;
+    }
+    .exp-type {
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); border: 1px solid var(--border);
+      padding: 5px 12px;
+    }
+    .exp-location {
+      font-size: 12px; color: var(--muted);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .exp-location i { color: var(--accent); font-size: 11px; }
+
+    .exp-body { padding: 40px 48px; }
+    .exp-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 700; color: var(--white);
+      margin-bottom: 6px; line-height: 1.2;
+    }
+    .exp-tagline {
+      font-size: 13px; color: var(--muted); margin-bottom: 32px; font-style: italic;
+    }
+    .exp-divider {
+      width: 40px; height: 1px; background: var(--accent); margin-bottom: 32px;
+    }
+    .exp-highlights {
+      list-style: none; margin-bottom: 32px;
+    }
+    .exp-highlights li {
+      font-size: 14px; color: var(--muted); line-height: 1.7;
+      padding: 10px 0 10px 20px; position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-highlights li:last-child { border-bottom: none; }
+    .exp-highlights li::before {
+      content: ''; position: absolute; left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+    }
+    .exp-highlights li strong { color: var(--text); }
+    .exp-skills-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+    .exp-skill {
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); border: 1px solid var(--border); padding: 5px 12px;
+      transition: all 0.3s;
+    }
+    .exp-skill:hover { border-color: var(--accent); color: var(--accent); }
+    .exp-completed-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.25);
+      color: var(--accent); padding: 7px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .exp-completed-badge i { font-size: 10px; }
+
     /* PROJECTS */
     #portfolio, #wip { max-width: 1400px; margin: 0 auto; }
     .projects-grid {
@@ -274,6 +375,9 @@
       .about-grid, #contact { grid-template-columns: 1fr; gap: 48px; }
       footer { flex-direction: column; gap: 16px; padding: 24px; text-align: center; }
       .projects-grid { grid-template-columns: 1fr; }
+      .experience-card { grid-template-columns: 1fr; }
+      .exp-sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+      .exp-body { padding: 32px 24px; }
     }
 
     .fade-in { animation: fadeIn 0.9s ease forwards; }
@@ -293,6 +397,7 @@
     <div class="nav-logo">Chinmay <span>·</span> Game Designer</div>
     <div class="nav-links">
       <a href="#about">About</a>
+      <a href="#experience">Experience</a>
       <a href="#portfolio">Work</a>
       <a href="#wip">In Dev</a>
       <a href="#contact">Contact</a>
@@ -324,7 +429,7 @@
         <h2 class="section-title">Designing worlds that leave a mark.</h2>
         <p>Game, Level & Environment Designer with <strong>multiple shipped titles</strong> across PC and itch.io, and console development experience on <strong>Xbox Series X|S</strong>.</p>
         <p>Specialised in atmospheric level design, environmental storytelling, and player pacing — the craft of making spaces feel alive and intentional. Every project built in <strong>Unity 3D</strong>.</p>
-        <p>Selected for <strong>Microsoft's Xbox Developer Acceleration Program (DAP)</strong> — recognition awarded to high-potential indie titles. Currently completing a Game Designer internship at IDZ Digital.</p>
+        <p>Selected for <strong>Microsoft's Xbox Developer Acceleration Program (DAP)</strong> — recognition awarded to high-potential indie titles. Completed a Game Designer internship at <strong>IDZ Digital</strong>.</p>
         <p>Open to full-time, contract, and freelance opportunities across all game genres — horror, thriller, action, narrative, mobile and beyond.</p>
         <div class="about-stats">
           <div class="stat"><div class="stat-num">5<span>+</span></div><div class="stat-label">Shipped Titles</div></div>
@@ -340,9 +445,60 @@
     </div>
   </section>
 
+  <!-- EXPERIENCE -->
+  <section id="experience" style="padding: 120px 48px;">
+    <div style="max-width: 1400px; margin: 0 auto;">
+      <div class="section-label">02 — Experience</div>
+      <h2 class="section-title">Industry Work</h2>
+
+      <div class="experience-card" id="exp-card">
+        <!-- Sidebar -->
+        <div class="exp-sidebar">
+          <!-- 
+            SWAP: Replace the placeholder block below with an <img> tag once you have the IDZ Digital image.
+            Example: <img src="assets/idz-digital.png" alt="IDZ Digital" class="exp-company-logo">
+          -->
+          <div class="exp-company-logo-placeholder">
+            <span>IDZ Digital</span>
+          </div>
+
+          <div>
+            <div class="exp-company-name">IDZ Digital</div>
+          </div>
+          <div class="exp-duration">Feb 2026 — June 2026</div>
+          <div class="exp-type">Internship</div>
+          <div class="exp-location"><i class="fas fa-map-marker-alt"></i> Remote · Work from Home</div>
+        </div>
+
+        <!-- Body -->
+        <div class="exp-body">
+          <div class="exp-completed-badge">
+            <i class="fas fa-check-circle"></i> Completed · June 2026
+          </div>
+          <div class="exp-role">Game Designer Intern</div>
+          <p class="exp-tagline">Contributed to horror genre expansion — concept, level design, atmosphere & prototyping.</p>
+          <div class="exp-divider"></div>
+          <ul class="exp-highlights">
+            <li>Designed and prototyped <strong>horror game concepts</strong> as the studio expanded into the horror genre</li>
+            <li>Contributed to <strong>level layouts, atmosphere design, gameplay pacing</strong>, and environmental storytelling</li>
+            <li>Collaborated directly with developers and artists to translate <strong>design vision into playable builds</strong></li>
+          </ul>
+          <div class="exp-skills-wrap">
+            <span class="exp-skill">Level Design</span>
+            <span class="exp-skill">Atmosphere Design</span>
+            <span class="exp-skill">Gameplay Pacing</span>
+            <span class="exp-skill">Prototyping</span>
+            <span class="exp-skill">Environmental Storytelling</span>
+            <span class="exp-skill">Unity 3D</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PROJECTS -->
   <section id="portfolio">
-    <div class="section-label">02 — Released Projects</div>
+    <div class="section-label">03 — Released Projects</div>
     <h2 class="section-title">Shipped Work</h2>
     <div class="projects-grid">
 
@@ -453,7 +609,7 @@
 
   <!-- IN DEVELOPMENT -->
   <section id="wip">
-    <div class="section-label">03 — In Development</div>
+    <div class="section-label">04 — In Development</div>
     <h2 class="section-title">Current Work</h2>
     <div class="projects-grid">
 
@@ -526,7 +682,7 @@
   <!-- CONTACT -->
   <section id="contact">
     <div class="contact-left">
-      <div class="section-label">04 — Contact</div>
+      <div class="section-label">05 — Contact</div>
       <h2 class="section-title">Let's build something together.</h2>
       <p>Open to full-time, contract, and freelance opportunities across all game genres — horror, thriller, action, narrative, mobile and beyond.</p>
       <a href="assets/Resume.pdf" target="_blank" class="btn-primary">Download Resume</a>
@@ -567,12 +723,21 @@
       el.addEventListener('mouseenter', () => { ring.style.transform = 'translate(-50%,-50%) scale(1.8)'; ring.style.borderColor = 'var(--accent)'; });
       el.addEventListener('mouseleave', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.borderColor = 'rgba(192,57,43,0.5)'; });
     });
+
+    // Observe project cards
     const obs = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
       });
     }, { threshold: 0.08 });
     document.querySelectorAll('.project-card').forEach(el => obs.observe(el));
+
+    // Observe experience card
+    const expObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    const expCard = document.getElementById('exp-card');
+    if (expCard) expObs.observe(expCard);
   </script>
 </body>
 </html>
