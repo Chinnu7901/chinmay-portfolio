@@ -97,12 +97,30 @@
     .section-title { font-size: clamp(44px, 7.5vw, 72px); line-height: 1.05; margin-bottom: 70px; }
     .section-title span { color: var(--accent); }
 
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; max-width: 1400px; margin: 0 auto; }
+    .about-grid { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 100px; 
+      align-items: center; 
+      max-width: 1400px; 
+      margin: 0 auto; 
+    }
     .about-text p { font-size: 16.5px; color: var(--muted); margin-bottom: 22px; }
     .about-text p strong { color: var(--text); }
 
+    /* Fixed Image Size */
+    .about-img-wrap img {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+
     .card {
-      background: var(--surface); border: 1px solid var(--border);
+      background: var(--surface); 
+      border: 1px solid var(--border);
       transition: all 0.5s ease;
     }
     .card:hover { border-color: var(--accent); transform: translateY(-12px); }
@@ -116,13 +134,26 @@
     }
 
     .project-media { height: 260px; overflow: hidden; background: #000; }
-    .project-media img, .project-media video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+    .project-media img, .project-media video { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      transition: transform 0.7s ease; 
+    }
     .project-card:hover .project-media img,
     .project-card:hover .project-media video { transform: scale(1.08); }
 
     .project-body { padding: 32px; }
     .project-title { font-size: 26px; margin: 12px 0 8px; }
-    .tag { background: var(--surface2); color: var(--muted); font-size: 12px; padding: 4px 12px; border-radius: 4px; margin: 0 6px 6px 0; display: inline-block; }
+    .tag { 
+      background: var(--surface2); 
+      color: var(--muted); 
+      font-size: 12px; 
+      padding: 4px 12px; 
+      border-radius: 4px; 
+      margin: 0 6px 6px 0; 
+      display: inline-block; 
+    }
 
     .skills-grid {
       display: grid;
@@ -137,6 +168,7 @@
       section { padding: 90px 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 60px; }
       .projects-grid { grid-template-columns: 1fr; }
+      .about-img-wrap img { max-width: 100%; }
     }
   </style>
 </head>
@@ -147,8 +179,8 @@
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
-      <a href="#portfolio">Work</a>
       <a href="#skills">Skills</a>
+      <a href="#portfolio">Work</a>
       <a href="#wip">In Dev</a>
       <a href="#contact">Contact</a>
     </div>
@@ -210,19 +242,19 @@
   <!-- SKILLS -->
   <section id="skills">
     <div class="section-label">03 — Skills</div>
-    <h2 class="section-title">Core <span>Competencies</span></h2>
+    <h2 class="section-title">Skills & Expertise</h2>
     <div class="skills-grid">
       <div class="card" style="padding:28px;">
-        <strong style="color:var(--accent);">Game Design</strong><br>
-        Level Design, Gameplay Prototyping, Puzzle Design, Horror Design, Player Progression, Rapid Prototyping
+        <strong style="color:var(--accent);">Game Design</strong><br><br>
+        Level Design • Gameplay Prototyping • Puzzle Design • Horror Design • Player Progression • Rapid Prototyping
       </div>
       <div class="card" style="padding:28px;">
-        <strong style="color:var(--accent);">Technical</strong><br>
-        Unity 3D, Greyboxing, Environmental Storytelling, Documentation & GDDs
+        <strong style="color:var(--accent);">Technical</strong><br><br>
+        Unity 3D • Greyboxing • Environmental Storytelling • Documentation & GDDs
       </div>
       <div class="card" style="padding:28px;">
-        <strong style="color:var(--accent);">Soft Skills</strong><br>
-        Team Collaboration, Player Experience Focus
+        <strong style="color:var(--accent);">Collaboration</strong><br><br>
+        Team Collaboration • Player Experience Focus
       </div>
     </div>
   </section>
@@ -232,7 +264,7 @@
     <div class="section-label">04 — Released Projects</div>
     <h2 class="section-title">Shipped <span>Work</span></h2>
     <div class="projects-grid">
-      <!-- Sermon -->
+
       <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/sermon.mp4" type="video/mp4"></video></div>
         <div class="project-body">
@@ -240,17 +272,11 @@
           <h3 class="project-title">Sermon</h3>
           <p class="project-team">Team: Vinil (Game Designer & Programmer)</p>
           <p class="project-desc">Sleep-paralysis inspired first-person horror. A slow-burn psychological experience built on dread, atmosphere, and surreal environmental storytelling.</p>
-          <ul style="margin:16px 0;color:var(--muted);">
-            <li>Designed full level layout for slow-burn, sleep-paralysis-inspired tension and player flow</li>
-            <li>Crafted atmospheric environments using lighting, fog, shadows, and prop composition</li>
-            <li>Built environmental storytelling to support a dreamlike, psychological horror narrative</li>
-          </ul>
           <div class="project-stats">59,200+ views · 11,800+ downloads</div>
           <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="btn-primary">Play on itch.io</a>
         </div>
       </div>
 
-      <!-- Oblation -->
       <div class="card project-card">
         <div class="project-media"><img src="assets/Oblation.png" alt="Oblation"></div>
         <div class="project-body">
@@ -262,7 +288,6 @@
         </div>
       </div>
 
-      <!-- SEPTEM -->
       <div class="card project-card">
         <div class="project-media"><img src="assets/Septem The Preparation.png" alt="SEPTEM"></div>
         <div class="project-body">
@@ -274,7 +299,6 @@
         </div>
       </div>
 
-      <!-- Housebound -->
       <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/housebound.mp4" type="video/mp4"></video></div>
         <div class="project-body">
@@ -285,7 +309,6 @@
         </div>
       </div>
 
-      <!-- Pursuit of Happiness -->
       <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video></div>
         <div class="project-body">
