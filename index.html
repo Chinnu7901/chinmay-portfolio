@@ -148,7 +148,6 @@
       section { padding: 90px 24px; }
       .about-grid { grid-template-columns: 1fr; gap: 60px; }
       .projects-grid { grid-template-columns: 1fr; }
-      .about-img-wrap img { max-width: 100%; }
     }
   </style>
 </head>
@@ -245,6 +244,8 @@
     <div class="section-label">04 — Released Projects</div>
     <h2 class="section-title">Shipped <span>Work</span></h2>
     <div class="projects-grid">
+
+      <!-- Sermon -->
       <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/sermon.mp4" type="video/mp4"></video></div>
         <div class="project-body">
@@ -252,49 +253,82 @@
           <h3 class="project-title">Sermon</h3>
           <p class="project-team">Team: Vinil (Game Designer & Programmer)</p>
           <p class="project-desc">Sleep-paralysis inspired first-person horror. A slow-burn psychological experience built on dread, atmosphere, and surreal environmental storytelling.</p>
+          <ul style="margin:16px 0; color:var(--muted);">
+            <li>Designed full level layout for slow-burn, sleep-paralysis-inspired tension and player flow</li>
+            <li>Crafted atmospheric environments using lighting, fog, shadows, and prop composition</li>
+            <li>Built environmental storytelling to support a dreamlike, psychological horror narrative</li>
+            <li>Collaborated via shared GitHub — committing level and environment updates independently</li>
+          </ul>
           <div class="project-stats">59,200+ views · 11,800+ downloads</div>
           <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="btn-primary">Play on itch.io</a>
         </div>
       </div>
 
+      <!-- Oblation -->
       <div class="card project-card">
         <div class="project-media"><img src="assets/Oblation.png" alt="Oblation"></div>
         <div class="project-body">
           <h3 class="project-title">Oblation</h3>
           <p class="project-team">Team: Vinil (Game Designer & Programmer)</p>
           <p class="project-desc">Psychological horror exploring loyalty, grief, and the irreversible cost of trying to fix the past through ritual.</p>
+          <ul style="margin:16px 0; color:var(--muted);">
+            <li>Designed level layouts and player flow to support slow-burn tension and emotional narrative progression</li>
+            <li>Created familiar-yet-uneasy domestic spaces that gradually turn oppressive</li>
+            <li>Structured spaces to complement ritual mechanics and guilt-driven pacing</li>
+            <li>Curated lighting and prop composition to reinforce core psychological tone</li>
+          </ul>
           <div class="project-stats">17,500+ views · 2,740 downloads</div>
           <a href="https://troj4nblazing.itch.io/oblation" target="_blank" class="btn-primary">Play on itch.io</a>
         </div>
       </div>
 
+      <!-- SEPTEM -->
       <div class="card project-card">
         <div class="project-media"><img src="assets/Septem The Preparation.png" alt="SEPTEM"></div>
         <div class="project-body">
           <h3 class="project-title">SEPTEM: The Preparation</h3>
           <p class="project-team">Team: Vinil (Game Designer), Sushant (Programmer)</p>
           <p class="project-desc">Short psychological horror focused on atmosphere, implication, and environmental storytelling through ordinary spaces.</p>
+          <ul style="margin:16px 0; color:var(--muted);">
+            <li>Designed level layout emphasising subtle tension and player pathing through ordinary spaces</li>
+            <li>Crafted environments to build atmospheric dread via prop placement and lighting</li>
+            <li>Integrated environmental storytelling to reveal narrative through clues and implications</li>
+            <li>Handled scene composition for a seamless, unsettling exploration experience</li>
+          </ul>
           <div class="project-stats">34,300+ views · 4,081 downloads</div>
           <a href="https://troj4nblazing.itch.io/thepreparation" target="_blank" class="btn-primary">Play on itch.io</a>
         </div>
       </div>
 
+      <!-- Housebound -->
       <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/housebound.mp4" type="video/mp4"></video></div>
         <div class="project-body">
           <h3 class="project-title">Housebound</h3>
           <p class="project-team">Solo project</p>
           <p class="project-desc">First-person psychological horror built solo in 2 days. You wake up trapped in an abandoned house with something watching.</p>
+          <ul style="margin:16px 0; color:var(--muted);">
+            <li>Designed full level layout focused on tension, pacing, and spatial storytelling</li>
+            <li>Created environmental horror using lighting, audio cues, and sightline control</li>
+            <li>Built all gameplay systems using AI-assisted C# scripting — AI behaviour, event sequencing, UI flow</li>
+            <li>Built atmosphere-driven spaces emphasising dread over jump scares</li>
+          </ul>
           <a href="https://arcadian-xp.itch.io/housebound" target="_blank" class="btn-primary">Play on itch.io</a>
         </div>
       </div>
 
+      <!-- Pursuit of Happiness -->
       <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video></div>
         <div class="project-body">
           <h3 class="project-title">The Pursuit of Happiness</h3>
           <p class="project-team">Global Game Jam — 48hr · Team: Ashish (Game Designer), Bhavesh (Programmer), Sameer (UI/UX)</p>
           <p class="project-desc">Intense psychological chase horror built in 48 hours for Global Game Jam.</p>
+          <ul style="margin:16px 0; color:var(--muted);">
+            <li>Designed full maze layout and obstacle placement for tension and player flow</li>
+            <li>Controlled atmosphere with fog, lighting, and pacing for suspense</li>
+            <li>Created promotional video showcasing gameplay highlights and tension</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -367,24 +401,24 @@
     © 2026 Kodali Chinmay Ram — Game Designer & Level Designer
   </footer>
 
-  <!-- Particles Script -->
+  <!-- Particles -->
   <script>
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
     
-    function resize() {
+    function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
 
-    let particlesArray = [];
+    let particles = [];
     class Particle {
       constructor() {
         this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height * 0.7;
-        this.size = Math.random() * 2.2 + 0.6;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.35;
+        this.y = Math.random() * canvas.height * 0.6;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.4 - 0.2;
+        this.speedY = Math.random() * 0.4 - 0.3;
       }
       update() {
         this.x += this.speedX;
@@ -392,7 +426,7 @@
         if (this.y < 0) this.y = canvas.height;
       }
       draw() {
-        ctx.fillStyle = 'rgba(157, 124, 255, 0.5)';
+        ctx.fillStyle = 'rgba(157, 124, 255, 0.45)';
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -400,27 +434,18 @@
     }
 
     function init() {
-      particlesArray = [];
-      for (let i = 0; i < 85; i++) {
-        particlesArray.push(new Particle());
-      }
+      particles = [];
+      for (let i = 0; i < 85; i++) particles.push(new Particle());
     }
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
-      }
+      particles.forEach(p => { p.update(); p.draw(); });
       requestAnimationFrame(animate);
     }
 
-    window.addEventListener('resize', () => {
-      resize();
-      init();
-    });
-
-    resize();
+    window.addEventListener('resize', () => { resizeCanvas(); init(); });
+    resizeCanvas();
     init();
     animate();
   </script>
