@@ -4,507 +4,168 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kodali Chinmay Ram | Game Designer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --bg:       #060608;
-      --surface:  #0d0d12;
-      --surface2: #12121a;
-      --border:   #1e1e2e;
-      --border2:  #2a1a3a;
-      --text:     #d8d0e8;
-      --muted:    #6a6080;
-      --accent:   #8855ff;
-      --accent2:  #ff4488;
-      --accent3:  #cc33ff;
-      --white:    #f0eaff;
-      --glitch1:  #ff4488;
-      --glitch2:  #55ffee;
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #1a1a24;
+      --border: #2a2a38;
+      --accent: #9d7cff;
+      --accent2: #ff6b9d;
+      --text: #e8e0ff;
+      --muted: #8a7fa8;
+      --white: #f0ebff;
     }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    ::selection { background: var(--accent); color: var(--white); }
-    html { scroll-behavior: smooth; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
+      line-height: 1.75;
       overflow-x: hidden;
-      cursor: none;
     }
 
-    /* Scanline overlay */
     body::before {
       content: '';
-      position: fixed; inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.08) 2px,
-        rgba(0,0,0,0.08) 4px
-      );
-      pointer-events: none; z-index: 9990; opacity: 0.6;
-    }
-    /* Grain */
-    body::after {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 9989; opacity: 0.5;
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(157,124,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
     }
 
-    /* Custom cursor */
-    .cursor {
-      width: 6px; height: 6px;
-      background: var(--accent2);
-      position: fixed; pointer-events: none;
-      z-index: 9999; transform: translate(-50%, -50%);
-    }
-    .cursor-ring {
-      width: 28px; height: 28px;
-      border: 1px solid rgba(136,85,255,0.6);
-      position: fixed; pointer-events: none;
-      z-index: 9998; transform: translate(-50%, -50%);
-      transition: all 0.12s ease;
+    h1, h2, h3, .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
     }
 
-    /* Glitch keyframes */
-    @keyframes glitch {
-      0%   { clip-path: inset(0 0 98% 0); transform: translate(-4px,0); }
-      10%  { clip-path: inset(40% 0 50% 0); transform: translate(4px,0); }
-      20%  { clip-path: inset(80% 0 5% 0); transform: translate(-2px,0); }
-      30%  { clip-path: inset(10% 0 80% 0); transform: translate(3px,0); }
-      40%  { clip-path: inset(60% 0 30% 0); transform: translate(-4px,0); }
-      50%  { clip-path: inset(20% 0 65% 0); transform: translate(2px,0); }
-      60%  { clip-path: inset(75% 0 10% 0); transform: translate(-3px,0); }
-      70%  { clip-path: inset(35% 0 55% 0); transform: translate(4px,0); }
-      80%  { clip-path: inset(5% 0 90% 0); transform: translate(-2px,0); }
-      90%  { clip-path: inset(50% 0 40% 0); transform: translate(3px,0); }
-      100% { clip-path: inset(0 0 98% 0); transform: translate(0,0); }
-    }
-    @keyframes glitch2 {
-      0%   { clip-path: inset(60% 0 20% 0); transform: translate(4px,0); color: var(--glitch2); }
-      25%  { clip-path: inset(20% 0 60% 0); transform: translate(-4px,0); }
-      50%  { clip-path: inset(85% 0 5% 0); transform: translate(3px,0); color: var(--glitch1); }
-      75%  { clip-path: inset(5% 0 85% 0); transform: translate(-3px,0); }
-      100% { clip-path: inset(60% 0 20% 0); transform: translate(4px,0); color: var(--glitch2); }
-    }
-    @keyframes flicker {
-      0%,19%,21%,23%,25%,54%,56%,100% { opacity: 1; }
-      20%,24%,55% { opacity: 0.4; }
-    }
-    @keyframes scrollPulse { 0%,100%{opacity:0.2;} 50%{opacity:0.8;} }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-    @keyframes scanH {
-      0% { top: -4px; }
-      100% { top: 100%; }
-    }
-    @keyframes borderPulse {
-      0%,100% { border-color: var(--border2); }
-      50% { border-color: rgba(136,85,255,0.4); }
-    }
-
-    /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 20px 48px;
-      background: rgba(6,6,8,0.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border2);
-    }
-    .nav-logo {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 13px;
-      color: var(--white); letter-spacing: 0.06em;
-    }
-    .nav-logo span { color: var(--accent2); }
-    .nav-links { display: flex; gap: 36px; }
-    .nav-links a {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--muted); text-decoration: none; transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-scan {
-      position: absolute; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      bottom: 0; opacity: 0.5;
-    }
-
-    /* HERO */
-    header {
-      min-height: 100vh;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 0 48px 80px; position: relative; overflow: hidden;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background:
-        linear-gradient(to bottom, rgba(6,6,8,0.3) 0%, rgba(6,6,8,0.98) 100%),
-        url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2084') center/cover no-repeat;
-      filter: hue-rotate(240deg) saturate(0.4) brightness(0.5);
-    }
-    /* Horizontal scan line that moves */
-    .hero-scan {
-      position: absolute; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(136,85,255,0.5), var(--accent2), rgba(136,85,255,0.5), transparent);
-      animation: scanH 6s linear infinite;
-      z-index: 1; pointer-events: none;
-    }
-    .hero-grid-lines {
-      position: absolute; inset: 0; z-index: 0;
-      background-image:
-        linear-gradient(rgba(136,85,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(136,85,255,0.04) 1px, transparent 1px);
-      background-size: 48px 48px;
-    }
-    .hero-tag {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--accent2); margin-bottom: 20px;
-      display: flex; align-items: center; gap: 12px; position: relative; z-index: 2;
-    }
-    .hero-tag::before { content: '//'; color: var(--accent); margin-right: 4px; }
-    /* Glitch title */
-    .glitch-wrap { position: relative; z-index: 2; display: inline-block; margin-bottom: 32px; }
-    .glitch-wrap h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(64px, 11vw, 140px);
-      line-height: 0.88;
-      color: var(--white);
-      letter-spacing: 0.02em;
-      position: relative;
-    }
-    .glitch-wrap h1 em { color: var(--accent); font-style: normal; }
-    .glitch-wrap h1 .pink { color: var(--accent2); }
-    /* Glitch layers */
-    .glitch-wrap h1::before,
-    .glitch-wrap h1::after {
-      content: attr(data-text);
-      position: absolute; top: 0; left: 0;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: inherit; line-height: inherit; letter-spacing: inherit;
-      width: 100%; height: 100%;
-    }
-    .glitch-wrap h1::before {
-      color: var(--glitch1);
-      animation: glitch 4s infinite steps(1);
-      animation-delay: 0.5s;
-    }
-    .glitch-wrap h1::after {
-      color: var(--glitch2);
-      animation: glitch2 4s infinite steps(1);
-      animation-delay: 1.2s;
-    }
-    .hero-sub {
-      font-size: 14px; color: var(--muted);
-      max-width: 440px; line-height: 1.75; margin-bottom: 40px;
-      position: relative; z-index: 2;
-      border-left: 2px solid var(--accent); padding-left: 16px;
-    }
-    .hero-cta { display: flex; gap: 14px; position: relative; z-index: 2; }
-    .btn-primary {
-      padding: 13px 30px; background: var(--accent); color: var(--white);
-      text-decoration: none; font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-      transition: all 0.2s; display: inline-block; position: relative;
-      border: 1px solid var(--accent);
-    }
-    .btn-primary::before { content: '> '; color: var(--accent2); }
-    .btn-primary:hover { background: var(--accent2); border-color: var(--accent2); transform: translateY(-2px); }
-    .btn-ghost {
-      padding: 13px 30px; border: 1px solid var(--border2);
-      color: var(--muted); text-decoration: none;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-      transition: all 0.2s; display: inline-block;
-    }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-    .scroll-indicator {
-      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      color: var(--muted); font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; z-index: 2;
-    }
-    .scroll-line {
-      width: 1px; height: 44px;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      animation: scrollPulse 2.5s infinite;
-    }
-
-    /* SECTIONS */
-    section { padding: 110px 48px; }
-    .section-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--accent2); margin-bottom: 14px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .section-label::before { content: '//'; color: var(--accent); }
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(40px, 6vw, 72px);
-      color: var(--white); line-height: 1; margin-bottom: 56px;
-      letter-spacing: 0.03em;
-    }
-    .section-title span { color: var(--accent); }
-
-    /* ABOUT */
-    #about { max-width: 1400px; margin: 0 auto; }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .about-text p { font-size: 14px; color: var(--muted); line-height: 1.85; margin-bottom: 16px; }
-    .about-text p strong { color: var(--text); }
-    .about-stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--border2); border: 1px solid var(--border2); margin-top: 44px;
-      animation: borderPulse 4s infinite;
-    }
-    .stat { background: var(--surface); padding: 22px; position: relative; overflow: hidden; }
-    .stat::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .stat:hover::before { opacity: 1; }
-    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--white); line-height: 1; margin-bottom: 4px; }
-    .stat-num span { color: var(--accent2); }
-    .stat-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-    .about-img-wrap { position: relative; }
-    .about-img-wrap img {
-      width: 100%; aspect-ratio: 3/4; object-fit: cover;
-      filter: grayscale(30%) hue-rotate(240deg) saturate(0.6);
-      transition: filter 0.5s;
-      border: 1px solid var(--border2);
-    }
-    .about-img-wrap img:hover { filter: grayscale(0%) hue-rotate(240deg) saturate(0.8); }
-    .about-img-wrap::before {
-      content: ''; position: absolute; top: -12px; left: -12px; right: 12px; bottom: 12px;
-      border: 1px solid rgba(136,85,255,0.3); z-index: -1;
-    }
-    .xbox-badge {
-      position: absolute; bottom: -18px; left: 16px;
-      background: var(--accent); color: var(--white);
-      padding: 10px 18px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
-      display: flex; align-items: center; gap: 8px;
-    }
-
-    /* EXPERIENCE */
-    #experience { max-width: 1400px; margin: 0 auto; }
-    .experience-card {
-      display: grid; grid-template-columns: 260px 1fr;
-      border: 1px solid var(--border2); background: var(--surface);
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-      animation: borderPulse 4s infinite;
-    }
-    .experience-card.visible { opacity: 1; transform: translateY(0); }
-    .exp-sidebar {
-      border-right: 1px solid var(--border2); padding: 36px 28px;
-      display: flex; flex-direction: column; gap: 18px;
-    }
-    .exp-company-logo-placeholder {
-      width: 100%; aspect-ratio: 16/9;
-      background: var(--surface2); border: 1px solid var(--border2);
-      display: flex; align-items: center; justify-content: center; padding: 14px;
-    }
-    .exp-company-logo-placeholder span {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 14px; color: var(--muted); letter-spacing: 0.08em;
-    }
-    .exp-company-logo { width: 100%; aspect-ratio: 16/9; object-fit: contain; background: var(--surface2); border: 1px solid var(--border2); padding: 14px; }
-    .exp-company-name { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
-    .exp-duration { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--accent2); letter-spacing: 0.08em; }
-    .exp-type { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border2); padding: 4px 10px; display: inline-block; }
-    .exp-location { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
-    .exp-location i { color: var(--accent); font-size: 10px; }
-    .exp-body { padding: 36px 44px; }
-    .exp-completed-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(136,85,255,0.08); border: 1px solid rgba(136,85,255,0.3);
-      color: var(--accent); padding: 6px 14px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 24px;
-    }
-    .exp-role { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--white); margin-bottom: 6px; letter-spacing: 0.04em; }
-    .exp-tagline { font-size: 12px; color: var(--muted); margin-bottom: 28px; font-style: italic; }
-    .exp-divider { width: 36px; height: 1px; background: var(--accent2); margin-bottom: 28px; }
-    .exp-highlights { list-style: none; margin-bottom: 28px; }
-    .exp-highlights li {
-      font-size: 13px; color: var(--muted); line-height: 1.7;
-      padding: 9px 0 9px 20px; position: relative;
+      padding: 24px 48px;
+      background: rgba(10,10,15,0.95); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
-    .exp-highlights li:last-child { border-bottom: none; }
-    .exp-highlights li::before {
-      content: '▸'; position: absolute; left: 0;
-      color: var(--accent2); font-size: 10px; top: 11px;
-    }
-    .exp-highlights li strong { color: var(--text); }
-    .exp-skills-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
-    .exp-skill {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--muted); border: 1px solid var(--border2); padding: 4px 10px;
-      transition: all 0.2s;
-    }
-    .exp-skill:hover { border-color: var(--accent); color: var(--accent); }
+    .nav-logo { font-size: 19px; font-weight: 600; color: var(--white); }
+    .nav-logo span { color: var(--accent2); }
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--accent); }
 
-    /* PROJECTS */
-    #portfolio, #wip { max-width: 1400px; margin: 0 auto; }
-    .projects-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 1px; background: var(--border2); border: 1px solid var(--border2);
-    }
-    .project-card {
-      background: var(--surface); overflow: hidden;
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+    header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
       position: relative;
+      background: #0a0a0f;
     }
-    .project-card::after {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
-      opacity: 0; transition: opacity 0.3s;
+    .hero-content { position: relative; z-index: 2; max-width: 860px; }
+
+    .hero-tag { color: var(--accent2); font-size: 13px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20px; }
+    .glitch-wrap h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 11vw, 138px);
+      line-height: 0.9;
+      color: var(--white);
+      margin-bottom: 28px;
     }
-    .project-card:hover::after { opacity: 1; }
-    .project-card.visible { opacity: 1; transform: translateY(0); }
-    .project-media { overflow: hidden; aspect-ratio: 16/9; background: var(--surface2); }
-    .project-media img, .project-media video {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform 0.6s ease, filter 0.6s ease;
-      filter: grayscale(20%) hue-rotate(240deg) saturate(0.5);
+    .hero-sub { font-size: 17.5px; color: var(--muted); max-width: 560px; margin-bottom: 48px; }
+
+    .hero-cta { display: flex; gap: 18px; flex-wrap: wrap; }
+
+    .btn-primary {
+      padding: 16px 38px; background: var(--accent); color: white;
+      text-decoration: none; font-weight: 600; border-radius: 6px;
+      transition: all 0.4s ease;
     }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-4px); }
+
+    .btn-ghost {
+      padding: 16px 38px; border: 1px solid var(--border); color: var(--muted);
+      text-decoration: none; font-weight: 500; border-radius: 6px;
+      transition: all 0.4s ease;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    section { padding: 130px 48px; }
+    .section-label { color: var(--accent2); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; }
+    .section-title { font-size: clamp(44px, 7.5vw, 72px); line-height: 1.05; margin-bottom: 70px; }
+    .section-title span { color: var(--accent); }
+
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; max-width: 1400px; margin: 0 auto; }
+    .about-text p { font-size: 16.5px; color: var(--muted); margin-bottom: 22px; }
+    .about-text p strong { color: var(--text); }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      transition: all 0.5s ease;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-12px); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 28px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .project-media { height: 260px; overflow: hidden; background: #000; }
+    .project-media img, .project-media video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
     .project-card:hover .project-media img,
-    .project-card:hover .project-media video { transform: scale(1.04); filter: grayscale(0%) hue-rotate(240deg) saturate(0.7) brightness(0.6); }
-    .project-body { padding: 26px; }
-    .project-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-    .project-year { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--muted); }
-    .project-role { font-family: 'Share Tech Mono', monospace; font-size: 9px; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; }
-    .project-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--white); margin-bottom: 6px; line-height: 1.1; letter-spacing: 0.04em; }
-    .project-team { font-size: 11px; color: var(--muted); margin-bottom: 12px; font-style: italic; }
-    .project-desc { font-size: 12px; color: var(--muted); line-height: 1.75; margin-bottom: 12px; }
-    .project-points { list-style: none; margin-bottom: 16px; }
-    .project-points li { font-size: 11px; color: var(--muted); line-height: 1.6; padding: 3px 0 3px 16px; position: relative; }
-    .project-points li::before { content: '▸'; position: absolute; left: 0; color: var(--accent2); font-size: 9px; top: 4px; }
-    .project-stats { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--accent3); letter-spacing: 0.06em; margin-bottom: 14px; }
-    .project-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
-    .tag {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); border: 1px solid var(--border2); padding: 3px 8px;
-    }
-    .project-links { display: flex; gap: 8px; flex-wrap: wrap; }
-    .link-btn {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
-      text-decoration: none; padding: 8px 16px; border: 1px solid var(--border2);
-      color: var(--muted); transition: all 0.2s; display: inline-flex; align-items: center; gap: 5px;
-    }
-    .link-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .link-btn.primary { background: var(--accent); border-color: var(--accent); color: var(--white); }
-    .link-btn.primary:hover { background: var(--accent2); border-color: var(--accent2); }
-    .dap-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(136,85,255,0.1); border: 1px solid rgba(136,85,255,0.35);
-      color: var(--accent); padding: 5px 12px;
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
+    .project-card:hover .project-media video { transform: scale(1.08); }
+
+    .project-body { padding: 32px; }
+    .project-title { font-size: 26px; margin: 12px 0 8px; }
+    .tag { background: var(--surface2); color: var(--muted); font-size: 12px; padding: 4px 12px; border-radius: 4px; margin: 0 6px 6px 0; display: inline-block; }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    /* CONTACT */
-    #contact {
-      max-width: 1400px; margin: 0 auto;
-      border-top: 1px solid var(--border2);
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-    }
-    .contact-left .section-title { margin-bottom: 18px; }
-    .contact-left p { font-size: 14px; color: var(--muted); line-height: 1.85; margin-bottom: 32px; }
-    .contact-links { display: flex; flex-direction: column; gap: 2px; }
-    .contact-link {
-      display: flex; align-items: center; gap: 14px;
-      text-decoration: none; color: var(--muted); font-size: 12px;
-      transition: all 0.2s; padding: 16px 18px; border: 1px solid var(--border2);
-    }
-    .contact-link:hover { border-color: var(--accent); color: var(--white); }
-    .contact-link i { color: var(--accent2); width: 14px; text-align: center; }
-    .contact-link span { font-family: 'Share Tech Mono', monospace; font-size: 10px; }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border2); padding: 28px 48px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    footer p { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--muted); }
-    .resume-dl {
-      font-family: 'Share Tech Mono', monospace; font-size: 10px;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--accent); text-decoration: none;
-      display: flex; align-items: center; gap: 8px;
-      border: 1px solid rgba(136,85,255,0.3); padding: 9px 18px; transition: all 0.2s;
-    }
-    .resume-dl:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
-
-    /* RESPONSIVE */
     @media (max-width: 768px) {
-      nav { padding: 18px 20px; }
-      .nav-links { gap: 16px; }
-      header { padding: 0 20px 56px; }
-      section { padding: 72px 20px; }
-      .about-grid, #contact { grid-template-columns: 1fr; gap: 44px; }
-      footer { flex-direction: column; gap: 14px; padding: 20px; text-align: center; }
+      nav { padding: 20px 24px; }
+      section { padding: 90px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 60px; }
       .projects-grid { grid-template-columns: 1fr; }
-      .experience-card { grid-template-columns: 1fr; }
-      .exp-sidebar { border-right: none; border-bottom: 1px solid var(--border2); }
-      .exp-body { padding: 28px 20px; }
     }
-
-    .fade-in { animation: fadeIn 0.9s ease forwards; }
-    .d1{animation-delay:0.1s;opacity:0;}
-    .d2{animation-delay:0.25s;opacity:0;}
-    .d3{animation-delay:0.4s;opacity:0;}
-    .d4{animation-delay:0.55s;opacity:0;}
   </style>
 </head>
 <body>
 
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
   <nav>
-    <div class="nav-logo">CHINMAY<span>_</span>XP</div>
+    <div class="nav-logo">CHINMAY<span>.</span></div>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#portfolio">Work</a>
+      <a href="#skills">Skills</a>
       <a href="#wip">In Dev</a>
       <a href="#contact">Contact</a>
     </div>
-    <div class="nav-scan"></div>
   </nav>
 
   <!-- HERO -->
   <header>
-    <div class="hero-bg"></div>
-    <div class="hero-grid-lines"></div>
-    <div class="hero-scan"></div>
-
-    <div class="hero-tag fade-in d1">Available for opportunities</div>
-    <div class="glitch-wrap fade-in d2">
-      <h1 data-text="KODALI CHINMAY RAM">
-        KODALI<br><em>CHINMAY</em><br><span class="pink">RAM</span>
-      </h1>
-    </div>
-    <p class="hero-sub fade-in d3">Game Designer & Level Designer crafting atmospheric, narrative-driven horror experiences. Based in Hyderabad, India.</p>
-    <div class="hero-cta fade-in d4">
-      <a href="#portfolio" class="btn-primary">View Work</a>
-      <a href="assets/Resume.pdf" target="_blank" class="btn-ghost">[ Download Resume ]</a>
-    </div>
-    <div class="scroll-indicator">
-      <div class="scroll-line"></div>
-      <span>Scroll</span>
+    <div class="hero-content">
+      <div class="hero-tag">Available for opportunities</div>
+      <div class="glitch-wrap">
+        <h1>KODALI<br>CHINMAY<br><span style="color:var(--accent2)">RAM</span></h1>
+      </div>
+      <p class="hero-sub">Game Designer & Level Designer crafting atmospheric, narrative-driven horror experiences. Based in Hyderabad, India.</p>
+      <div class="hero-cta">
+        <a href="#portfolio" class="btn-primary">View Work</a>
+        <a href="assets/Resume.pdf" target="_blank" class="btn-ghost">[ Download Resume ]</a>
+      </div>
     </div>
   </header>
 
@@ -514,321 +175,194 @@
     <div class="about-grid">
       <div class="about-text">
         <h2 class="section-title">Designing worlds<br><span>that leave a mark.</span></h2>
-        <p>Game, Level & Environment Designer with <strong>multiple shipped titles</strong> across PC and itch.io, and console development experience on <strong>Xbox Series X|S</strong>.</p>
-        <p>Specialised in atmospheric level design, environmental storytelling, and player pacing — the craft of making spaces feel alive and intentional. Every project built in <strong>Unity 3D</strong>.</p>
+        <p>Game and Level Designer with experience designing horror, psychological horror, and narrative-driven games in Unity 3D. Contributed to 5+ published indie titles across PC and itch.io, focusing on level design, environmental storytelling, gameplay pacing, and player experience.</p>
         <p>Selected for <strong>Microsoft's Xbox Developer Acceleration Program (DAP)</strong> — recognition awarded to high-potential indie titles. Completed a Game Designer internship at <strong>IDZ Digital</strong>.</p>
         <p>Open to full-time, contract, and freelance opportunities across all game genres — horror, thriller, action, narrative, mobile and beyond.</p>
-        <div class="about-stats">
-          <div class="stat"><div class="stat-num">5<span>+</span></div><div class="stat-label">Shipped Titles</div></div>
-          <div class="stat"><div class="stat-num">111<span>k</span></div><div class="stat-label">Total Views</div></div>
-          <div class="stat"><div class="stat-num">18<span>k+</span></div><div class="stat-label">Downloads</div></div>
-          <div class="stat"><div class="stat-num" style="font-size:24px;font-family:'Bebas Neue',sans-serif;">DAP</div><div class="stat-label">Xbox Program</div></div>
-        </div>
       </div>
       <div class="about-img-wrap">
         <img src="assets/Chinmay.jpg" alt="Kodali Chinmay Ram">
-        <div class="xbox-badge"><i class="fab fa-xbox"></i> Xbox Developer Acceleration Program</div>
       </div>
     </div>
   </section>
 
   <!-- EXPERIENCE -->
   <section id="experience">
-    <div style="max-width:1400px;margin:0 auto;">
-      <div class="section-label">02 — Experience</div>
-      <h2 class="section-title">Industry <span>Work</span></h2>
-      <div class="experience-card" id="exp-card">
-        <div class="exp-sidebar">
-          <!--
-            Replace placeholder with:
-            <img src="assets/idz-digital.png" alt="IDZ Digital" class="exp-company-logo">
-          -->
-          <div class="exp-company-logo-placeholder">
-            <span>IDZ Digital</span>
-          </div>
-          <div class="exp-company-name">IDZ Digital</div>
-          <div class="exp-duration">Feb 2026 — June 2026</div>
-          <div class="exp-type">Internship</div>
-          <div class="exp-location"><i class="fas fa-map-marker-alt"></i> Remote · Work from Home</div>
-        </div>
-        <div class="exp-body">
-          <div class="exp-completed-badge"><i class="fas fa-check-circle"></i> Completed · June 2026</div>
-          <div class="exp-role">Game Designer Intern</div>
-          <p class="exp-tagline">Contributed to horror genre expansion — concept, level design, atmosphere & prototyping.</p>
-          <div class="exp-divider"></div>
-          <ul class="exp-highlights">
-            <li>Designed and prototyped <strong>horror game concepts</strong> as the studio expanded into the horror genre</li>
-            <li>Contributed to <strong>level layouts, atmosphere design, gameplay pacing</strong>, and environmental storytelling</li>
-            <li>Collaborated directly with developers and artists to translate <strong>design vision into playable builds</strong></li>
-          </ul>
-          <div class="exp-skills-wrap">
-            <span class="exp-skill">Level Design</span>
-            <span class="exp-skill">Atmosphere Design</span>
-            <span class="exp-skill">Gameplay Pacing</span>
-            <span class="exp-skill">Prototyping</span>
-            <span class="exp-skill">Environmental Storytelling</span>
-            <span class="exp-skill">Unity 3D</span>
-          </div>
-        </div>
+    <div class="section-label">02 — Experience</div>
+    <h2 class="section-title">Industry <span>Work</span></h2>
+    <div class="card" style="display:grid; grid-template-columns:280px 1fr;">
+      <div style="padding:40px 32px; background:var(--surface2); border-right:1px solid var(--border);">
+        <div style="background:#222;padding:20px;text-align:center;margin-bottom:24px;">IDZ Digital</div>
+        <div style="color:var(--muted);">Feb 2026 — June 2026</div>
+        <div style="color:var(--accent2);">Internship</div>
+      </div>
+      <div style="padding:40px 48px;">
+        <div style="font-size:32px;color:var(--white);">Game Designer Intern</div>
+        <p style="color:var(--muted);margin:20px 0;">Contributed to horror genre expansion — concept, level design, atmosphere & prototyping.</p>
+        <ul style="color:var(--muted);">
+          <li>Designed and prototyped <strong>horror game concepts</strong> as the studio expanded into the horror genre</li>
+          <li>Contributed to <strong>level layouts, atmosphere design, gameplay pacing</strong>, and environmental storytelling</li>
+          <li>Collaborated directly with developers and artists to translate <strong>design vision into playable builds</strong></li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">03 — Skills</div>
+    <h2 class="section-title">Core <span>Competencies</span></h2>
+    <div class="skills-grid">
+      <div class="card" style="padding:28px;">
+        <strong style="color:var(--accent);">Game Design</strong><br>
+        Level Design, Gameplay Prototyping, Puzzle Design, Horror Design, Player Progression, Rapid Prototyping
+      </div>
+      <div class="card" style="padding:28px;">
+        <strong style="color:var(--accent);">Technical</strong><br>
+        Unity 3D, Greyboxing, Environmental Storytelling, Documentation & GDDs
+      </div>
+      <div class="card" style="padding:28px;">
+        <strong style="color:var(--accent);">Soft Skills</strong><br>
+        Team Collaboration, Player Experience Focus
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
   <section id="portfolio">
-    <div class="section-label">03 — Released Projects</div>
+    <div class="section-label">04 — Released Projects</div>
     <h2 class="section-title">Shipped <span>Work</span></h2>
     <div class="projects-grid">
-
-      <div class="project-card">
+      <!-- Sermon -->
+      <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/sermon.mp4" type="video/mp4"></video></div>
         <div class="project-body">
-          <div class="dap-badge"><i class="fab fa-xbox"></i> Xbox Developer Acceleration Program (DAP)</div>
-          <div class="project-meta"><span class="project-year">2025</span><span class="project-role">Level · Environment</span></div>
+          <div style="color:var(--accent);margin-bottom:8px;">Xbox DAP • 2025</div>
           <h3 class="project-title">Sermon</h3>
           <p class="project-team">Team: Vinil (Game Designer & Programmer)</p>
           <p class="project-desc">Sleep-paralysis inspired first-person horror. A slow-burn psychological experience built on dread, atmosphere, and surreal environmental storytelling.</p>
-          <ul class="project-points">
+          <ul style="margin:16px 0;color:var(--muted);">
             <li>Designed full level layout for slow-burn, sleep-paralysis-inspired tension and player flow</li>
             <li>Crafted atmospheric environments using lighting, fog, shadows, and prop composition</li>
             <li>Built environmental storytelling to support a dreamlike, psychological horror narrative</li>
-            <li>Collaborated via shared GitHub — committing level and environment updates independently</li>
           </ul>
           <div class="project-stats">59,200+ views · 11,800+ downloads</div>
-          <div class="project-tags"><span class="tag">Level Design</span><span class="tag">Environment</span><span class="tag">Horror</span><span class="tag">Unity</span></div>
-          <div class="project-links">
-            <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="link-btn primary"><i class="fas fa-gamepad"></i> Play on itch.io</a>
-            <a href="assets/Sermon LDD 1 (1).pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> LDD</a>
-          </div>
+          <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="btn-primary">Play on itch.io</a>
         </div>
       </div>
 
-      <div class="project-card">
+      <!-- Oblation -->
+      <div class="card project-card">
         <div class="project-media"><img src="assets/Oblation.png" alt="Oblation"></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Level · Environment</span></div>
           <h3 class="project-title">Oblation</h3>
           <p class="project-team">Team: Vinil (Game Designer & Programmer)</p>
           <p class="project-desc">Psychological horror exploring loyalty, grief, and the irreversible cost of trying to fix the past through ritual.</p>
-          <ul class="project-points">
-            <li>Designed level layouts and player flow to support slow-burn tension and emotional narrative progression</li>
-            <li>Created familiar-yet-uneasy domestic spaces that gradually turn oppressive</li>
-            <li>Structured spaces to complement ritual mechanics and guilt-driven pacing</li>
-            <li>Curated lighting and prop composition to reinforce core psychological tone</li>
-          </ul>
           <div class="project-stats">17,500+ views · 2,740 downloads</div>
-          <div class="project-tags"><span class="tag">Level Design</span><span class="tag">Psychological Horror</span><span class="tag">PSX</span><span class="tag">Unity</span></div>
-          <div class="project-links">
-            <a href="https://troj4nblazing.itch.io/oblation" target="_blank" class="link-btn primary"><i class="fas fa-gamepad"></i> Play on itch.io</a>
-          </div>
+          <a href="https://troj4nblazing.itch.io/oblation" target="_blank" class="btn-primary">Play on itch.io</a>
         </div>
       </div>
 
-      <div class="project-card">
+      <!-- SEPTEM -->
+      <div class="card project-card">
         <div class="project-media"><img src="assets/Septem The Preparation.png" alt="SEPTEM"></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Level · Environment</span></div>
           <h3 class="project-title">SEPTEM: The Preparation</h3>
           <p class="project-team">Team: Vinil (Game Designer), Sushant (Programmer)</p>
           <p class="project-desc">Short psychological horror focused on atmosphere, implication, and environmental storytelling through ordinary spaces.</p>
-          <ul class="project-points">
-            <li>Designed level layout emphasising subtle tension and player pathing through ordinary spaces</li>
-            <li>Crafted environments to build atmospheric dread via prop placement and lighting</li>
-            <li>Integrated environmental storytelling to reveal narrative through clues and implications</li>
-            <li>Handled scene composition for a seamless, unsettling exploration experience</li>
-          </ul>
           <div class="project-stats">34,300+ views · 4,081 downloads</div>
-          <div class="project-tags"><span class="tag">Level Design</span><span class="tag">Psychological Horror</span><span class="tag">Unity</span></div>
-          <div class="project-links">
-            <a href="https://troj4nblazing.itch.io/thepreparation" target="_blank" class="link-btn primary"><i class="fas fa-gamepad"></i> Play on itch.io</a>
-          </div>
+          <a href="https://troj4nblazing.itch.io/thepreparation" target="_blank" class="btn-primary">Play on itch.io</a>
         </div>
       </div>
 
-      <div class="project-card">
+      <!-- Housebound -->
+      <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/housebound.mp4" type="video/mp4"></video></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">2025</span><span class="project-role">Solo Dev</span></div>
           <h3 class="project-title">Housebound</h3>
           <p class="project-team">Solo project</p>
           <p class="project-desc">First-person psychological horror built solo in 2 days. You wake up trapped in an abandoned house with something watching.</p>
-          <ul class="project-points">
-            <li>Designed full level layout focused on tension, pacing, and spatial storytelling</li>
-            <li>Created environmental horror using lighting, audio cues, and sightline control</li>
-            <li>Built all gameplay systems using AI-assisted C# scripting — AI behaviour, event sequencing, UI flow</li>
-            <li>Built atmosphere-driven spaces emphasising dread over jump scares</li>
-          </ul>
-          <div class="project-tags"><span class="tag">Solo Dev</span><span class="tag">Psychological Horror</span><span class="tag">Unity</span></div>
-          <div class="project-links">
-            <a href="https://arcadian-xp.itch.io/housebound" target="_blank" class="link-btn primary"><i class="fas fa-gamepad"></i> Play on itch.io</a>
-            <a href="assets/Housebound_GDD.pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a>
-          </div>
+          <a href="https://arcadian-xp.itch.io/housebound" target="_blank" class="btn-primary">Play on itch.io</a>
         </div>
       </div>
 
-      <div class="project-card">
+      <!-- Pursuit of Happiness -->
+      <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">2023</span><span class="project-role">Game · Level · Environment</span></div>
           <h3 class="project-title">The Pursuit of Happiness</h3>
           <p class="project-team">Global Game Jam — 48hr · Team: Ashish (Game Designer), Bhavesh (Programmer), Sameer (UI/UX)</p>
           <p class="project-desc">Intense psychological chase horror built in 48 hours for Global Game Jam.</p>
-          <ul class="project-points">
-            <li>Designed full maze layout and obstacle placement for tension and player flow</li>
-            <li>Controlled atmosphere with fog, lighting, and pacing for suspense</li>
-            <li>Created promotional video showcasing gameplay highlights and tension</li>
-          </ul>
-          <div class="project-tags"><span class="tag">Global Game Jam</span><span class="tag">48hr</span><span class="tag">Chase Horror</span><span class="tag">Unity</span></div>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- IN DEVELOPMENT -->
   <section id="wip">
-    <div class="section-label">04 — In Development</div>
+    <div class="section-label">05 — In Development</div>
     <h2 class="section-title">Current <span>Work</span></h2>
     <div class="projects-grid">
-
-      <div class="project-card">
+      <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/mothers_whisper.mp4" type="video/mp4"></video></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Solo</span></div>
           <h3 class="project-title">Fragments of Dread: Mother's Whisper</h3>
           <p class="project-desc">Solo PSX-style horror series — Episode 1. Exploration-driven with multiple endings.</p>
-          <div class="project-tags"><span class="tag">PSX Horror</span><span class="tag">Solo</span><span class="tag">Unity</span></div>
         </div>
       </div>
-
-      <div class="project-card">
+      <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/bennys_burger_piz.mp4" type="video/mp4"></video></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Level · Environment</span></div>
           <h3 class="project-title">Fragments of Dread: Burger Piz</h3>
           <p class="project-desc">Cursed diner horror with Vinil. AI voice mimicry and dynamic environment shifts.</p>
-          <div class="project-tags"><span class="tag">Horror</span><span class="tag">Unity</span></div>
-          <div class="project-links" style="margin-top:14px"><a href="assets/Bennys_Burger_Piz_GDD.pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
         </div>
       </div>
-
-      <div class="project-card">
+      <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/ward 13.mp4" type="video/mp4"></video></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Level · Environment</span></div>
           <h3 class="project-title">Ward 13</h3>
           <p class="project-desc">Atmospheric abandoned hospital horror with psychological tension.</p>
-          <div class="project-tags"><span class="tag">Hospital Horror</span><span class="tag">Unity</span></div>
         </div>
       </div>
-
-      <div class="project-card">
+      <div class="card project-card">
         <div class="project-media"><video controls><source src="assets/around.mp4" type="video/mp4"></video></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">2026</span><span class="project-role">Solo</span></div>
           <h3 class="project-title">Around</h3>
           <p class="project-desc">Minimalist tension experience.</p>
-          <div class="project-tags"><span class="tag">Minimalist</span><span class="tag">Unity</span></div>
         </div>
       </div>
-
-      <div class="project-card">
+      <div class="card project-card">
         <div class="project-media"><img src="assets/Glimmergrieve_Studio_GDD (1).jpg" alt="Glimmergrieve"></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">TBA</span><span class="project-role">Game Designer</span></div>
           <h3 class="project-title">Glimmergrieve</h3>
           <p class="project-desc">Psychological survival horror set in an abandoned high school where memories manifest physically.</p>
-          <div class="project-tags"><span class="tag">Survival Horror</span><span class="tag">PC</span><span class="tag">Unity</span></div>
-          <div class="project-links" style="margin-top:14px"><a href="assets/Glimmergrieve_Studio_GDD (1).pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
         </div>
       </div>
-
-      <div class="project-card">
+      <div class="card project-card">
         <div class="project-media"><img src="assets/Whisper_House_GDD.jpg" alt="Whisper House"></div>
         <div class="project-body">
-          <div class="project-meta"><span class="project-year">TBA</span><span class="project-role">Game Designer</span></div>
           <h3 class="project-title">Whisper House: Escape the Watcher</h3>
           <p class="project-desc">Mobile stealth horror — escape a haunted house hunted by a blind monster.</p>
-          <div class="project-tags"><span class="tag">Mobile</span><span class="tag">Stealth Horror</span><span class="tag">Unity</span></div>
-          <div class="project-links" style="margin-top:14px"><a href="assets/Whisper_House_GDD.pdf" target="_blank" class="link-btn"><i class="fas fa-file"></i> GDD</a></div>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="contact-left">
-      <div class="section-label">05 — Contact</div>
-      <h2 class="section-title">Let's build<br><span>something.</span></h2>
-      <p>Open to full-time, contract, and freelance opportunities across all game genres — horror, thriller, action, narrative, mobile and beyond.</p>
-      <a href="assets/Resume.pdf" target="_blank" class="btn-primary">Download Resume</a>
-    </div>
-    <div class="contact-links">
-      <a href="mailto:kodalichinmayram@gmail.com" class="contact-link">
-        <i class="fas fa-envelope"></i><span>kodalichinmayram@gmail.com</span>
-      </a>
-      <a href="tel:+919494673546" class="contact-link">
-        <i class="fas fa-phone"></i><span>+91 9494673546</span>
-      </a>
-      <a href="https://linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank" class="contact-link">
-        <i class="fab fa-linkedin"></i><span>linkedin.com/in/kodali-chinmay-ram-659966370</span>
-      </a>
-      <a href="https://www.instagram.com/chinmay__xp" target="_blank" class="contact-link">
-        <i class="fab fa-instagram"></i><span>@chinmay__xp</span>
-      </a>
+    <div class="section-label">06 — Contact</div>
+    <h2 class="section-title">Let's build<br><span>something.</span></h2>
+    <p style="color:var(--muted);max-width:520px;">Open to full-time, contract, and freelance opportunities across all game genres — horror, thriller, action, narrative, mobile and beyond.</p>
+    <div style="margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+      <a href="mailto:kodalichinmayram@gmail.com" style="color:var(--accent);">kodalichinmayram@gmail.com</a>
+      <a href="tel:+919494673546" style="color:var(--accent);">+91 9494673546</a>
+      <a href="https://linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank" style="color:var(--accent);">LinkedIn</a>
+      <a href="https://www.instagram.com/chinmay__xp" target="_blank" style="color:var(--accent);">Instagram</a>
     </div>
   </section>
 
-  <footer>
-    <p>// © 2026 Kodali Chinmay Ram — Game Designer & Level Designer</p>
-    <a href="assets/Resume.pdf" target="_blank" class="resume-dl"><i class="fas fa-download"></i> Resume.pdf</a>
+  <footer style="padding:50px 48px;text-align:center;color:var(--muted);border-top:1px solid var(--border);">
+    © 2026 Kodali Chinmay Ram — Game Designer & Level Designer
   </footer>
 
-  <script>
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      setTimeout(() => {
-        ring.style.left = e.clientX + 'px';
-        ring.style.top = e.clientY + 'px';
-      }, 80);
-    });
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        ring.style.transform = 'translate(-50%,-50%) scale(1.8)';
-        ring.style.borderColor = 'rgba(255,68,136,0.7)';
-      });
-      el.addEventListener('mouseleave', () => {
-        ring.style.transform = 'translate(-50%,-50%) scale(1)';
-        ring.style.borderColor = 'rgba(136,85,255,0.6)';
-      });
-    });
-
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.project-card').forEach(el => obs.observe(el));
-
-    const expObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    const expCard = document.getElementById('exp-card');
-    if (expCard) expObs.observe(expCard);
-
-    // Random glitch flicker on title
-    const glitchWrap = document.querySelector('.glitch-wrap h1');
-    setInterval(() => {
-      if (Math.random() > 0.85) {
-        glitchWrap.style.opacity = '0.7';
-        setTimeout(() => glitchWrap.style.opacity = '1', 80);
-      }
-    }, 2000);
-  </script>
 </body>
 </html>
