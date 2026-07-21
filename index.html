@@ -95,9 +95,11 @@
     .about-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; max-width: 1400px; margin: 0 auto; }
     .about-text p { font-size: 17px; color: var(--muted); margin-bottom: 22px; }
 
-    .about-img-wrap img {
+    /* Auto-detect portrait style for both images */
+    .about-img-wrap img, .participation-grid img {
       width: 100%;
       max-width: 320px;
+      height: auto;
       image-rendering: pixelated;
       border: 8px solid var(--accent);
       box-shadow: 0 0 0 8px #000;
@@ -133,15 +135,6 @@
       gap: 28px;
       max-width: 1400px;
       margin: 0 auto;
-    }
-
-    .participation-grid img {
-      width: 100%;
-      height: auto;
-      max-height: 550px;
-      object-fit: contain;
-      image-rendering: pixelated;
-      border: 4px solid var(--accent);
     }
 
     @media (min-width: 768px) {
@@ -228,7 +221,7 @@
     <div class="participation-grid">
       <div class="card project-card">
         <div class="project-media">
-          <img src="assets/image.png" alt="Global Game Jam 2024" style="width:100%; height:auto; max-height:550px; object-fit:contain;">
+          <img src="assets/image.png" alt="Global Game Jam 2024">
         </div>
         <div class="project-body">
           <h3 class="project-title">GLOBAL GAME JAM 2024</h3>
