@@ -127,9 +127,18 @@
     .project-body { padding: 20px; }
     .project-title { font-size: 20px; color: var(--accent2); margin-bottom: 12px; }
 
+    .participation-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
     @media (min-width: 768px) {
       .about-grid { grid-template-columns: 1fr 1fr; }
       .projects-grid { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+      .participation-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
     }
   </style>
 </head>
@@ -210,7 +219,7 @@
     <h2 class="section-title">HIGH SCORE EVENTS</h2>
     <div class="participation-grid">
       <div class="card project-card">
-        <div class="project-media"><img src="assets/global-game-jam.jpg" alt="Global Game Jam 2024" style="object-fit:cover;"></div>
+        <div class="project-media"><img src="assets/image.png" alt="Global Game Jam 2024" style="object-fit:cover; height: auto; max-height: 500px;"></div>
         <div class="project-body">
           <h3 class="project-title">GLOBAL GAME JAM 2024</h3>
           <p class="project-desc">Participant — Created "The Pursuit of Happiness" in 48 hours with team.</p>
