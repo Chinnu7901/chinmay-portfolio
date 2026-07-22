@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kodali Chinmay Ram — Game Designer,Level Designer & Environment Designer</title>
+<title>Kodali Chinmay Ram — Game Designer, Level Designer & Environment Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -32,7 +32,6 @@
   }
   a{ color:inherit; }
   ::selection{ background:var(--accent); color:#00131a; }
-  /* animation keyframes */
   @keyframes fadeUp{ from{ opacity:0; transform:translateY(22px); } to{ opacity:1; transform:translateY(0); } }
   @keyframes scan{ 0%{ top:-2%; opacity:0; } 8%{ opacity:.8; } 92%{ opacity:.8; } 100%{ top:100%; opacity:0; } }
   @keyframes pulseCorner{ 0%,100%{ opacity:.85; } 50%{ opacity:.3; } }
@@ -47,7 +46,6 @@
     .hero-content .kicker, .hero-content h1, .hero-sub, .hero-cta{ animation:none !important; opacity:1 !important; }
     .viewport::before, .corner, .nav-mark .dot{ animation:none !important; }
   }
-  /* ambient engine grid */
   .grid-bg{
     position:fixed; inset:0; z-index:0; pointer-events:none;
     background-image:
@@ -57,7 +55,6 @@
     mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 10%, transparent 75%);
   }
   h1,h2,h3{ font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-.015em; }
-  /* NAV */
   nav{
     position:fixed; top:0; left:0; right:0; z-index:200;
     display:flex; justify-content:space-between; align-items:center;
@@ -92,20 +89,17 @@
   }
   .kicker::before{ content:'//'; color:var(--ink-dim); }
   .section-title{ font-size:clamp(28px,3.6vw,44px); color:var(--ink); margin-bottom:26px; line-height:1.08; }
-  /* glass panel base */
   .panel{
     background:var(--panel); border:1px solid var(--panel-border);
     backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
     transition:border-color .3s;
   }
   .panel:hover{ border-color:var(--panel-border-hover); }
-  /* HUD tag / asset id */
   .asset-id{
     font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.1em;
     color:var(--accent); text-transform:uppercase; display:inline-flex; align-items:center; gap:8px;
   }
   .asset-id::before{ content:''; width:6px; height:6px; background:var(--accent); box-shadow:0 0 6px var(--accent); }
-  /* HERO */
   header.hero{
     min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end;
     position:relative; padding:110px 6vw 80px; z-index:1;
@@ -157,7 +151,6 @@
   .btn.solid{ background:var(--accent); border-color:var(--accent); color:#00131a; font-weight:500; }
   .btn.solid:hover{ background:#7fe0ff; }
   .btn.ghost:hover{ border-color:var(--accent); color:var(--accent); }
-  /* ABOUT */
   .about-grid{ display:grid; grid-template-columns:1fr; gap:50px; max-width:1300px; margin:0 auto; align-items:start; }
   @media(min-width:900px){ .about-grid{ grid-template-columns:0.8fr 1.2fr; gap:70px; } }
   .about-portrait{ padding:10px; }
@@ -175,7 +168,6 @@
     color:var(--ink-dim); text-transform:uppercase; transition:border-color .25s, color .25s;
   }
   .credential:hover{ border-color:var(--accent); color:var(--accent); }
-  /* ACHIEVEMENT */
   .achievement-banner{
     max-width:1000px; padding:22px 28px;
     border-left:2px solid var(--accent);
@@ -183,7 +175,6 @@
   }
   .achievement-text{ font-size:17px; color:var(--ink); max-width:700px; }
   .achievement-text strong{ color:var(--accent); }
-  /* TIMELINE (experience + education) */
   .timeline{ max-width:1000px; position:relative; }
   .t-entry{
     display:grid; grid-template-columns:1fr; gap:16px; padding:26px 0 26px 30px;
@@ -200,7 +191,6 @@
   .t-list{ list-style:none; }
   .t-list li{ color:var(--ink-dim); padding-left:18px; position:relative; margin-bottom:10px; font-size:15px; }
   .t-list li::before{ content:'▸'; position:absolute; left:0; color:var(--accent); font-size:11px; top:4px; }
-  /* SKILLS */
   .taxonomy{ max-width:1050px; }
   .tax-row{ display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--line); }
   .tax-row:last-child{ border-bottom:none; }
@@ -214,7 +204,6 @@
     transition:border-color .25s, color .25s; font-family:'Inter',sans-serif;
   }
   .tag:hover{ border-color:var(--accent); color:var(--accent); }
-  /* CASE / ASSET CARDS */
   .case{
     display:grid; grid-template-columns:1fr; gap:0;
     max-width:1300px; margin:0 auto 32px; overflow:hidden;
@@ -250,14 +239,12 @@
     border:1px solid var(--panel-border); padding:10px 16px; transition:all .25s;
   }
   .case-link:hover{ border-color:var(--accent); color:var(--accent); }
-  /* PARTICIPATION */
   .jam-entry{
     display:grid; grid-template-columns:1fr; gap:28px; max-width:900px;
     padding:30px;
   }
   @media(min-width:700px){ .jam-entry{ grid-template-columns:200px 1fr; align-items:center; } }
   .jam-entry img{ width:100%; max-width:220px; display:block; border:1px solid var(--panel-border); filter:saturate(.85); }
-  /* WIP */
   .wip-grid{ display:grid; grid-template-columns:1fr; gap:22px; max-width:1300px; margin:0 auto; }
   @media(min-width:700px){ .wip-grid{ grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); } }
   .wip-card{ overflow:hidden; position:relative; }
@@ -272,7 +259,6 @@
   .wip-body{ padding:20px; }
   .wip-title{ font-family:'Space Grotesk',sans-serif; font-size:17px; color:var(--ink); margin-bottom:8px; font-weight:600; }
   .wip-desc{ color:var(--ink-dim); font-size:13.5px; }
-  /* CONTACT */
   .contact-wrap{ max-width:1300px; margin:0 auto; }
   .contact-title{ font-size:clamp(36px,6.4vw,76px); line-height:1.02; margin-bottom:36px; }
   .contact-title span{ color:var(--accent); }
@@ -317,9 +303,9 @@
     <div class="viewport-label">VIEWPORT_01 // SERMON.SCENE</div>
   </div>
   <div class="hero-content">
-    <div class="kicker" style="margin-bottom:20px;">Level & Horror Designer</div>
-    <h1>Engineering fear,<br>one <span>level</span> at a time.</h1>
-    <p class="hero-sub">Kodali Chinmay Ram designs level layouts, pacing, and environmental storytelling for psychological horror — built in Unity 3D, shipped to 100,000+ players across 5+ titles, with recognition from Microsoft's Xbox Developer Acceleration Program.</p>
+    <div class="kicker" style="margin-bottom:20px;">Game Designer · Level Designer · Environment Designer</div>
+    <h1>Designing worlds<br>players <span>remember</span>.</h1>
+    <p class="hero-sub">Kodali Chinmay Ram designs level layouts, pacing, and environmental storytelling across genres — built in Unity 3D, shipped to 100,000+ players across 5+ titles, with a particular strength in atmospheric and horror experiences, and recognition from Microsoft's Xbox Developer Acceleration Program.</p>
     <div class="hero-cta">
       <a href="#portfolio" class="btn solid">View Projects</a>
       <a href="assets/Resume.pdf" target="_blank" class="btn ghost">Download Résumé</a>
@@ -335,10 +321,10 @@
     </div>
     <div>
       <div class="kicker">About</div>
-      <h2 class="section-title">Designing worlds<br>that stay with you.</h2>
+      <h2 class="section-title">Versatile design,<br>built for any genre.</h2>
       <div class="about-text">
         <p>Game Designer and Level Designer with multiple shipped, published titles across PC and itch.io. Selected for <strong>Microsoft's Xbox Developer Acceleration Program (DAP)</strong> — recognition awarded to high-potential indie titles.</p>
-        <p>Specialises in atmospheric horror, environmental storytelling, level pacing, and rapid prototyping — experienced across the full pipeline from concept and GDD through to production and release, in both solo and collaborative team environments. Completed a Game Designer internship at <strong>IDZ Digital</strong>.</p>
+        <p>Specialises in level design, environmental storytelling, gameplay pacing, and rapid prototyping across a range of genres — with particular depth in atmospheric and horror experiences — experienced across the full pipeline from concept and GDD through to production and release, in both solo and collaborative team environments. Completed a Game Designer internship at <strong>IDZ Digital</strong>.</p>
       </div>
       <div class="credentials">
         <div class="credential">Xbox DAP Selectee, 2025</div>
@@ -386,9 +372,10 @@
       <div class="tax-label">Core Craft</div>
       <div class="tax-tags">
         <div class="tag">Level Design</div>
-        <div class="tag">Horror Design</div>
+        <div class="tag">Environment Design</div>
         <div class="tag">Atmosphere Building</div>
         <div class="tag">Grey Boxing & Rapid Prototyping</div>
+        <div class="tag">Cross-Genre Design</div>
       </div>
     </div>
     <div class="tax-row">
@@ -598,20 +585,17 @@
   navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
   navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // mark elements to reveal on scroll
   const revealSelectors = [
     '.section-title', '.about-portrait', '.about-text', '.credentials',
     '.achievement-banner', '.t-entry', '.tax-row', '.case', '.jam-entry',
     '.wip-card', '.contact-title', '.contact-links'
   ];
   document.querySelectorAll(revealSelectors.join(',')).forEach(el => el.classList.add('reveal'));
-  // stagger children within repeating groups
   document.querySelectorAll('.credentials, .tax-tags, .wip-grid').forEach(group => {
     Array.from(group.children).forEach((child, i) => {
       child.style.transitionDelay = reduceMotion ? '0ms' : (i * 60) + 'ms';
     });
   });
-  // count-up for stat numbers
   function animateStat(el){
     const target = parseInt(el.dataset.target, 10);
     if(reduceMotion || isNaN(target)){ el.textContent = target.toLocaleString(); return; }
