@@ -32,25 +32,21 @@
   }
   a{ color:inherit; }
   ::selection{ background:var(--accent); color:#00131a; }
-
   /* animation keyframes */
   @keyframes fadeUp{ from{ opacity:0; transform:translateY(22px); } to{ opacity:1; transform:translateY(0); } }
   @keyframes scan{ 0%{ top:-2%; opacity:0; } 8%{ opacity:.8; } 92%{ opacity:.8; } 100%{ top:100%; opacity:0; } }
   @keyframes pulseCorner{ 0%,100%{ opacity:.85; } 50%{ opacity:.3; } }
   @keyframes blinkDot{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
-
   .reveal{
     opacity:0; transform:translateY(24px);
     transition:opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1);
   }
   .reveal.in-view{ opacity:1; transform:translateY(0); }
-
   @media(prefers-reduced-motion:reduce){
     .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
     .hero-content .kicker, .hero-content h1, .hero-sub, .hero-cta{ animation:none !important; opacity:1 !important; }
     .viewport::before, .corner, .nav-mark .dot{ animation:none !important; }
   }
-
   /* ambient engine grid */
   .grid-bg{
     position:fixed; inset:0; z-index:0; pointer-events:none;
@@ -60,9 +56,7 @@
     background-size:48px 48px;
     mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 10%, transparent 75%);
   }
-
   h1,h2,h3{ font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-.015em; }
-
   /* NAV */
   nav{
     position:fixed; top:0; left:0; right:0; z-index:200;
@@ -79,7 +73,6 @@
   .nav-links a{ text-decoration:none; color:var(--ink-dim); transition:color .25s; }
   .nav-links a:hover{ color:var(--accent); }
   .nav-toggle{ display:none; background:none; border:1px solid var(--line); color:var(--ink); font-size:16px; padding:6px 10px; cursor:pointer; }
-
   @media (max-width:860px){
     .nav-links{
       position:fixed; top:0; right:0; height:100vh; width:min(78vw,320px);
@@ -90,10 +83,8 @@
     .nav-links.open{ transform:translateX(0); }
     .nav-toggle{ display:block; z-index:220; }
   }
-
   section{ padding:min(12vw,120px) 6vw; position:relative; z-index:1; }
   .divider{ border:none; border-top:1px solid var(--line); position:relative; z-index:1; }
-
   .kicker{
     font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:.14em;
     color:var(--accent); text-transform:uppercase; margin-bottom:16px;
@@ -101,7 +92,6 @@
   }
   .kicker::before{ content:'//'; color:var(--ink-dim); }
   .section-title{ font-size:clamp(28px,3.6vw,44px); color:var(--ink); margin-bottom:26px; line-height:1.08; }
-
   /* glass panel base */
   .panel{
     background:var(--panel); border:1px solid var(--panel-border);
@@ -109,14 +99,12 @@
     transition:border-color .3s;
   }
   .panel:hover{ border-color:var(--panel-border-hover); }
-
   /* HUD tag / asset id */
   .asset-id{
     font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.1em;
     color:var(--accent); text-transform:uppercase; display:inline-flex; align-items:center; gap:8px;
   }
   .asset-id::before{ content:''; width:6px; height:6px; background:var(--accent); box-shadow:0 0 6px var(--accent); }
-
   /* HERO */
   header.hero{
     min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end;
@@ -146,7 +134,6 @@
     font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em;
     color:var(--accent); text-transform:uppercase;
   }
-
   .hero-content{ position:relative; z-index:2; max-width:920px; }
   .hero-content .kicker{ opacity:0; animation:fadeUp .8s ease forwards; animation-delay:.1s; }
   .hero-content h1{
@@ -170,7 +157,6 @@
   .btn.solid{ background:var(--accent); border-color:var(--accent); color:#00131a; font-weight:500; }
   .btn.solid:hover{ background:#7fe0ff; }
   .btn.ghost:hover{ border-color:var(--accent); color:var(--accent); }
-
   /* ABOUT */
   .about-grid{ display:grid; grid-template-columns:1fr; gap:50px; max-width:1300px; margin:0 auto; align-items:start; }
   @media(min-width:900px){ .about-grid{ grid-template-columns:0.8fr 1.2fr; gap:70px; } }
@@ -189,7 +175,6 @@
     color:var(--ink-dim); text-transform:uppercase; transition:border-color .25s, color .25s;
   }
   .credential:hover{ border-color:var(--accent); color:var(--accent); }
-
   /* ACHIEVEMENT */
   .achievement-banner{
     max-width:1000px; padding:22px 28px;
@@ -198,7 +183,6 @@
   }
   .achievement-text{ font-size:17px; color:var(--ink); max-width:700px; }
   .achievement-text strong{ color:var(--accent); }
-
   /* TIMELINE (experience + education) */
   .timeline{ max-width:1000px; position:relative; }
   .t-entry{
@@ -216,7 +200,6 @@
   .t-list{ list-style:none; }
   .t-list li{ color:var(--ink-dim); padding-left:18px; position:relative; margin-bottom:10px; font-size:15px; }
   .t-list li::before{ content:'▸'; position:absolute; left:0; color:var(--accent); font-size:11px; top:4px; }
-
   /* SKILLS */
   .taxonomy{ max-width:1050px; }
   .tax-row{ display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--line); }
@@ -231,7 +214,6 @@
     transition:border-color .25s, color .25s; font-family:'Inter',sans-serif;
   }
   .tag:hover{ border-color:var(--accent); color:var(--accent); }
-
   /* CASE / ASSET CARDS */
   .case{
     display:grid; grid-template-columns:1fr; gap:0;
@@ -268,7 +250,6 @@
     border:1px solid var(--panel-border); padding:10px 16px; transition:all .25s;
   }
   .case-link:hover{ border-color:var(--accent); color:var(--accent); }
-
   /* PARTICIPATION */
   .jam-entry{
     display:grid; grid-template-columns:1fr; gap:28px; max-width:900px;
@@ -276,7 +257,6 @@
   }
   @media(min-width:700px){ .jam-entry{ grid-template-columns:200px 1fr; align-items:center; } }
   .jam-entry img{ width:100%; max-width:220px; display:block; border:1px solid var(--panel-border); filter:saturate(.85); }
-
   /* WIP */
   .wip-grid{ display:grid; grid-template-columns:1fr; gap:22px; max-width:1300px; margin:0 auto; }
   @media(min-width:700px){ .wip-grid{ grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); } }
@@ -292,7 +272,6 @@
   .wip-body{ padding:20px; }
   .wip-title{ font-family:'Space Grotesk',sans-serif; font-size:17px; color:var(--ink); margin-bottom:8px; font-weight:600; }
   .wip-desc{ color:var(--ink-dim); font-size:13.5px; }
-
   /* CONTACT */
   .contact-wrap{ max-width:1300px; margin:0 auto; }
   .contact-title{ font-size:clamp(36px,6.4vw,76px); line-height:1.02; margin-bottom:36px; }
@@ -303,20 +282,16 @@
     background:var(--panel); backdrop-filter:blur(10px); transition:all .25s;
   }
   .contact-links a:hover{ border-color:var(--accent); color:var(--accent); }
-
   footer.site-footer{
     padding:30px 6vw; font-family:'JetBrains Mono', monospace; font-size:11px;
     color:var(--ink-dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
     border-top:1px solid var(--line); position:relative; z-index:1;
   }
-
   @media(prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
 </style>
 </head>
 <body>
-
 <div class="grid-bg"></div>
-
 <nav>
   <div class="nav-mark"><span class="dot"></span>STUDIO:// <b>K.CHINMAY_RAM</b></div>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
@@ -331,7 +306,6 @@
     <a href="#contact">Contact</a>
   </div>
 </nav>
-
 <!-- HERO -->
 <header class="hero">
   <div class="viewport">
@@ -352,7 +326,6 @@
     </div>
   </div>
 </header>
-
 <!-- ABOUT -->
 <section id="about">
   <div class="about-grid">
@@ -375,9 +348,7 @@
     </div>
   </div>
 </section>
-
 <hr class="divider">
-
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="kicker">Experience</div>
@@ -397,9 +368,7 @@
     </div>
   </div>
 </section>
-
 <hr class="divider">
-
 <!-- ACHIEVEMENT -->
 <section id="achievement" style="padding-top:60px; padding-bottom:60px;">
   <div class="achievement-banner">
@@ -407,9 +376,7 @@
     <p class="achievement-text">Microsoft <strong>Xbox Developer Acceleration Program (DAP)</strong> — Sermon selected as a High-Potential Indie Title, 2025.</p>
   </div>
 </section>
-
 <hr class="divider">
-
 <!-- SKILLS -->
 <section id="skills">
   <div class="kicker">Skills</div>
@@ -459,9 +426,7 @@
     </div>
   </div>
 </section>
-
 <hr class="divider">
-
 <!-- EDUCATION -->
 <section id="education">
   <div class="kicker">Education</div>
@@ -490,14 +455,11 @@
     </div>
   </div>
 </section>
-
 <hr class="divider">
-
 <!-- PORTFOLIO / PROJECTS -->
 <section id="portfolio">
   <div class="kicker">Projects</div>
   <h2 class="section-title" style="margin-bottom:36px;">Shipped Games</h2>
-
   <div class="case">
     <div class="case-media"><video controls muted playsinline><source src="assets/sermon.mp4" type="video/mp4"></video></div>
     <div class="case-body">
@@ -515,7 +477,6 @@
       <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="case-link">Play on itch.io →</a>
     </div>
   </div>
-
   <div class="case reverse">
     <div class="case-media"><img src="assets/Oblation.png" alt="Oblation"></div>
     <div class="case-body">
@@ -533,7 +494,6 @@
       <a href="https://troj4nblazing.itch.io/oblation" target="_blank" class="case-link">Play on itch.io →</a>
     </div>
   </div>
-
   <div class="case">
     <div class="case-media"><img src="assets/Septem The Preparation.png" alt="Septem: The Preparation"></div>
     <div class="case-body">
@@ -550,7 +510,6 @@
       <a href="https://troj4nblazing.itch.io/thepreparation" target="_blank" class="case-link">Play on itch.io →</a>
     </div>
   </div>
-
   <div class="case reverse">
     <div class="case-media"><video controls muted playsinline><source src="assets/housebound.mp4" type="video/mp4"></video></div>
     <div class="case-body">
@@ -565,7 +524,6 @@
       <a href="https://arcadian-xp.itch.io/housebound" target="_blank" class="case-link">Play on itch.io →</a>
     </div>
   </div>
-
   <div class="case">
     <div class="case-media"><video controls muted playsinline><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video></div>
     <div class="case-body">
@@ -581,9 +539,7 @@
     </div>
   </div>
 </section>
-
 <hr class="divider">
-
 <!-- PARTICIPATION -->
 <section id="participation">
   <div class="kicker">Participation</div>
@@ -597,9 +553,7 @@
     </div>
   </div>
 </section>
-
 <hr class="divider">
-
 <!-- WIP -->
 <section id="wip">
   <div class="kicker">In Development</div>
@@ -613,43 +567,14 @@
       </div>
     </div>
     <div class="wip-card panel">
-      <div class="wip-media"><span class="wip-stamp">In Progress</span><video muted loop autoplay playsinline><source src="assets/bennys_burger_piz.mp4" type="video/mp4"></video></div>
+      <div class="wip-media"><span class="wip-stamp">In Progress</span><video muted loop autoplay playsinline><source src="assets/tale_of_parador.mp4" type="video/mp4"></video></div>
       <div class="wip-body">
-        <div class="wip-title">Fragments of Dread: Burger Piz</div>
-        <div class="wip-desc">Cursed diner horror with Vinil. AI voice mimicry and dynamic environment shifts.</div>
-      </div>
-    </div>
-    <div class="wip-card panel">
-      <div class="wip-media"><span class="wip-stamp">In Progress</span><video muted loop autoplay playsinline><source src="assets/ward 13.mp4" type="video/mp4"></video></div>
-      <div class="wip-body">
-        <div class="wip-title">Ward 13</div>
-        <div class="wip-desc">Atmospheric abandoned hospital horror with psychological tension.</div>
-      </div>
-    </div>
-    <div class="wip-card panel">
-      <div class="wip-media"><span class="wip-stamp">In Progress</span><video muted loop autoplay playsinline><source src="assets/around.mp4" type="video/mp4"></video></div>
-      <div class="wip-body">
-        <div class="wip-title">Around</div>
-        <div class="wip-desc">Minimalist tension experience.</div>
-      </div>
-    </div>
-    <div class="wip-card panel">
-      <div class="wip-media"><span class="wip-stamp">Pre-Production</span><img src="assets/Glimmergrieve_Studio_GDD (1).jpg" alt="Glimmergrieve"></div>
-      <div class="wip-body">
-        <div class="wip-title">Glimmergrieve</div>
-        <div class="wip-desc">Psychological survival horror set in an abandoned high school where memories manifest physically.</div>
-      </div>
-    </div>
-    <div class="wip-card panel">
-      <div class="wip-media"><span class="wip-stamp">Pre-Production</span><img src="assets/Whisper_House_GDD.jpg" alt="Whisper House"></div>
-      <div class="wip-body">
-        <div class="wip-title">Whisper House: Escape the Watcher</div>
-        <div class="wip-desc">Mobile stealth horror — escape a haunted house hunted by a blind monster.</div>
+        <div class="wip-title">Tale of Parador</div>
+        <div class="wip-desc">Level Designer & Programmer — using Claude for coding assistance.</div>
       </div>
     </div>
   </div>
 </section>
-
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-wrap">
@@ -663,20 +588,16 @@
     </div>
   </div>
 </section>
-
 <footer class="site-footer">
   <span>© 2026 KODALI CHINMAY RAM</span>
   <span>BUILD STATUS: STABLE</span>
 </footer>
-
 <script>
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
   navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
   navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
-
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   // mark elements to reveal on scroll
   const revealSelectors = [
     '.section-title', '.about-portrait', '.about-text', '.credentials',
@@ -684,14 +605,12 @@
     '.wip-card', '.contact-title', '.contact-links'
   ];
   document.querySelectorAll(revealSelectors.join(',')).forEach(el => el.classList.add('reveal'));
-
   // stagger children within repeating groups
   document.querySelectorAll('.credentials, .tax-tags, .wip-grid').forEach(group => {
     Array.from(group.children).forEach((child, i) => {
       child.style.transitionDelay = reduceMotion ? '0ms' : (i * 60) + 'ms';
     });
   });
-
   // count-up for stat numbers
   function animateStat(el){
     const target = parseInt(el.dataset.target, 10);
@@ -706,7 +625,6 @@
     }
     requestAnimationFrame(tick);
   }
-
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
@@ -716,9 +634,7 @@
       }
     });
   }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
-
 </body>
 </html>
