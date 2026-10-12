@@ -252,7 +252,7 @@
   @media(min-width:700px){ .jam-entry{ grid-template-columns:200px 1fr; align-items:center; } }
   .jam-entry img{ width:100%; max-width:220px; display:block; border:1px solid var(--panel-border); filter:saturate(.85); }
   .wip-grid{ display:grid; grid-template-columns:1fr; gap:22px; max-width:1300px; margin:0 auto; }
-  @media(min-width:700px){ .wip-grid{ grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); } }
+  @media(min-width:700px){ .wip-grid{ grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); } }
   .wip-card{ overflow:hidden; position:relative; }
   .wip-media{ height:185px; overflow:hidden; position:relative; border-bottom:1px solid var(--panel-border); }
   .wip-media video, .wip-media img{ width:100%; height:100%; object-fit:cover; filter:saturate(.5) brightness(.6); }
@@ -561,13 +561,6 @@
       <div class="wip-body">
         <div class="wip-title">Fragments of Dread: Mother's Whisper</div>
         <div class="wip-desc">Solo PSX-style horror series — Episode 1. Exploration-driven with multiple endings.</div>
-      </div>
-    </div>
-    <div class="wip-card panel">
-      <div class="wip-media"><span class="wip-stamp">In Progress</span><video muted loop autoplay playsinline><source src="assets/tale_of_parador.mp4" type="video/mp4"></video></div>
-      <div class="wip-body">
-        <div class="wip-title">Tale of Parador</div>
-        <div class="wip-desc">Level Designer & Programmer — using Claude for coding assistance.</div>
       </div>
     </div>
   </div>
