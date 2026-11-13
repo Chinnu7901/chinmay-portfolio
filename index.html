@@ -94,6 +94,7 @@ h1 em{font-style:normal;color:var(--em);text-shadow:0 0 28px rgba(91,140,255,.5)
 .cert{max-width:380px;margin-top:14px;padding:8px;border:1px solid var(--line)}.cert img{width:100%;display:block}
 .tx{padding:16px 0;border-bottom:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap}.tx>span{width:170px;color:var(--em);padding-top:8px}
 .tx div{display:flex;flex-wrap:wrap;gap:8px;flex:1}.tx i{font-style:normal;border:1px solid var(--line);background:var(--pan);padding:7px 13px;font-size:13.5px;transition:.25s}.tx i:hover{border-color:var(--em);color:var(--em);transform:translateY(-2px)}
+.tx.learn>span{color:var(--em2)}.tx.learn i{border-style:dashed}
 .wip{display:grid;gap:20px}@media(min-width:760px){.wip{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}}
 .wc{border:1px solid var(--line);background:var(--pan);overflow:hidden;transition:.3s}.wc:hover{border-color:var(--em2)}
 .wm{height:170px;background:radial-gradient(circle at 30% 30%,#16243a,#0c0f14);position:relative;overflow:hidden}.wm video{width:100%;height:100%;object-fit:cover;filter:brightness(.6) saturate(.6)}
@@ -214,6 +215,7 @@ footer{padding:28px 6vw;border-top:1px solid var(--line);display:flex;justify-co
     <div class="kick mono">About</div><h2 class="title" style="margin-bottom:22px">Designing the<br>player’s journey</h2>
     <p>Game and level designer with shipped titles on PC and itch.io. <strong>Sermon was selected for Microsoft's Xbox Developer Acceleration Program (DAP)</strong>, recognition awarded to high-potential indie titles.</p>
     <p>I design level layouts, pacing, and environmental storytelling, with a proven strength in building mood and tension that carries across genres. I work across the full pipeline from concept and GDD to production and release, solo and in teams, and I'm currently pursuing an MCA with an AR/VR game development elective.</p>
+    <p>Unity is my main engine. I'm also learning <strong>Unreal Engine</strong> (level blockout with its shape tools) and <strong>Roblox Studio</strong> (lighting and asset integration) to take the same level design thinking onto more platforms.</p>
     <div class="cred mono"><span>Xbox DAP 2025</span><span>IDZ Digital intern</span><span>Hyderabad, India</span></div>
   </div>
 </div></section>
@@ -233,6 +235,7 @@ footer{padding:28px 6vw;border-top:1px solid var(--line);display:flex;justify-co
     <div class="tx"><span class="mono">Game design</span><div><i>Level Design</i><i>Game Design</i><i>Gameplay Pacing</i><i>Grey Boxing</i><i>Rapid Prototyping</i><i>GDD</i></div></div>
     <div class="tx"><span class="mono">Atmosphere</span><div><i>Environmental Storytelling</i><i>Atmosphere Building</i><i>Lighting</i><i>Prop Composition</i></div></div>
     <div class="tx"><span class="mono">Unity 3D</span><div><i>Scene Layout</i><i>Lighting</i><i>Fog</i><i>Particles</i><i>Post-Processing</i></div></div>
+    <div class="tx learn"><span class="mono">Learning</span><div><i>Unreal Engine · Level Blockout (Shape Tools)</i><i>Roblox Studio · Lighting</i><i>Roblox Studio · Asset Integration</i></div></div>
     <div class="tx"><span class="mono">Tools</span><div><i>GitHub</i><i>Graphic, Photo &amp; Video Editing</i></div></div>
     <div class="tx"><span class="mono">Languages</span><div><i>English — Fluent</i><i>Telugu — Fluent</i><i>Hindi — Intermediate</i></div></div>
   </div>
@@ -241,6 +244,7 @@ footer{padding:28px 6vw;border-top:1px solid var(--line);display:flex;justify-co
 <section id="wip"><div class="wrap">
   <div class="kick mono">In development</div><h2 class="title rv">Active builds</h2>
   <div class="wip rv">
+    <div class="wc"><div class="wm"><b class="mono">In progress</b></div><div class="wb"><h3>Roblox Parkour</h3><p>Obby built in Roblox Studio with store assets, packages, and AI-assisted scripts. Currently fixing server optimization issues.</p></div></div>
     <div class="wc"><div class="wm"><b class="mono">In progress</b><video muted loop autoplay playsinline preload="metadata"><source src="assets/mothers_whisper.mp4" type="video/mp4"></video></div><div class="wb"><h3>Fragments of Dread: Mother's Whisper</h3><p>Solo PSX-style horror, Episode 1. Exploration-driven with multiple endings.</p></div></div>
     <div class="wc"><div class="wm"><b class="mono">In progress</b></div><div class="wb"><h3>Fragments of Dread: Burger Piz</h3><p>Horror with AI voice mimicry and dynamic environment shifts.</p></div></div>
     <div class="wc"><div class="wm"><b class="mono">In progress</b></div><div class="wb"><h3>Ward 13</h3><p>Atmospheric hospital horror built on psychological tension.</p></div></div>
