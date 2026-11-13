@@ -3,625 +3,306 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kodali Chinmay Ram — Game Designer, Level Designer & Environment Designer</title>
+<title>Chinmay Ram Kodali — Game, Level &amp; Environment Designer</title>
+<meta name="description" content="Level and environment designer focused on player flow, pacing and atmosphere. 5 Unity titles, 120K+ views on itch.io, Xbox DAP selectee.">
+<meta name="theme-color" content="#0c0f14">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0a0d12;
-    --bg-deep:#060809;
-    --panel: rgba(255,255,255,0.035);
-    --panel-border: rgba(255,255,255,0.09);
-    --panel-border-hover: rgba(79,209,255,0.55);
-    --ink:#eef1f5;
-    --ink-dim:#838d9c;
-    --line: rgba(255,255,255,0.09);
-    --accent:#4fd1ff;
-    --accent-soft: rgba(79,209,255,0.12);
-    --accent2:#7c8cff;
-    --status:#e6b34f;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--bg);
-    color:var(--ink);
-    font-family:'Inter', sans-serif;
-    line-height:1.65;
-    overflow-x:hidden;
-  }
-  a{ color:inherit; }
-  ::selection{ background:var(--accent); color:#00131a; }
-  @keyframes fadeUp{ from{ opacity:0; transform:translateY(22px); } to{ opacity:1; transform:translateY(0); } }
-  @keyframes scan{ 0%{ top:-2%; opacity:0; } 8%{ opacity:.8; } 92%{ opacity:.8; } 100%{ top:100%; opacity:0; } }
-  @keyframes pulseCorner{ 0%,100%{ opacity:.85; } 50%{ opacity:.3; } }
-  @keyframes blinkDot{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
-  .reveal{
-    opacity:0; transform:translateY(24px);
-    transition:opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1);
-  }
-  .reveal.in-view{ opacity:1; transform:translateY(0); }
-  @media(prefers-reduced-motion:reduce){
-    .reveal{ opacity:1 !important; transform:none !important; transition:none !important; }
-    .hero-content .kicker, .hero-content h1, .hero-sub, .hero-cta{ animation:none !important; opacity:1 !important; }
-    .viewport::before, .corner, .nav-mark .dot{ animation:none !important; }
-  }
-  .grid-bg{
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-    background-image:
-      linear-gradient(rgba(79,209,255,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(79,209,255,0.05) 1px, transparent 1px);
-    background-size:48px 48px;
-    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 10%, transparent 75%);
-  }
-  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-.015em; }
-  nav{
-    position:fixed; top:0; left:0; right:0; z-index:200;
-    display:flex; justify-content:space-between; align-items:center;
-    padding:20px 5vw;
-    background:rgba(10,13,18,.72); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--line);
-    font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.08em;
-  }
-  .nav-mark{ color:var(--ink-dim); display:flex; align-items:center; gap:8px; }
-  .nav-mark .dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent); animation:blinkDot 2.4s ease-in-out infinite; }
-  .nav-mark b{ color:var(--ink); font-weight:500; }
-  .nav-links{ display:flex; gap:26px; text-transform:uppercase; }
-  .nav-links a{ text-decoration:none; color:var(--ink-dim); transition:color .25s; }
-  .nav-links a:hover{ color:var(--accent); }
-  .nav-toggle{ display:none; background:none; border:1px solid var(--line); color:var(--ink); font-size:16px; padding:6px 10px; cursor:pointer; }
-  @media (max-width:860px){
-    .nav-links{
-      position:fixed; top:0; right:0; height:100vh; width:min(78vw,320px);
-      background:var(--bg-deep); flex-direction:column; justify-content:center; gap:24px;
-      padding:0 40px; transform:translateX(100%); transition:transform .4s ease; z-index:210;
-      border-left:1px solid var(--line);
-    }
-    .nav-links.open{ transform:translateX(0); }
-    .nav-toggle{ display:block; z-index:220; }
-  }
-  section{ padding:min(12vw,120px) 6vw; position:relative; z-index:1; }
-  .divider{ border:none; border-top:1px solid var(--line); position:relative; z-index:1; }
-  .kicker{
-    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:.14em;
-    color:var(--accent); text-transform:uppercase; margin-bottom:16px;
-    display:flex; align-items:center; gap:10px;
-  }
-  .kicker::before{ content:'//'; color:var(--ink-dim); }
-  .section-title{ font-size:clamp(28px,3.6vw,44px); color:var(--ink); margin-bottom:26px; line-height:1.08; }
-  .panel{
-    background:var(--panel); border:1px solid var(--panel-border);
-    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-    transition:border-color .3s;
-  }
-  .panel:hover{ border-color:var(--panel-border-hover); }
-  .asset-id{
-    font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.1em;
-    color:var(--accent); text-transform:uppercase; display:inline-flex; align-items:center; gap:8px;
-  }
-  .asset-id::before{ content:''; width:6px; height:6px; background:var(--accent); box-shadow:0 0 6px var(--accent); }
-  header.hero{
-    min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end;
-    position:relative; padding:110px 6vw 80px; z-index:1;
-  }
-  .viewport{
-    position:absolute; inset:24px 6vw 140px; z-index:0;
-    border:1px solid var(--line); overflow:hidden; background:#000;
-  }
-  .viewport::before{
-    content:''; position:absolute; left:0; right:0; top:0; height:2px; z-index:1;
-    background:linear-gradient(90deg, transparent, var(--accent), transparent);
-    box-shadow:0 0 14px var(--accent); animation:scan 6s ease-in-out infinite;
-  }
-  .viewport video{ width:100%; height:100%; object-fit:cover; opacity:.42; filter:saturate(.8) contrast(1.05); }
-  .viewport::after{
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(to top, var(--bg) 4%, rgba(10,13,18,.4) 45%, rgba(10,13,18,.15) 100%);
-  }
-  .corner{ position:absolute; width:22px; height:22px; border:1.5px solid var(--accent); opacity:.8; z-index:1; animation:pulseCorner 3.4s ease-in-out infinite; }
-  .corner.tl{ top:14px; left:14px; border-right:none; border-bottom:none; }
-  .corner.tr{ top:14px; right:14px; border-left:none; border-bottom:none; animation-delay:.5s; }
-  .corner.bl{ bottom:14px; left:14px; border-right:none; border-top:none; animation-delay:1s; }
-  .corner.br{ bottom:14px; right:14px; border-left:none; border-top:none; animation-delay:1.5s; }
-  .viewport-label{
-    position:absolute; top:16px; left:44px; z-index:1;
-    font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:.12em;
-    color:var(--accent); text-transform:uppercase;
-  }
-  .hero-content{ position:relative; z-index:2; max-width:920px; }
-  .hero-content .kicker{ opacity:0; animation:fadeUp .8s ease forwards; animation-delay:.1s; }
-  .hero-content h1{
-    font-size:clamp(36px, 8.5vw, 96px); line-height:1.02; color:var(--ink);
-    margin-bottom:24px; opacity:0; animation:fadeUp .9s ease forwards; animation-delay:.24s;
-  }
-  .hero-content h1 span{ color:var(--accent); }
-  .hero-sub{
-    font-size:clamp(15px,1.8vw,18px); color:var(--ink-dim); max-width:600px; margin-bottom:40px;
-    opacity:0; animation:fadeUp .9s ease forwards; animation-delay:.4s;
-  }
-  .hero-cta{ display:flex; gap:14px; flex-wrap:wrap; font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:.05em;
-    opacity:0; animation:fadeUp .9s ease forwards; animation-delay:.56s;
-  }
-  .btn{
-    display:inline-flex; align-items:center; gap:10px;
-    padding:14px 24px; text-decoration:none; text-transform:uppercase;
-    border:1px solid var(--panel-border); color:var(--ink); transition:all .25s;
-    background:var(--panel); backdrop-filter:blur(10px);
-  }
-  .btn.solid{ background:var(--accent); border-color:var(--accent); color:#00131a; font-weight:500; }
-  .btn.solid:hover{ background:#7fe0ff; }
-  .btn.ghost:hover{ border-color:var(--accent); color:var(--accent); }
-  .about-grid{ display:grid; grid-template-columns:1fr; gap:50px; max-width:1300px; margin:0 auto; align-items:start; }
-  @media(min-width:900px){ .about-grid{ grid-template-columns:0.8fr 1.2fr; gap:70px; } }
-  .about-portrait{ padding:10px; }
-  .about-portrait img{ width:100%; display:block; filter:saturate(.85) contrast(1.02); }
-  .about-portrait .tag{
-    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.1em;
-    color:var(--ink-dim); padding:10px 4px 0; text-transform:uppercase; display:block;
-  }
-  .about-text p{ color:var(--ink-dim); font-size:16px; margin-bottom:18px; max-width:640px; }
-  .about-text strong{ color:var(--ink); font-weight:600; }
-  .credentials{ display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
-  .credential{
-    border:1px solid var(--panel-border); background:var(--panel); padding:9px 15px;
-    font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.06em;
-    color:var(--ink-dim); text-transform:uppercase; transition:border-color .25s, color .25s;
-  }
-  .credential:hover{ border-color:var(--accent); color:var(--accent); }
-  .achievement-banner{
-    max-width:1000px; padding:22px 28px;
-    border-left:2px solid var(--accent);
-    background:linear-gradient(90deg, var(--accent-soft), transparent 60%);
-  }
-  .achievement-text{ font-size:17px; color:var(--ink); max-width:700px; }
-  .achievement-text strong{ color:var(--accent); }
-  .timeline{ max-width:1000px; position:relative; }
-  .t-entry{
-    display:grid; grid-template-columns:1fr; gap:16px; padding:26px 0 26px 30px;
-    position:relative; border-left:1px solid var(--line);
-  }
-  .t-entry::before{
-    content:''; position:absolute; left:-5px; top:32px; width:9px; height:9px;
-    background:var(--bg); border:2px solid var(--accent); border-radius:50%;
-  }
-  @media(min-width:700px){ .t-entry{ grid-template-columns:180px 1fr; gap:40px; } }
-  .t-meta{ font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--ink-dim); letter-spacing:.05em; padding-top:2px; }
-  .t-role{ font-size:21px; color:var(--ink); margin-bottom:4px; }
-  .t-org{ color:var(--accent); font-family:'JetBrains Mono',monospace; font-size:12px; margin-bottom:16px; letter-spacing:.03em; }
-  .t-list{ list-style:none; }
-  .t-list li{ color:var(--ink-dim); padding-left:18px; position:relative; margin-bottom:10px; font-size:15px; }
-  .t-list li::before{ content:'▸'; position:absolute; left:0; color:var(--accent); font-size:11px; top:4px; }
-  .cert-block{ padding:10px; max-width:420px; margin-top:6px; }
-  .cert-block img{ width:100%; display:block; filter:saturate(.85) contrast(1.02); }
-  .cert-block .tag{
-    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.1em;
-    color:var(--ink-dim); padding:10px 4px 0; text-transform:uppercase; display:block;
-  }
-  .taxonomy{ max-width:1050px; }
-  .tax-row{ display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--line); }
-  .tax-row:last-child{ border-bottom:none; }
-  .tax-label{
-    font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:.08em; color:var(--accent);
-    text-transform:uppercase; width:170px; padding-top:9px; flex-shrink:0;
-  }
-  .tax-tags{ display:flex; flex-wrap:wrap; gap:9px; flex:1; }
-  .tag{
-    padding:8px 14px; border:1px solid var(--panel-border); background:var(--panel); font-size:13.5px; color:var(--ink);
-    transition:border-color .25s, color .25s; font-family:'Inter',sans-serif;
-  }
-  .tag:hover{ border-color:var(--accent); color:var(--accent); }
-  .case{
-    display:grid; grid-template-columns:1fr; gap:0;
-    max-width:1300px; margin:0 auto 32px; overflow:hidden;
-  }
-  @media(min-width:940px){
-    .case{ grid-template-columns:1.05fr .95fr; }
-    .case.reverse{ direction:rtl; }
-    .case.reverse > *{ direction:ltr; }
-  }
-  .case-media{ position:relative; background:#000; overflow:hidden; border:1px solid var(--panel-border); }
-  .case-media img, .case-media video{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.85); }
-  .case-body{ padding:34px; border:1px solid var(--panel-border); border-left:none; background:var(--panel); backdrop-filter:blur(10px); }
-  @media(max-width:939px){ .case-body{ border-left:1px solid var(--panel-border); border-top:none; } }
-  @media(min-width:940px){ .case.reverse .case-body{ border-left:1px solid var(--panel-border); border-right:none; } }
-  .case-body .asset-id{ display:inline-flex; margin-bottom:14px; }
-  .case-title{ font-size:clamp(24px,2.6vw,32px); color:var(--ink); margin-bottom:12px; }
-  .case-meta{
-    font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--ink-dim);
-    letter-spacing:.02em; margin-bottom:18px; text-transform:uppercase; line-height:1.6;
-  }
-  .case-desc{ color:var(--ink-dim); font-size:15px; margin-bottom:20px; max-width:500px; }
-  .case-list{ list-style:none; margin-bottom:22px; }
-  .case-list li{ color:var(--ink-dim); font-size:14px; padding-left:18px; position:relative; margin-bottom:9px; }
-  .case-list li::before{ content:'▸'; position:absolute; left:0; color:var(--accent); font-size:10px; top:4px; }
-  .case-stats{
-    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--accent);
-    letter-spacing:.03em; margin-bottom:20px;
-  }
-  .case-link{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:.08em;
-    text-transform:uppercase; text-decoration:none; color:var(--ink);
-    border:1px solid var(--panel-border); padding:10px 16px; transition:all .25s;
-  }
-  .case-link:hover{ border-color:var(--accent); color:var(--accent); }
-  .jam-entry{
-    display:grid; grid-template-columns:1fr; gap:28px; max-width:900px;
-    padding:30px;
-  }
-  @media(min-width:700px){ .jam-entry{ grid-template-columns:200px 1fr; align-items:center; } }
-  .jam-entry img{ width:100%; max-width:220px; display:block; border:1px solid var(--panel-border); filter:saturate(.85); }
-  .wip-grid{ display:grid; grid-template-columns:1fr; gap:22px; max-width:1300px; margin:0 auto; }
-  @media(min-width:700px){ .wip-grid{ grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); } }
-  .wip-card{ overflow:hidden; position:relative; }
-  .wip-media{ height:185px; overflow:hidden; position:relative; border-bottom:1px solid var(--panel-border); }
-  .wip-media video, .wip-media img{ width:100%; height:100%; object-fit:cover; filter:saturate(.5) brightness(.6); }
-  .wip-stamp{
-    position:absolute; top:12px; right:12px; z-index:2;
-    font-family:'JetBrains Mono', monospace; font-size:10px; letter-spacing:.08em;
-    color:var(--status); border:1px solid var(--status); padding:4px 9px;
-    text-transform:uppercase; background:rgba(10,13,18,.75);
-  }
-  .wip-body{ padding:20px; }
-  .wip-title{ font-family:'Space Grotesk',sans-serif; font-size:17px; color:var(--ink); margin-bottom:8px; font-weight:600; }
-  .wip-desc{ color:var(--ink-dim); font-size:13.5px; }
-  .contact-wrap{ max-width:1300px; margin:0 auto; }
-  .contact-title{ font-size:clamp(36px,6.4vw,76px); line-height:1.02; margin-bottom:36px; }
-  .contact-title span{ color:var(--accent); }
-  .contact-links{ display:flex; flex-wrap:wrap; gap:16px; font-family:'JetBrains Mono', monospace; font-size:14px; }
-  .contact-links a{
-    text-decoration:none; padding:14px 20px; border:1px solid var(--panel-border);
-    background:var(--panel); backdrop-filter:blur(10px); transition:all .25s;
-  }
-  .contact-links a:hover{ border-color:var(--accent); color:var(--accent); }
-  footer.site-footer{
-    padding:30px 6vw; font-family:'JetBrains Mono', monospace; font-size:11px;
-    color:var(--ink-dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
-    border-top:1px solid var(--line); position:relative; z-index:1;
-  }
-  @media(prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
+:root{--bg:#0c0f14;--bg2:#11151c;--ink:#e8ecf2;--dim:#8a94a3;--em:#5b8cff;--em2:#2ee6c5;--line:rgba(232,236,242,.1);--pan:rgba(240,245,255,.035);--mx:50%;--my:30%}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.65 Inter,sans-serif;overflow-x:hidden;padding-bottom:64px}
+a{color:inherit}::selection{background:var(--em);color:#000}
+h1,h2,h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;letter-spacing:.01em;line-height:1}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+/* atmosphere */
+#bar{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--em),var(--em2));z-index:300;box-shadow:0 0 10px var(--em)}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:16px 5vw;background:rgba(12,15,20,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{font:700 20px 'Barlow Condensed';letter-spacing:.06em;text-decoration:none}.logo b{color:var(--em)}
+.links{display:flex;gap:26px}.links a{text-decoration:none;color:var(--dim);transition:color .25s}.links a:hover,.links a.on{color:var(--em)}
+.open{display:inline-flex;align-items:center;gap:8px;color:var(--em2);font-size:11px}
+.open i{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.3}}
+#tg{display:none;background:none;border:1px solid var(--line);color:var(--ink);padding:6px 11px;font-size:16px;cursor:pointer}
+@media(max-width:900px){.open{display:none}#tg{display:block;z-index:230}
+.links{position:fixed;top:0;right:0;height:100vh;width:min(76vw,300px);background:var(--bg2);flex-direction:column;justify-content:center;padding:0 36px;gap:22px;transform:translateX(100%);transition:transform .4s;z-index:220;border-left:1px solid var(--line)}
+.links.show{transform:none}.links a{font-size:14px}}
+/* sections */
+section{padding:min(13vw,110px) 6vw;position:relative;z-index:2}
+.wrap{max-width:1200px;margin:0 auto}
+.kick{color:var(--em);margin-bottom:14px;display:flex;gap:10px;align-items:center}.kick:before{content:'';width:28px;height:1px;background:var(--em)}
+.title{font-size:clamp(38px,6vw,68px);margin-bottom:34px;text-transform:uppercase}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.16,.84,.44,1),transform .8s cubic-bezier(.16,.84,.44,1)}.rv.in{opacity:1;transform:none}
+/* hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:110px 6vw 70px;position:relative;overflow:hidden}
+.hero video{position:absolute;inset:0;width:100%;height:112%;object-fit:cover;opacity:.4;filter:saturate(.7) contrast(1.1);will-change:transform}
+.hero:before{content:"";position:absolute;width:60vw;height:60vw;right:-15vw;top:-12vw;z-index:1;background:radial-gradient(circle,rgba(91,140,255,.28),transparent 62%);animation:orb 14s ease-in-out infinite alternate}@keyframes orb{to{transform:translate(-10vw,7vw) scale(1.25)}}.hero:after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 3%,rgba(12,15,20,.45) 50%,rgba(12,15,20,.7))}
+.hc{position:relative;z-index:3;max-width:1000px}
+.hc>*{opacity:0;animation:up .9s cubic-bezier(.16,.84,.44,1) forwards}
+.hc>:nth-child(2){animation-delay:.15s}.hc>:nth-child(3){animation-delay:.3s}.hc>:nth-child(4){animation-delay:.45s}
+@keyframes up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.role{color:var(--em2);min-height:1.6em;margin-bottom:18px}.role:after{content:'▍';animation:blink 1s infinite;margin-left:3px}
+h1{font-size:clamp(54px,13vw,168px);text-transform:uppercase;line-height:.9;margin-bottom:26px}
+h1 em{font-style:normal;color:var(--em);text-shadow:0 0 28px rgba(91,140,255,.5)}
+@keyframes flick{0%,18%,22%,62%,64%,100%{opacity:1}20%,63%{opacity:.25}21%{opacity:.8}}
+.sub{color:#c3cad6;max-width:620px;font-size:clamp(15px,1.8vw,19px);margin-bottom:34px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{padding:14px 24px;text-decoration:none;border:1px solid var(--line);background:var(--pan);transition:.25s;display:inline-flex;gap:8px;align-items:center}
+.btn.s{background:var(--em);border-color:var(--em);color:#031018;font-weight:600}.btn.s:hover{background:var(--em2);border-color:var(--em2);box-shadow:0 0 28px rgba(91,140,255,.45)}
+.btn:not(.s):hover{border-color:var(--em);color:var(--em)}
+.scroll{position:absolute;bottom:22px;right:6vw;z-index:3;color:var(--dim);writing-mode:vertical-rl}
+.scroll:after{content:'';display:inline-block;width:1px;height:40px;background:var(--em);margin-top:8px;animation:drop 2s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+/* stats + marquee */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);border-block:1px solid var(--line);background:var(--bg2);position:relative;z-index:2}
+@media(min-width:800px){.stats{grid-template-columns:repeat(5,1fr)}}
+.stats div{padding:26px 20px;border-right:1px solid var(--line);text-align:center}
+.stats b{display:block;font:700 clamp(32px,5vw,52px)/1 'Barlow Condensed';color:var(--em)}
+.stats span{color:var(--dim)}
+.mq{overflow:hidden;border-bottom:1px solid var(--line);padding:16px 0;position:relative;z-index:2;white-space:nowrap;color:var(--dim)}
+.mq div{display:inline-block;animation:mq 30s linear infinite}.mq i{color:var(--em);margin:0 22px;font-style:normal}
+@keyframes mq{to{transform:translateX(-50%)}}
+/* projects */
+.case{display:grid;gap:0;margin-bottom:34px;border:1px solid var(--line);background:var(--pan);overflow:hidden;transition:border-color .3s,transform .4s}
+.case:hover{border-color:rgba(91,140,255,.6);transform:translateY(-4px)}
+@media(min-width:940px){.case{grid-template-columns:1.1fr .9fr}.case.rev{direction:rtl}.case.rev>*{direction:ltr}}
+.media{position:relative;background:#000;min-height:260px;overflow:hidden}
+.media img,.media video{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.85);transition:transform .8s}
+.case:hover .media img,.case:hover .media video{transform:scale(1.04)}
+.media:after{content:attr(data-n);position:absolute;top:14px;left:16px;font:12px 'JetBrains Mono';color:var(--em2);letter-spacing:.14em;pointer-events:none}
+.body{padding:clamp(22px,3vw,38px)}
+.ct{font-size:clamp(30px,3.4vw,44px);text-transform:uppercase;margin-bottom:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.chips span{border:1px solid var(--line);padding:4px 10px;color:var(--dim);font-size:10.5px}.chips .hl{border-color:var(--em);color:var(--em)}
+.desc{color:#c3cad6;margin-bottom:14px}
+.body ul{list-style:none;margin-bottom:20px}
+.body li{color:var(--dim);font-size:14.5px;padding-left:18px;position:relative;margin-bottom:8px}.body li:before{content:'▸';position:absolute;left:0;color:var(--em);font-size:11px;top:3px}
+.st{color:var(--em2);margin-bottom:18px}.st b{font-weight:500}
+.pl{display:inline-flex;gap:8px;text-decoration:none;border:1px solid var(--em);color:var(--em);padding:10px 18px;transition:.25s}.pl:hover{background:var(--em);color:#031018}
+/* about / exp / generic */
+.g2{display:grid;gap:44px}@media(min-width:900px){.g2{grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}}
+.ph{position:relative;padding:10px;border:1px solid var(--line);background:var(--pan)}.ph img{width:100%;display:block;filter:saturate(.85) contrast(1.05)}
+.ph:before{content:'';position:absolute;inset:-8px 8px 8px -8px;border:1px solid var(--em);z-index:-1;opacity:.5}
+.txt p{color:#c3cad6;margin-bottom:16px;max-width:640px}.txt strong{color:var(--ink)}
+.cred{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.cred span{border:1px solid var(--line);padding:8px 14px;color:var(--dim)}
+.tl{border-left:1px solid var(--line);padding:6px 0 26px 28px;position:relative;margin-left:5px}
+.tl:before{content:'';position:absolute;left:-6px;top:12px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--em)}
+.tl .mono{color:var(--dim);margin-bottom:6px}.tl h3{font-size:28px;text-transform:uppercase}.tl .o{color:var(--em);margin:4px 0 12px}
+.banner{border-left:2px solid var(--em);padding:20px 26px;background:linear-gradient(90deg,rgba(91,140,255,.12),transparent 70%);margin-bottom:34px;font-size:17px}.banner b{color:var(--em2)}
+.cert{max-width:380px;margin-top:14px;padding:8px;border:1px solid var(--line)}.cert img{width:100%;display:block}
+.tx{padding:16px 0;border-bottom:1px solid var(--line);display:flex;gap:14px;flex-wrap:wrap}.tx>span{width:170px;color:var(--em);padding-top:8px}
+.tx div{display:flex;flex-wrap:wrap;gap:8px;flex:1}.tx i{font-style:normal;border:1px solid var(--line);background:var(--pan);padding:7px 13px;font-size:13.5px;transition:.25s}.tx i:hover{border-color:var(--em);color:var(--em);transform:translateY(-2px)}
+.wip{display:grid;gap:20px}@media(min-width:760px){.wip{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}}
+.wc{border:1px solid var(--line);background:var(--pan);overflow:hidden;transition:.3s}.wc:hover{border-color:var(--em2)}
+.wm{height:170px;background:radial-gradient(circle at 30% 30%,#16243a,#0c0f14);position:relative;overflow:hidden}.wm video{width:100%;height:100%;object-fit:cover;filter:brightness(.6) saturate(.6)}
+.wm b{position:absolute;top:12px;right:12px;font-weight:500;color:var(--em2);border:1px solid var(--em2);padding:3px 9px;background:rgba(0,0,0,.7);font-size:10px}
+.wb{padding:18px}.wb h3{font-size:24px;margin-bottom:6px;text-transform:uppercase}.wb p{color:var(--dim);font-size:14px}
+.edu{display:grid;gap:0}.edu .tl h3{font-size:22px}
+.contact h2{font-size:clamp(46px,9vw,120px);text-transform:uppercase;margin-bottom:30px}.contact h2 em{font-style:normal;color:var(--em)}
+.cl{display:flex;flex-wrap:wrap;gap:14px}.cl a{padding:15px 22px;border:1px solid var(--line);background:var(--pan);text-decoration:none;transition:.25s;font-family:'JetBrains Mono';font-size:14px}.cl a:hover{border-color:var(--em);color:var(--em);transform:translateY(-3px)}
+footer{padding:28px 6vw;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;color:var(--dim);position:relative;z-index:2}
+/* mobile action bar */
+.ab{position:fixed;left:0;right:0;bottom:0;z-index:210;display:none;background:rgba(12,15,20,.92);backdrop-filter:blur(12px);border-top:1px solid var(--line)}
+.ab a{flex:1;text-align:center;padding:16px 8px;text-decoration:none;font-size:11px}.ab a+a{border-left:1px solid var(--line);color:var(--em)}
+@media(max-width:700px){.ab{display:flex}.scroll{display:none}.tx>span{width:100%;padding:0}}
+@media(min-width:701px){body{padding-bottom:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.hc>*{opacity:1!important;transform:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<div class="grid-bg"></div>
+<div id="bar"></div>
 <nav>
-  <div class="nav-mark"><span class="dot"></span>STUDIO:// <b>K.CHINMAY_RAM</b></div>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
-  <div class="nav-links" id="navLinks">
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#education">Education</a>
-    <a href="#portfolio">Projects</a>
-    <a href="#participation">Jams</a>
-    <a href="#wip">In Dev</a>
-    <a href="#contact">Contact</a>
+  <a class="logo" href="#top">CHINMAY<b>/</b>RAM</a>
+  <span class="open mono"><i></i>Open to work</span>
+  <button id="tg" aria-label="Menu">☰</button>
+  <div class="links mono" id="lk">
+    <a href="#work">Projects</a><a href="#about">About</a><a href="#exp">Experience</a><a href="#skills">Skills</a><a href="#wip">In Dev</a><a href="#edu">Education</a><a href="#contact">Contact</a>
   </div>
 </nav>
-<!-- HERO -->
-<header class="hero">
-  <div class="viewport">
-    <video autoplay muted loop playsinline>
-      <source src="assets/sermon.mp4" type="video/mp4">
-    </video>
-    <div class="corner tl"></div><div class="corner tr"></div>
-    <div class="corner bl"></div><div class="corner br"></div>
-    <div class="viewport-label">VIEWPORT_01 // SERMON.SCENE</div>
+
+<header class="hero" id="top">
+  <video autoplay muted loop playsinline preload="metadata" id="hv"><source src="assets/sermon.mp4" type="video/mp4"></video>
+  <div class="hc">
+    <div class="role mono" id="role">Level Designer</div>
+    <h1>Designing<br>spaces players <em>feel</em></h1>
+    <p class="sub">Level &amp; environment designer shaping player flow, pacing, and atmosphere across genres. Five Unity titles shipped, 120K+ views on itch.io, and <b>Sermon</b> selected for Microsoft's Xbox Developer Acceleration Program.</p>
+    <div class="cta"><a href="#work" class="btn s mono">View Projects ↓</a><a href="assets/Resume.pdf" target="_blank" class="btn mono">Résumé ↗</a></div>
   </div>
-  <div class="hero-content">
-    <div class="kicker" style="margin-bottom:20px;">Game Designer · Level Designer · Environment Designer</div>
-    <h1>Designing worlds<br>players <span>remember</span>.</h1>
-    <p class="hero-sub">Kodali Chinmay Ram designs level layouts, pacing, and environmental storytelling across genres — built in Unity 3D, shipped to 100,000+ players across 5+ titles, with a particular strength in atmospheric and horror experiences, and recognition from Microsoft's Xbox Developer Acceleration Program.</p>
-    <div class="hero-cta">
-      <a href="#portfolio" class="btn solid">View Projects</a>
-      <a href="assets/Resume.pdf" target="_blank" class="btn ghost">Download Résumé</a>
-    </div>
-  </div>
+  <span class="scroll mono">Scroll</span>
 </header>
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div class="about-portrait panel">
-      <img src="assets/Chinmay.jpg" alt="Kodali Chinmay Ram">
-      <span class="tag">Designer_Profile.png</span>
+
+<div class="stats">
+  <div><b data-t="5">5</b><span class="mono">Titles shipped</span></div>
+  <div><b data-t="120000" data-s="K+">120K+</b><span class="mono">itch.io views</span></div>
+  <div><b data-t="20800" data-s="K+">20.8K+</b><span class="mono">Downloads</span></div>
+  <div><b>DAP</b><span class="mono">Xbox selectee 2025</span></div>
+  <div><b>Unity</b><span class="mono">3D engine</span></div>
+</div>
+<div class="mq mono"><div>Level Design<i>✦</i>Environmental Storytelling<i>✦</i>Atmosphere<i>✦</i>Gameplay Pacing<i>✦</i>Grey Boxing<i>✦</i>Lighting &amp; Fog<i>✦</i>Player Flow<i>✦</i>Rapid Prototyping<i>✦</i>Level Design<i>✦</i>Environmental Storytelling<i>✦</i>Atmosphere<i>✦</i>Gameplay Pacing<i>✦</i>Grey Boxing<i>✦</i>Lighting &amp; Fog<i>✦</i>Player Flow<i>✦</i>Rapid Prototyping<i>✦</i></div></div>
+
+<section id="work"><div class="wrap">
+  <div class="kick mono">Shipped games</div><h2 class="title rv">Playable proof</h2>
+
+  <article class="case rv">
+    <div class="media" data-n="01 / SERMON"><video controls muted playsinline preload="metadata"><source src="assets/sermon.mp4" type="video/mp4"></video></div>
+    <div class="body">
+      <h3 class="ct">Sermon</h3>
+      <div class="chips mono"><span class="hl">Xbox DAP selected</span><span>Team project</span><span>Horror · Atmosphere &amp; flow</span><span>Unity 3D</span><span>2025</span></div>
+      <p class="desc">Sleep-paralysis inspired first-person horror.</p>
+      <p class="mono" style="color:var(--dim);margin-bottom:14px;font-size:10.5px">Level &amp; Environment Designer · Team: Vinil (Game Designer &amp; Programmer)</p>
+      <ul><li>Designed full level layouts and player flow for slow-burn, sleep-paralysis-inspired tension</li><li>Used lighting, fog, shadows, and prop composition to build surreal dread</li><li>Built environmental storytelling to support a dreamlike, psychological narrative</li><li>Committed level and environment updates independently in a shared GitHub repository</li></ul>
+      <div class="st mono"><b data-t="59200">59,200</b>+ views · <b data-t="11800">11,800</b>+ downloads</div>
+      <a class="pl mono" href="https://troj4nblazing.itch.io/sermon" target="_blank" rel="noopener">Play on itch.io →</a>
     </div>
-    <div>
-      <div class="kicker">About</div>
-      <h2 class="section-title">Versatile design,<br>built for any genre.</h2>
-      <div class="about-text">
-        <p>Game Designer and Level Designer with multiple shipped, published titles across PC and itch.io. Selected for <strong>Microsoft's Xbox Developer Acceleration Program (DAP)</strong> — recognition awarded to high-potential indie titles.</p>
-        <p>Specialises in level design, environmental storytelling, gameplay pacing, and rapid prototyping across a range of genres — with particular depth in atmospheric and horror experiences — experienced across the full pipeline from concept and GDD through to production and release, in both solo and collaborative team environments. Completed a Game Designer internship at <strong>IDZ Digital</strong>.</p>
-      </div>
-      <div class="credentials">
-        <div class="credential">Xbox DAP Selectee, 2025</div>
-        <div class="credential">IDZ Digital Intern</div>
-        <div class="credential">100K+ Players Reached</div>
-      </div>
+  </article>
+
+  <article class="case rev rv">
+    <div class="media" data-n="02 / OBLATION"><img loading="lazy" src="assets/Oblation.png" alt="Oblation"></div>
+    <div class="body">
+      <h3 class="ct">Oblation</h3>
+      <div class="chips mono"><span>Team project</span><span>Horror · Spatial storytelling</span><span>Unity 3D</span><span>2026</span></div>
+      <p class="desc">Horror about loyalty, grief, and the irreversible cost of trying to fix the past through ritual.</p>
+      <p class="mono" style="color:var(--dim);margin-bottom:14px;font-size:10.5px">Level &amp; Environment Designer · Team: Vinil (Game Designer &amp; Programmer)</p>
+      <ul><li>Designed level layouts and player flow around loss, grief, and ritual</li><li>Placed boundaries, walls, and props to create familiar-yet-uneasy domestic spaces</li><li>Structured spaces to support intimate dialogue, ritual mechanics, and guilt-driven pacing</li><li>Curated lighting, prop composition, and atmosphere alongside the programmer</li></ul>
+      <div class="st mono"><b data-t="17500">17,500</b>+ views · <b data-t="2740">2,740</b>+ downloads</div>
+      <a class="pl mono" href="https://troj4nblazing.itch.io/oblation" target="_blank" rel="noopener">Play on itch.io →</a>
     </div>
+  </article>
+
+  <article class="case rv">
+    <div class="media" data-n="03 / SEPTEM"><img loading="lazy" src="assets/Septem The Preparation.png" alt="Septem: The Preparation"></div>
+    <div class="body">
+      <h3 class="ct">Septem: The Preparation</h3>
+      <div class="chips mono"><span>Team project</span><span>Horror · Pacing &amp; pathing</span><span>Unity 3D</span><span>2026</span></div>
+      <p class="desc">Short horror built on atmosphere, implication, and storytelling through ordinary spaces.</p>
+      <p class="mono" style="color:var(--dim);margin-bottom:14px;font-size:10.5px">Level &amp; Environment Designer · Team: Vinil (Game Designer), Sushant (Programmer)</p>
+      <ul><li>Designed level layouts and pathing for subtle tension in ordinary, charged spaces</li><li>Revealed narrative through clues, implication, and prop placement</li><li>Handled scene composition for a seamless, immersive exploration loop</li></ul>
+      <div class="st mono"><b data-t="34300">34,300</b>+ views · <b data-t="4081">4,081</b>+ downloads</div>
+      <a class="pl mono" href="https://troj4nblazing.itch.io/thepreparation" target="_blank" rel="noopener">Play on itch.io →</a>
+    </div>
+  </article>
+
+  <article class="case rev rv">
+    <div class="media" data-n="04 / HOUSEBOUND"><video controls muted playsinline preload="metadata"><source src="assets/housebound.mp4" type="video/mp4"></video></div>
+    <div class="body">
+      <h3 class="ct">Housebound</h3>
+      <div class="chips mono"><span class="hl">Solo release</span><span>Built in 2 days</span><span>PSX-style first-person horror</span><span>Unity 3D</span><span>Windows · ~10 min</span><span>Released Jun 2025</span></div>
+      <p class="mono" style="color:var(--dim);margin-bottom:14px;font-size:10.5px">Solo Developer — Game Designer &amp; Level Designer</p>
+      <p class="desc">First-person psychological horror built solo in two days.</p>
+      <ul><li>Delivered concept, level design, lighting, UI, and release end-to-end</li><li>Designed the gameplay loop, AI behaviour, event sequencing, and HUD interactions</li></ul>
+      <a class="pl mono" href="https://arcadian-xp.itch.io/housebound" target="_blank" rel="noopener">Play on itch.io →</a>
+    </div>
+  </article>
+
+  <article class="case rv">
+    <div class="media" data-n="05 / GLOBAL GAME JAM"><video controls muted playsinline preload="metadata"><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video></div>
+    <div class="body">
+      <h3 class="ct">The Pursuit of Happiness</h3>
+      <div class="chips mono"><span class="hl">Global Game Jam · 48h</span><span>Team project</span><span>Chase horror</span><span>2024</span></div>
+      <p class="desc">Intense psychological chase horror built in 48 hours with a team.</p>
+      <p class="mono" style="color:var(--dim);margin-bottom:14px;font-size:10.5px">Game, Level &amp; Environment Designer · Ashish (Game Designer), Bhavesh (Programmer), Sameer (UI/UX)</p>
+      <ul><li>Designed the full maze layout and obstacle placement for tension and player flow</li><li>Controlled atmosphere with fog, lighting, and pacing for suspense</li><li>Created a promotional video showcasing gameplay highlights</li></ul>
+    </div>
+  </article>
+</div></section>
+
+<section id="about" style="background:var(--bg2)"><div class="wrap g2">
+  <div class="ph rv"><img loading="lazy" src="assets/Chinmay.jpg" alt="Chinmay Ram Kodali"></div>
+  <div class="txt rv">
+    <div class="kick mono">About</div><h2 class="title" style="margin-bottom:22px">Designing the<br>player’s journey</h2>
+    <p>Game and level designer with shipped titles on PC and itch.io. <strong>Sermon was selected for Microsoft's Xbox Developer Acceleration Program (DAP)</strong>, recognition awarded to high-potential indie titles.</p>
+    <p>I design level layouts, pacing, and environmental storytelling, with a proven strength in building mood and tension that carries across genres. I work across the full pipeline from concept and GDD to production and release, solo and in teams, and I'm currently pursuing an MCA with an AR/VR game development elective.</p>
+    <div class="cred mono"><span>Xbox DAP 2025</span><span>IDZ Digital intern</span><span>Hyderabad, India</span></div>
   </div>
-</section>
-<hr class="divider">
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="kicker">Experience</div>
-  <h2 class="section-title" style="margin-bottom:10px;">Work History</h2>
-  <div class="timeline">
-    <div class="t-entry">
-      <div class="t-meta">FEB 2026 —<br>JUN 2026</div>
-      <div>
-        <div class="t-role">Game Designer Intern</div>
-        <div class="t-org">IDZ DIGITAL</div>
-        <ul class="t-list">
-          <li>Designed and prototyped horror game concepts as the studio expanded into the horror genre</li>
-          <li>Contributed to level layouts, atmosphere design, gameplay pacing, and environmental storytelling</li>
-          <li>Collaborated directly with developers and artists to translate design vision into playable builds</li>
-        </ul>
-        <div class="cert-block panel">
-          <img src="assets/IDZ_Certificate.jpeg" alt="IDZ Digital Internship Certificate">
-          <span class="tag">Internship_Certificate.jpeg</span>
-        </div>
-      </div>
-    </div>
+</div></section>
+
+<section id="exp"><div class="wrap">
+  <div class="kick mono">Experience</div><h2 class="title rv">Work history</h2>
+  <div class="banner rv">Microsoft <b>Xbox Developer Acceleration Program (DAP)</b>: Sermon selected as a high-potential indie title, 2025.</div>
+  <div class="tl rv"><div class="mono">Feb 2026 — Jun 2026 · Remote</div><h3>Game Designer Intern</h3><div class="o mono">IDZ Digital</div>
+    <ul class="body" style="padding:0"><li>Designed and prototyped horror game concepts as the studio expanded into the horror genre</li><li>Contributed to level layouts, atmosphere design, gameplay pacing, and environmental storytelling</li><li>Collaborated with developers and artists to turn design intent into playable builds</li></ul>
+    <div class="cert"><img loading="lazy" src="assets/IDZ_Certificate.jpeg" alt="IDZ Digital internship certificate"></div>
   </div>
-</section>
-<hr class="divider">
-<!-- ACHIEVEMENT -->
-<section id="achievement" style="padding-top:60px; padding-bottom:60px;">
-  <div class="achievement-banner">
-    <div class="asset-id" style="margin-bottom:10px;">Commendation</div>
-    <p class="achievement-text">Microsoft <strong>Xbox Developer Acceleration Program (DAP)</strong> — Sermon selected as a High-Potential Indie Title, 2025.</p>
+</div></section>
+
+<section id="skills" style="background:var(--bg2)"><div class="wrap">
+  <div class="kick mono">Skills</div><h2 class="title rv">Capability set</h2>
+  <div class="rv">
+    <div class="tx"><span class="mono">Game design</span><div><i>Level Design</i><i>Game Design</i><i>Gameplay Pacing</i><i>Grey Boxing</i><i>Rapid Prototyping</i><i>GDD</i></div></div>
+    <div class="tx"><span class="mono">Atmosphere</span><div><i>Environmental Storytelling</i><i>Atmosphere Building</i><i>Lighting</i><i>Prop Composition</i></div></div>
+    <div class="tx"><span class="mono">Unity 3D</span><div><i>Scene Layout</i><i>Lighting</i><i>Fog</i><i>Particles</i><i>Post-Processing</i></div></div>
+    <div class="tx"><span class="mono">Tools</span><div><i>GitHub</i><i>Graphic, Photo &amp; Video Editing</i></div></div>
+    <div class="tx"><span class="mono">Languages</span><div><i>English — Fluent</i><i>Telugu — Fluent</i><i>Hindi — Intermediate</i></div></div>
   </div>
-</section>
-<hr class="divider">
-<!-- SKILLS -->
-<section id="skills">
-  <div class="kicker">Skills</div>
-  <h2 class="section-title" style="margin-bottom:40px;">Capability Set</h2>
-  <div class="taxonomy">
-    <div class="tax-row">
-      <div class="tax-label">Core Craft</div>
-      <div class="tax-tags">
-        <div class="tag">Level Design</div>
-        <div class="tag">Environment Design</div>
-        <div class="tag">Atmosphere Building</div>
-        <div class="tag">Grey Boxing & Rapid Prototyping</div>
-        <div class="tag">Cross-Genre Design</div>
-      </div>
-    </div>
-    <div class="tax-row">
-      <div class="tax-label">Narrative & Docs</div>
-      <div class="tax-tags">
-        <div class="tag">Environmental Storytelling</div>
-        <div class="tag">Game Design Documents</div>
-        <div class="tag">Gameplay Pacing</div>
-      </div>
-    </div>
-    <div class="tax-row">
-      <div class="tax-label">Unity 3D</div>
-      <div class="tax-tags">
-        <div class="tag">Scene Layout</div>
-        <div class="tag">Lighting</div>
-        <div class="tag">Fog</div>
-        <div class="tag">Particles</div>
-        <div class="tag">Post-Processing</div>
-      </div>
-    </div>
-    <div class="tax-row">
-      <div class="tax-label">Tools</div>
-      <div class="tax-tags">
-        <div class="tag">GitHub</div>
-        <div class="tag">Graphic, Photo & Video Editing</div>
-      </div>
-    </div>
-    <div class="tax-row">
-      <div class="tax-label">Languages</div>
-      <div class="tax-tags">
-        <div class="tag">English — Fluent</div>
-        <div class="tag">Telugu — Fluent</div>
-        <div class="tag">Hindi — Intermediate</div>
-      </div>
-    </div>
+</div></section>
+
+<section id="wip"><div class="wrap">
+  <div class="kick mono">In development</div><h2 class="title rv">Active builds</h2>
+  <div class="wip rv">
+    <div class="wc"><div class="wm"><b class="mono">In progress</b><video muted loop autoplay playsinline preload="metadata"><source src="assets/mothers_whisper.mp4" type="video/mp4"></video></div><div class="wb"><h3>Fragments of Dread: Mother's Whisper</h3><p>Solo PSX-style horror, Episode 1. Exploration-driven with multiple endings.</p></div></div>
+    <div class="wc"><div class="wm"><b class="mono">In progress</b></div><div class="wb"><h3>Fragments of Dread: Burger Piz</h3><p>Horror with AI voice mimicry and dynamic environment shifts.</p></div></div>
+    <div class="wc"><div class="wm"><b class="mono">In progress</b></div><div class="wb"><h3>Ward 13</h3><p>Atmospheric hospital horror built on psychological tension.</p></div></div>
   </div>
-</section>
-<hr class="divider">
-<!-- EDUCATION -->
-<section id="education">
-  <div class="kicker">Education</div>
-  <h2 class="section-title" style="margin-bottom:10px;">Training Record</h2>
-  <div class="timeline">
-    <div class="t-entry">
-      <div class="t-meta">GRADUATED<br>2026</div>
-      <div>
-        <div class="t-role" style="font-size:19px;">B.Sc. Computer Science & Game Development</div>
-        <div class="t-org">BACKSTAGE PASS INSTITUTE OF GAMING (JNAFAU)</div>
-      </div>
-    </div>
-    <div class="t-entry">
-      <div class="t-meta">2020 —<br>2022</div>
-      <div>
-        <div class="t-role" style="font-size:19px;">Intermediate — MPC</div>
-        <div class="t-org">URBANE JUNIOR COLLEGE, HYDERABAD</div>
-      </div>
-    </div>
-    <div class="t-entry">
-      <div class="t-meta">2020</div>
-      <div>
-        <div class="t-role" style="font-size:19px;">Matriculation — Class 10 (CBSE)</div>
-        <div class="t-org">SHIVAJI VIDYAPEETH, HYDERABAD</div>
-      </div>
-    </div>
+</div></section>
+
+<section id="edu" style="background:var(--bg2)"><div class="wrap">
+  <div class="kick mono">Education</div><h2 class="title rv">Training record</h2>
+  <div class="edu rv">
+    <div class="tl"><div class="mono">Expected 2028</div><h3>MCA (Online)</h3><div class="o mono">Lovely Professional University · AR/VR Game Development elective</div></div>
+    <div class="tl"><div class="mono">Graduated 2026</div><h3>B.Sc. Computer Science &amp; Game Development</h3><div class="o mono">Backstage Pass Institute of Gaming (JNAFAU)</div></div>
+    <div class="tl"><div class="mono">2020 — 2022</div><h3>Intermediate (MPC)</h3><div class="o mono">Urbane Junior College, Hyderabad</div></div>
   </div>
-</section>
-<hr class="divider">
-<!-- PORTFOLIO / PROJECTS -->
-<section id="portfolio">
-  <div class="kicker">Projects</div>
-  <h2 class="section-title" style="margin-bottom:36px;">Shipped Games</h2>
-  <div class="case">
-    <div class="case-media"><video controls muted playsinline><source src="assets/sermon.mp4" type="video/mp4"></video></div>
-    <div class="case-body">
-      <span class="asset-id">ASSET_001</span>
-      <h3 class="case-title">Sermon</h3>
-      <div class="case-meta">Level Designer &amp; Environment Designer · Team: Vinil (Game Designer &amp; Programmer) · Unity 3D, 2025</div>
-      <p class="case-desc">Sleep-paralysis inspired first-person horror.</p>
-      <ul class="case-list">
-        <li>Designed full level layout for slow-burn, sleep-paralysis-inspired tension and player flow</li>
-        <li>Crafted atmospheric environments using lighting, fog, shadows, and prop composition to build surreal dread</li>
-        <li>Built environmental storytelling to support a dreamlike, psychological horror narrative</li>
-        <li>Collaborated via shared GitHub repository, committing level and environment updates independently</li>
-      </ul>
-      <div class="case-stats"><span class="stat" data-target="59200">0</span>+ VIEWS &nbsp;·&nbsp; <span class="stat" data-target="11800">0</span>+ DOWNLOADS</div>
-      <a href="https://troj4nblazing.itch.io/sermon" target="_blank" class="case-link">Play on itch.io →</a>
-    </div>
-  </div>
-  <div class="case reverse">
-    <div class="case-media"><img src="assets/Oblation.png" alt="Oblation"></div>
-    <div class="case-body">
-      <span class="asset-id">ASSET_002</span>
-      <h3 class="case-title">Oblation</h3>
-      <div class="case-meta">Level Designer &amp; Environment Designer · Team: Vinil (Game Designer &amp; Programmer) · Unity 3D, 2026</div>
-      <p class="case-desc">Psychological horror exploring loyalty, grief, and the irreversible cost of trying to fix the past through ritual.</p>
-      <ul class="case-list">
-        <li>Designed level layouts and player flow supporting slow-burn tension around loss, grief, and ritual</li>
-        <li>Placed environmental boundaries, walls, and props to create familiar-yet-uneasy domestic spaces</li>
-        <li>Structured playable spaces to complement intimate dialogue, ritual mechanics, and guilt-driven pacing</li>
-        <li>Curated lighting, prop composition, and atmosphere alongside the programmer</li>
-      </ul>
-      <div class="case-stats"><span class="stat" data-target="17500">0</span>+ VIEWS &nbsp;·&nbsp; <span class="stat" data-target="2740">0</span>+ DOWNLOADS</div>
-      <a href="https://troj4nblazing.itch.io/oblation" target="_blank" class="case-link">Play on itch.io →</a>
-    </div>
-  </div>
-  <div class="case">
-    <div class="case-media"><img src="assets/Septem The Preparation.png" alt="Septem: The Preparation"></div>
-    <div class="case-body">
-      <span class="asset-id">ASSET_003</span>
-      <h3 class="case-title">Septem: The Preparation</h3>
-      <div class="case-meta">Level Designer &amp; Environment Designer · Team: Vinil (Game Designer), Sushant (Programmer) · Unity 3D, 2026</div>
-      <p class="case-desc">Short psychological horror focused on atmosphere, implication, and environmental storytelling through ordinary spaces.</p>
-      <ul class="case-list">
-        <li>Designed level layout emphasising subtle tension and pathing through ordinary, charged spaces</li>
-        <li>Integrated environmental storytelling to reveal narrative through clues, implication, and prop placement</li>
-        <li>Handled scene composition for a seamless, unsettling exploration experience</li>
-      </ul>
-      <div class="case-stats"><span class="stat" data-target="34300">0</span>+ VIEWS &nbsp;·&nbsp; <span class="stat" data-target="4081">0</span>+ DOWNLOADS</div>
-      <a href="https://troj4nblazing.itch.io/thepreparation" target="_blank" class="case-link">Play on itch.io →</a>
-    </div>
-  </div>
-  <div class="case reverse">
-    <div class="case-media"><video controls muted playsinline><source src="assets/housebound.mp4" type="video/mp4"></video></div>
-    <div class="case-body">
-      <span class="asset-id">ASSET_004</span>
-      <h3 class="case-title">Housebound</h3>
-      <div class="case-meta">Solo Developer — Game Designer &amp; Level Designer · Unity 3D, 2025</div>
-      <p class="case-desc">First-person psychological horror built solo in 2 days.</p>
-      <ul class="case-list">
-        <li>Built a complete first-person horror game solo in 2 days — concept, level design, lighting, UI, release</li>
-        <li>Designed the full gameplay loop, AI behaviour, event sequencing, and HUD interactions end-to-end</li>
-      </ul>
-      <a href="https://arcadian-xp.itch.io/housebound" target="_blank" class="case-link">Play on itch.io →</a>
-    </div>
-  </div>
-  <div class="case">
-    <div class="case-media"><video controls muted playsinline><source src="assets/pursuit_of_happiness.mp4" type="video/mp4"></video></div>
-    <div class="case-body">
-      <span class="asset-id">ASSET_005</span>
-      <h3 class="case-title">The Pursuit of Happiness</h3>
-      <div class="case-meta">Game, Level &amp; Environment Designer · Team: Ashish (Game Designer), Bhavesh (Programmer), Sameer (UI/UX) · Global Game Jam, 2024</div>
-      <p class="case-desc">Intense psychological chase horror built in 48 hours for Global Game Jam.</p>
-      <ul class="case-list">
-        <li>Designed full maze layout and obstacle placement for tension and player flow</li>
-        <li>Controlled atmosphere with fog, lighting, and pacing for suspense</li>
-        <li>Created promotional video showcasing gameplay highlights and tension</li>
-      </ul>
-    </div>
-  </div>
-</section>
-<hr class="divider">
-<!-- PARTICIPATION -->
-<section id="participation">
-  <div class="kicker">Participation</div>
-  <h2 class="section-title" style="margin-bottom:36px;">Events</h2>
-  <div class="jam-entry panel">
-    <img src="assets/image.png" alt="Global Game Jam 2024">
-    <div>
-      <span class="asset-id">EVENT_01</span>
-      <h3 style="font-family:'Space Grotesk',sans-serif; font-size:20px; margin:10px 0 8px; color:var(--ink);">Global Game Jam 2024</h3>
-      <p style="color:var(--ink-dim); font-size:14.5px;">Participant — created "The Pursuit of Happiness" in 48 hours with a team.</p>
-    </div>
-  </div>
-</section>
-<hr class="divider">
-<!-- WIP -->
-<section id="wip">
-  <div class="kicker">In Development</div>
-  <h2 class="section-title" style="margin-bottom:36px;">Active Builds</h2>
-  <div class="wip-grid">
-    <div class="wip-card panel">
-      <div class="wip-media"><span class="wip-stamp">In Progress</span><video muted loop autoplay playsinline><source src="assets/mothers_whisper.mp4" type="video/mp4"></video></div>
-      <div class="wip-body">
-        <div class="wip-title">Fragments of Dread: Mother's Whisper</div>
-        <div class="wip-desc">Solo PSX-style horror series — Episode 1. Exploration-driven with multiple endings.</div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-wrap">
-    <div class="kicker">Contact</div>
-    <h2 class="contact-title">Let's build something<br><span>unforgettable.</span></h2>
-    <p style="color:var(--ink-dim); max-width:480px; margin-bottom:36px; font-size:15px;">Open to full-time, contract, and freelance opportunities across all game genres.</p>
-    <div class="contact-links">
-      <a href="mailto:kodalichinmayram@gmail.com">kodalichinmayram@gmail.com</a>
-      <a href="tel:+919494673546">+91 94946 73546</a>
-      <a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank">LinkedIn</a>
-    </div>
-  </div>
-</section>
-<footer class="site-footer">
-  <span>© 2026 KODALI CHINMAY RAM</span>
-  <span>BUILD STATUS: STABLE</span>
-</footer>
+</div></section>
+
+<section id="contact" class="contact"><div class="wrap">
+  <div class="kick mono">Contact</div>
+  <h2 class="rv">Let's build something <em>players remember.</em></h2>
+  <p class="rv" style="color:var(--dim);max-width:500px;margin-bottom:34px">Open to full-time, contract, and freelance level and game design roles across genres.</p>
+  <div class="cl rv"><a href="mailto:kodalichinmayram@gmail.com">kodalichinmayram@gmail.com</a><a href="tel:+919494673546">+91 94946 73546</a><a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank" rel="noopener">LinkedIn ↗</a><a href="assets/Resume.pdf" target="_blank">Résumé ↗</a></div>
+</div></section>
+<footer class="mono"><span>© 2026 Chinmay Ram Kodali</span><span>Hyderabad, India</span></footer>
+
+<div class="ab mono"><a href="mailto:kodalichinmayram@gmail.com">Email</a><a href="assets/Resume.pdf" target="_blank">Résumé</a><a href="https://www.linkedin.com/in/kodali-chinmay-ram-659966370" target="_blank">LinkedIn</a></div>
+
 <script>
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealSelectors = [
-    '.section-title', '.about-portrait', '.about-text', '.credentials',
-    '.achievement-banner', '.t-entry', '.tax-row', '.case', '.jam-entry',
-    '.wip-card', '.contact-title', '.contact-links'
-  ];
-  document.querySelectorAll(revealSelectors.join(',')).forEach(el => el.classList.add('reveal'));
-  document.querySelectorAll('.credentials, .tax-tags, .wip-grid').forEach(group => {
-    Array.from(group.children).forEach((child, i) => {
-      child.style.transitionDelay = reduceMotion ? '0ms' : (i * 60) + 'ms';
-    });
-  });
-  function animateStat(el){
-    const target = parseInt(el.dataset.target, 10);
-    if(reduceMotion || isNaN(target)){ el.textContent = target.toLocaleString(); return; }
-    const duration = 1200;
-    const start = performance.now();
-    function tick(now){
-      const p = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(eased * target).toLocaleString();
-      if(p < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('in-view');
-        entry.target.querySelectorAll('.stat').forEach(animateStat);
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+const $=(s,c=document)=>c.querySelector(s),$$=(s,c=document)=>[...c.querySelectorAll(s)];
+const rm=matchMedia('(prefers-reduced-motion:reduce)').matches;
+// nav
+const lk=$('#lk');$('#tg').onclick=()=>lk.classList.toggle('show');$$('a',lk).forEach(a=>a.onclick=()=>lk.classList.remove('show'));
+// progress + parallax + active link
+const bar=$('#bar'),hv=$('#hv'),secs=$$('section[id]');
+addEventListener('scroll',()=>{
+  const y=scrollY,h=document.documentElement.scrollHeight-innerHeight;
+  bar.style.width=(y/h*100)+'%';
+  if(!rm&&y<innerHeight)hv.style.transform='translateY('+(y*.25)+'px)';
+  let cur='';secs.forEach(s=>{if(y+120>=s.offsetTop)cur=s.id});
+  $$('a',lk).forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+cur));
+},{passive:true});
+// flashlight
+addEventListener('pointermove',e=>{document.documentElement.style.setProperty('--mx',e.clientX+'px');document.documentElement.style.setProperty('--my',e.clientY+'px')},{passive:true});
+// role typer
+const roles=['Level Designer','Environment Designer','Game Designer','Pacing &amp; Atmosphere'],r=$('#role');let ri=0,ci=0,del=false;
+function type(){const w=roles[ri];r.firstChild.nodeValue=w.slice(0,ci);
+  if(!del&&ci++===w.length){del=true;return setTimeout(type,1500)}
+  if(del&&--ci<0){del=false;ci=0;ri=(ri+1)%roles.length}
+  setTimeout(type,del?35:70)}
+if(!rm)type();
+// counters
+const fmt=n=>n.toLocaleString('en-US');
+function count(el){const t=+el.dataset.t,s=el.dataset.s||'';
+  if(rm||!t){return}
+  const k=s==='K+',goal=k?t/1000:t,t0=performance.now();
+  (function f(n){const p=Math.min((n-t0)/1400,1),v=Math.round((1-Math.pow(1-p,3))*goal);
+    el.textContent=(k?v:fmt(v))+(k?'K+':s);if(p<1)requestAnimationFrame(f);else el.textContent=(k?goal+'K+':fmt(goal)+s)})(t0)}
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');$$('[data-t]',e.target).forEach(count);io.unobserve(e.target)}}),{threshold:.12,rootMargin:'0px 0px -50px 0px'});
+$$('.rv').forEach(el=>io.observe(el));
+const io2=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){count(e.target.querySelector('b'));io2.unobserve(e.target)}}),{threshold:.6});
+$$('.stats div').forEach(el=>io2.observe(el));
+// project videos: play on hover (desktop)
+if(matchMedia('(hover:hover)').matches)$$('.case .media video').forEach(v=>{const c=v.closest('.case');c.onmouseenter=()=>v.play().catch(()=>{});c.onmouseleave=()=>v.pause()});
 </script>
 </body>
 </html>
